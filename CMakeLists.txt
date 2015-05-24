@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.2)
+project(family_business)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+file(GLOB SOURCE_FILES src/*.cpp)
+file(GLOB BATTLE_SOURCE_FILES src/battle/*.cpp)
+file(GLOB GAME_SOURCE_FILES src/game/*.cpp)
+file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
+
+add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES})
+
+if (WIN32)
+	target_link_libraries(family_business liblua.a)
+	target_link_libraries(family_business SDL2_ttf.a)
+	target_link_libraries(family_business SDL2_image.a)
+	target_link_libraries(family_business SDL2main.lib)
+	target_link_libraries(family_business SDL2.lib)
+	target_link_libraries(family_business freetype.lib)
+	target_link_libraries(family_business libboost_system-mgw48-1_56.a)
+	target_link_libraries(family_business libboost_filesystem-mgw48-1_56.a)
+else()
+	target_link_libraries(family_business lua5.2)
+	target_link_libraries(family_business ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+	target_link_libraries(family_business SDL2)
+	target_link_libraries(family_business SDL2_ttf)
+	target_link_libraries(family_business SDL2_image)
+endif(WIN32)
