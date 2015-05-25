@@ -9,7 +9,7 @@
 class Application {
 private:
     Application(){};
-    bool running;
+    bool running = true;
 public:
     static Application getInstance() {
         static Application instance;

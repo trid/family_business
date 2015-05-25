@@ -3,9 +3,10 @@
 //
 
 #include "Application.h"
+#include "view/Screen.h"
 
 void Application::run() {
     while (running) {
-
+        Screen::getInstance().draw();
     }
 }

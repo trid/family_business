@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 2.8)
 project(family_business)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -8,7 +8,7 @@ file(GLOB BATTLE_SOURCE_FILES src/battle/*.cpp)
 file(GLOB GAME_SOURCE_FILES src/game/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
 
-add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES})
+add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES} src/game/Home.cpp src/game/Home.h src/game/FamilyManager.cpp src/game/FamilyManager.h src/view/View.cpp src/view/View.h src/view/MapView.cpp src/view/MapView.h src/view/MenuView.cpp src/view/MenuView.h)
 
 if (WIN32)
 	target_link_libraries(family_business liblua.a)
