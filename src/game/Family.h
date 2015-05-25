@@ -17,7 +17,12 @@ class Family {
     CharacterPtr father;
     CharacterPtr mother;
     Children children;
+public:
+    Family(CharacterPtr father, CharacterPtr &mother, Children &children) : father(father),
+                                                                            mother(mother),
+                                                                            children(std::move(children)) { }
 };
 
+using FamilyPtr = std::shared_ptr<Family>;
 
 #endif //FAMILY_BUSINESS_FAMILY_H

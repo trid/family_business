@@ -13,7 +13,7 @@
 using std::string;
 
 
-enum Gender{Male, Female};
+enum class Gender{Male, Female};
 
 
 class Character: public Creature {

@@ -7,8 +7,9 @@ file(GLOB SOURCE_FILES src/*.cpp)
 file(GLOB BATTLE_SOURCE_FILES src/battle/*.cpp)
 file(GLOB GAME_SOURCE_FILES src/game/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
+file(GLOB GUI_SOURCE_FILES src/view/GUI/*.cpp)
 
-add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES} src/game/Home.cpp src/game/Home.h src/game/FamilyManager.cpp src/game/FamilyManager.h src/view/View.cpp src/view/View.h src/view/MapView.cpp src/view/MapView.h src/view/MenuView.cpp src/view/MenuView.h)
+add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES} ${GUI_SOURCE_FILES})
 
 if (WIN32)
 	target_link_libraries(family_business liblua.a)

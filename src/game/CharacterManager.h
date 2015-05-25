@@ -7,6 +7,7 @@
 
 
 #include <memory>
+#include <random>
 #include <string>
 #include <vector>
 #include "Character.h"
@@ -18,17 +19,30 @@ class Character;
 using CharacterPtr = std::shared_ptr<Character>;
 using Characters = std::vector<CharacterPtr>;
 
+using Generator = std::default_random_engine;
+using Distributor = std::uniform_int_distribution<int>;
+
 
 class CharacterManager {
 private:
-    CharacterManager() {};
+    CharacterManager();
+
+    std::vector<string> maleNames;
+    std::vector<string> femaleNames;
+    std::vector<string> lastNames;
+
+    Generator generator;
+    Distributor maleNamesRNG;
+    Distributor femaleNamesRNG;
+    Distributor lastNamesRNG;
+    Distributor genderRNG;
 public:
     static CharacterManager& getInstance(){
         static CharacterManager instance;
         return instance;
     }
 
-    CharacterPtr addCharacter();
+    CharacterPtr addCharacter(Gender gender);
     CharacterPtr addCharacter(const string& lastName);
     CharacterPtr addCharacter(const CharacterPtr mother, CharacterPtr father);
     CharacterPtr addCharacter(const string& lastName, Gender gender);
