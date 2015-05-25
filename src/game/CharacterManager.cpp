@@ -49,8 +49,8 @@ CharacterManager::CharacterManager() {
         lastNames.push_back(name);
     }
 
-    maleNamesRNG = Distributor(0, maleNames.size());
-    femaleNamesRNG = Distributor(0, femaleNames.size());
-    lastNamesRNG = Distributor(0, lastNames.size());
+    maleNamesRNG = Distributor(0, maleNames.size() - 1);
+    femaleNamesRNG = Distributor(0, femaleNames.size() - 1);
+    lastNamesRNG = Distributor(0, lastNames.size() - 1);
     genderRNG = Distributor(0, 1);
 }
