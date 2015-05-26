@@ -5,10 +5,24 @@
 #ifndef FAMILY_BUSINESS_UILAYOUT_H
 #define FAMILY_BUSINESS_UILAYOUT_H
 
+#include <SDL2/SDL.h>
+#include <memory>
+#include <vector>
+
+class Widget;
+
+using WidgetPtr = std::shared_ptr<Widget>;
+using Widgets = std::vector<WidgetPtr>;
 
 class UILayout {
+private:
+    Widgets widgets;
 public:
-    void draw();
+    void draw(SDL_Renderer *renderer);
+
+    void addWidget(WidgetPtr widget);
+    void removeWidget(WidgetPtr widget);
+    void clearWidgets();
 };
 
 
