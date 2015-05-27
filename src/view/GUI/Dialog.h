@@ -16,11 +16,11 @@ class Widget;
 using WidgetPtr = std::shared_ptr<Widget>;
 using Widgets = std::vector<WidgetPtr>;
 
-class Menu: public Widget {
+class Dialog : public Widget {
 private:
     Widgets widgets;
 public:
-    Menu(int x, int y, int w, int h) : Widget(x, y, w, h) { }
+    Dialog(int x, int y, int w, int h) : Widget(x, y, w, h) { }
 
     virtual void draw(SDL_Renderer *renderer);
     virtual void draw(SDL_Renderer *renderer, Point &offset);
