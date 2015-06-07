@@ -27,6 +27,8 @@ public:
     void finish() { running = false; }
     void pushState(StatePtr state);
     void popState();
+
+    State& getCurrentState() { return *states.back(); }
 };
 
 

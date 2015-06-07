@@ -6,6 +6,7 @@
 #define FAMILY_BUSINESS_WIDGET_H
 
 
+#include <memory>
 #include <SDL2/SDL.h>
 #include "../../Point.h"
 
@@ -23,7 +24,15 @@ public:
     int getY() { return y; }
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
+
+    virtual bool onClick(int x, int y, int button);
+
+    virtual void show();
+    virtual void hide();
+    virtual bool isVisible();
 };
 
+
+using WidgetPtr = std::shared_ptr<Widget>;
 
 #endif //FAMILY_BUSINESS_WIDGET_H

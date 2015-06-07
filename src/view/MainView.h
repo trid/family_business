@@ -9,9 +9,11 @@
 #include "View.h"
 
 
-class MapView: public View {
+class MainView : public View {
 
 public:
+    MainView();
+
     virtual void draw() override;
 };
 

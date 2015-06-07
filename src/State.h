@@ -7,6 +7,7 @@
 
 
 #include  <memory>
+#include "Point.h"
 
 
 class State {
@@ -15,6 +16,9 @@ public:
     virtual void onPop(){};
     virtual void onActivate(){};
     virtual void onDeactivate(){};
+
+    // System messages
+    virtual void onClick(const Point &point, int button){};
 
     virtual void run(){};
 

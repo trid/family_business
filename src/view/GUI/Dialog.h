@@ -11,9 +11,6 @@
 #include <vector>
 
 
-class Widget;
-
-using WidgetPtr = std::shared_ptr<Widget>;
 using Widgets = std::vector<WidgetPtr>;
 
 class Dialog : public Widget {
@@ -28,6 +25,9 @@ public:
     void addWidget(WidgetPtr widget);
     void removeWidget(WidgetPtr widget);
     void clearWidgets();
+
+
+    virtual bool onClick(int x, int y, int button) override;
 };
 
 

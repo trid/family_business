@@ -8,6 +8,7 @@
 #include <SDL2/SDL.h>
 #include <memory>
 #include <vector>
+#include "../../Point.h"
 
 class Widget;
 
@@ -23,6 +24,8 @@ public:
     void addWidget(WidgetPtr widget);
     void removeWidget(WidgetPtr widget);
     void clearWidgets();
+
+    void onClick(const Point& point, int button);
 };
 
 

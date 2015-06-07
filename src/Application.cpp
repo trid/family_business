@@ -4,10 +4,12 @@
 
 #include "Application.h"
 #include "view/Screen.h"
+#include "EventManager.h"
 
 void Application::run() {
     while (running) {
         Screen::getInstance().draw();
+        EventManager::getInstance().process();
         if (!states.empty()) {
             states.back()->run();
         }

@@ -3,3 +3,13 @@
 //
 
 #include "View.h"
+
+#include "Screen.h"
+
+void View::draw() {
+    layout.draw(Screen::getInstance().getRenderer());
+}
+
+void View::onClick(const Point &point, int button) {
+    layout.onClick(point, button);
+}

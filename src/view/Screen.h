@@ -34,6 +34,7 @@ public:
 
     void draw();
     void setView(ViewPtr view) { this->view = view; }
+    SDL_Renderer* getRenderer() { return renderer; }
 };
 
 

@@ -11,6 +11,7 @@
 
 #include "../State.h"
 #include "Family.h"
+#include "../view/MainView.h"
 
 
 using Families = std::vector<FamilyPtr>;
@@ -18,8 +19,13 @@ using Families = std::vector<FamilyPtr>;
 
 class MainState : public State {
     Families families;
+    ViewPtr view;
 public:
     MainState();
+
+    virtual void onClick(const Point &point, int button) override;
+
+    virtual void onActivate() override;
 };
 
 

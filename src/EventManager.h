@@ -7,7 +7,16 @@
 
 
 class EventManager {
+private:
+    EventManager(){}
 
+public:
+    static EventManager& getInstance(){
+        static EventManager instance;
+        return instance;
+    }
+
+    void process();
 };
 
 

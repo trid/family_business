@@ -3,3 +3,21 @@
 //
 
 #include "Widget.h"
+
+bool Widget::onClick(int x, int y, int button) {
+    if (this->x > x || this->x + w < x) return false;
+    if (this->y > y || this->y + h < y) return false;
+    return true;
+}
+
+void Widget::show() {
+    visible = true;
+}
+
+void Widget::hide() {
+    visible = false;
+}
+
+bool Widget::isVisible() {
+    return visible;
+}
