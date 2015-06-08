@@ -4,6 +4,3 @@
 
 #include "ChoseCharacterDialog.h"
 
-void ChoseCharacterDialog::draw(SDL_Renderer *renderer, const Point &offset) {
-
-}

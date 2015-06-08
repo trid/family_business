@@ -4,6 +4,3 @@
 
 #include "ChoseFamilyDialog.h"
 
-void ChoseFamilyDialog::draw(SDL_Renderer *renderer, const Point &offset) {
-
-}

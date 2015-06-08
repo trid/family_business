@@ -11,8 +11,6 @@
 class ChoseCharacterDialog: public Dialog {
 public:
     ChoseCharacterDialog(int x, int y, int w, int h) : Dialog(x, y, w, h) { }
-
-    virtual void draw(SDL_Renderer *renderer, const Point &offset);
 };
 
 

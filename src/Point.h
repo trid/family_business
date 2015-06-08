@@ -11,8 +11,9 @@ public:
     int x, y;
     Point() = default;
     Point(int x, int y) : x(x), y(y) { }
-    Point operator+(const Point& p1);
 };
+
+Point operator+(const Point& p1, const Point& p2);
 
 
 #endif //FAMILY_BUSINESS_POINT_H

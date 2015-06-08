@@ -19,8 +19,8 @@ private:
 public:
     Dialog(int x, int y, int w, int h) : Widget(x, y, w, h) { }
 
-    virtual void draw(SDL_Renderer *renderer);
-    virtual void draw(SDL_Renderer *renderer, Point &offset);
+    virtual void draw(SDL_Renderer *renderer) override;
+    virtual void draw(SDL_Renderer *renderer, const Point &offset) override;
 
     void addWidget(WidgetPtr widget);
     void removeWidget(WidgetPtr widget);

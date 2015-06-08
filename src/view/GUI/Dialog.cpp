@@ -14,7 +14,7 @@ void Dialog::draw(SDL_Renderer *renderer) {
     }
 }
 
-void Dialog::draw(SDL_Renderer *renderer, Point &offset) {
+void Dialog::draw(SDL_Renderer *renderer, const Point &offset) {
     for (auto widget: widgets) {
         if (widget->isVisible()) {
             widget->draw(renderer, offset + Point(getX(), getY()));
