@@ -25,6 +25,11 @@ public:
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
 
+    int getWidth() { return w; }
+    int getHeight() { return h; }
+    int setWidth(int w) { this->w = w; }
+    int setHeight(int h) { this->h = h; }
+
     virtual bool onClick(int x, int y, int button);
 
     virtual void show();
