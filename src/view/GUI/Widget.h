@@ -16,6 +16,7 @@ private:
     bool visible = true;
 public:
     Widget(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) { }
+    virtual ~Widget() {}
 
     virtual void draw(SDL_Renderer* renderer) = 0;
     virtual void draw(SDL_Renderer* renderer, const Point& offset) = 0;
