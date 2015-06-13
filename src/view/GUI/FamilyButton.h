@@ -1,0 +1,38 @@
+//
+// Created by TriD on 08.06.2015.
+//
+
+#ifndef FAMILY_BUSINESS_FAMILYBUTTON_H
+#define FAMILY_BUSINESS_FAMILYBUTTON_H
+
+#include <functional>
+#include <memory>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+
+#include "Widget.h"
+
+class Family;
+class MainView;
+
+using FamilyPtr = std::shared_ptr<Family>;
+using Callback = std::function<void(FamilyPtr)>;
+
+class FamilyButton: public Widget {
+private:
+    FamilyPtr family;
+    Callback callback;
+
+    SDL_Texture* label;
+    TTF_Font* font;
+public:
+    FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, Callback callback);
+    virtual ~FamilyButton();
+
+    virtual void draw(SDL_Renderer *renderer) override;
+    virtual void draw(SDL_Renderer *renderer, const Point &offset) override;
+    virtual bool onClick(int x, int y, int button) override;
+};
+
+
+#endif //FAMILY_BUSINESS_FAMILYBUTTON_H

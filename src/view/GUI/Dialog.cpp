@@ -9,7 +9,7 @@
 void Dialog::draw(SDL_Renderer *renderer) {
     for (auto widget: widgets) {
         if (widget->isVisible()) {
-            widget->draw(renderer);
+            widget->draw(renderer, Point{getX(), getY()});
         }
     }
 }
@@ -37,7 +37,9 @@ void Dialog::clearWidgets() {
 bool Dialog::onClick(int x, int y, int button) {
     if (Widget::onClick(x, y, button)) {
         for (auto item: widgets) {
-            item->onClick(x, y, button);
+            if (item->onClick(x - getX(), y - getY(), button)) return true;
         }
+        return true;
     }
+    return false;
 }

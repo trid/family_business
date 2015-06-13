@@ -35,6 +35,9 @@ public:
     void draw();
     void setView(ViewPtr view) { this->view = view; }
     SDL_Renderer* getRenderer() { return renderer; }
+
+    int getWidth() { return width; }
+    int getHeight() { return height; }
 };
 
 

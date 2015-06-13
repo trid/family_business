@@ -5,6 +5,7 @@
 #include "Widget.h"
 
 bool Widget::onClick(int x, int y, int button) {
+    if (!visible) return false;
     if (this->x > x || this->x + w < x) return false;
     if (this->y > y || this->y + h < y) return false;
     return true;

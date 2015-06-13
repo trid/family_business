@@ -6,6 +6,7 @@
 #include "Character.h"
 
 #include <fstream>
+#include <ctime>
 
 CharacterPtr CharacterManager::addCharacter(Gender gender) {
     return std::shared_ptr<Character>(
@@ -53,4 +54,5 @@ CharacterManager::CharacterManager() {
     femaleNamesRNG = Distributor(0, femaleNames.size() - 1);
     lastNamesRNG = Distributor(0, lastNames.size() - 1);
     genderRNG = Distributor(0, 1);
+    generator.seed(std::time(0));
 }

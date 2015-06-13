@@ -7,10 +7,15 @@
 
 
 #include "View.h"
+#include "../game/Family.h"
+#include "GUI/ChoseCharacterDialog.h"
 
 
 class MainView : public View {
+    WidgetPtr familyDialogWidget;
+    ChoseCharacterDialogPtr choseCharacterDialog;
 
+    void showFamilyDialog(FamilyPtr familyPtr);
 public:
     MainView();
 

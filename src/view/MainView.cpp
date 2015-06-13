@@ -12,9 +12,17 @@ void MainView::draw() {
 
 MainView::MainView() {
     UILayout& layout = getLayout();
-    WidgetPtr familyDialogWidget{new ChoseFamilyDialog((800 - 100) / 2, (600 - 60) / 2, 100, 60)};
+    familyDialogWidget = WidgetPtr{new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0,
+                                                       [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); })};
+    familyDialogWidget->show();
     layout.addWidget(familyDialogWidget);
-    WidgetPtr choseCharacterDialog{new ChoseCharacterDialog((800 - 100) / 2, (600 - 60) / 2, 100, 60)};
+    choseCharacterDialog = ChoseCharacterDialogPtr{new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60)};
     choseCharacterDialog->hide();
     layout.addWidget(choseCharacterDialog);
+}
+
+void MainView::showFamilyDialog(FamilyPtr familyPtr) {
+    familyDialogWidget->hide();
+    choseCharacterDialog->setUp(familyPtr);
+    choseCharacterDialog->show();
 }

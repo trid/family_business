@@ -5,6 +5,7 @@
 #include "Screen.h"
 
 #include <iostream>
+#include <SDL2/SDL_ttf.h>
 
 #include "View.h"
 
@@ -30,10 +31,13 @@ Screen::Screen() {
         SDL_Quit();
         return;
     }
+    TTF_Init();
 }
 
 void Screen::draw() {
+    SDL_RenderClear(renderer);
     if (view) {
         view->draw();
     }
+    SDL_RenderPresent(renderer);
 }
