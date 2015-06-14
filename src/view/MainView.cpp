@@ -17,7 +17,8 @@ MainView::MainView() {
                                                        [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); })};
     familyDialogWidget->show();
     layout.addWidget(familyDialogWidget);
-    choseCharacterDialog = ChoseCharacterDialogPtr{new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60)};
+    choseCharacterDialog = ChoseCharacterDialogPtr{new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60,
+                                     [this](CharacterPtr characterPtr) { choseCharacter(characterPtr); })};
     choseCharacterDialog->hide();
     layout.addWidget(choseCharacterDialog);
 }
@@ -26,4 +27,8 @@ void MainView::showFamilyDialog(FamilyPtr familyPtr) {
     familyDialogWidget->hide();
     choseCharacterDialog->setUp(familyPtr);
     choseCharacterDialog->show();
+}
+
+void MainView::choseCharacter(CharacterPtr characterPtr) {
+    choseCharacterDialog->hide();
 }

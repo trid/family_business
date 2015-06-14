@@ -19,6 +19,7 @@ class MainView : public View {
     MapPresentation mapView;
 
     void showFamilyDialog(FamilyPtr familyPtr);
+    void choseCharacter(CharacterPtr characterPtr);
 public:
     MainView();
 

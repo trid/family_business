@@ -30,6 +30,8 @@ void UILayout::clearWidgets() {
 
 void UILayout::onClick(const Point &point, int button) {
     for (auto item: widgets) {
-        item->onClick(point.x, point.y, button);
+        if (item->onClick(point.x, point.y, button)){
+            return;
+        }
     }
 }

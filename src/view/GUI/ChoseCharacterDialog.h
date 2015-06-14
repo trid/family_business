@@ -7,11 +7,16 @@
 
 #include "Dialog.h"
 #include "../../game/Family.h"
+#include "CharacterButton.h"
 
 
-class ChoseCharacterDialog: public Dialog {
+class ChoseCharacterDialog : public Dialog {
+private:
+    CharacterBtnCallback callback;
 public:
-    ChoseCharacterDialog(int x, int y, int w, int h) : Dialog(x, y, w, h) { }
+    ChoseCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback) : Dialog(x, y, w, h),
+                                                                                      callback(callback) { }
+
     void setUp(FamilyPtr familyPtr);
 };
 

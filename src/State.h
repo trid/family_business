@@ -19,6 +19,8 @@ public:
 
     // System messages
     virtual void onClick(const Point &point, int button){};
+    virtual void onKeyDown(int keyCode) {};
+    virtual void onKeyUp(int keyCode) {};
 
     virtual void run(){};
 
