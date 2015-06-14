@@ -7,6 +7,7 @@
 #include "GUI/ChoseCharacterDialog.h"
 
 void MainView::draw() {
+    mapView.draw(Screen::getInstance().getRenderer());
     View::draw();
 }
 

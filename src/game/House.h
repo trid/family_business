@@ -5,10 +5,12 @@
 #ifndef FAMILY_BUSINESS_HOME_H
 #define FAMILY_BUSINESS_HOME_H
 
+#include <memory>
 
-class Home {
+class House {
 
 };
 
+using HousePtr = std::shared_ptr<House>;
 
 #endif //FAMILY_BUSINESS_HOME_H
