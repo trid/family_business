@@ -12,6 +12,7 @@
 class Game {
 private:
     CharacterPtr playerCharacter;
+    HousePtr housePtr;
     GameMap gameMap;
 
     Game(){};

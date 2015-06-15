@@ -3,6 +3,7 @@
 //
 
 #include "GameMap.h"
+#include "Game.h"
 
 #include <ctime>
 #include <random>
@@ -19,7 +20,8 @@ GameMap::GameMap() {
     generator.seed(std::time(0));
     std::uniform_int_distribution<int> widthDistribution{0, width - 1};
     std::uniform_int_distribution<int> heightDistribution{0, height - 1};
-    int housePosX = widthDistribution(generator);
-    int housePosY = heightDistribution(generator);
-    mapData[housePosX][housePosY]->setHouse(HousePtr(new House));
+    housePosX = widthDistribution(generator);
+    housePosY = heightDistribution(generator);
+    HousePtr house = HousePtr(new House(housePosX, housePosY));
+    mapData[housePosX][housePosY]->setHouse(house);
 }

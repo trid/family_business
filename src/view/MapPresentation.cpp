@@ -20,11 +20,15 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
 
     for (int x = 0; x < gameMap.getWidth(); x++) {
         for (int y = 0; y < gameMap.getHeight(); y++) {
-            SDL_Rect dst{x * 32, y * 32, 32, 32};
+            SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
             if (gameMap.getTile(x, y)->getHouse()){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
             }
         }
     }
+}
+
+void MapPresentation::update(int timeDelta) {
+
 }

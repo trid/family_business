@@ -12,10 +12,15 @@ class MapPresentation {
 private:
     SDL_Texture* grass;
     SDL_Texture* house;
+
+    int dx{}, dy{};
 public:
     MapPresentation();
 
     void draw(SDL_Renderer* renderer);
+    void update(int timeDelta);
+
+    void setDeltas(int dx, int dy) { this->dx = dx; this->dy = dy; }
 };
 
 

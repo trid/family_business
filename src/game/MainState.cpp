@@ -18,3 +18,22 @@ void MainState::onActivate() {
     State::onActivate();
     Screen::getInstance().setView(view);
 }
+
+void MainState::run() {
+    State::run();
+
+    unsigned int ticks = SDL_GetTicks();
+    unsigned int delta = ticks - lastTime;
+    lastTime = ticks;
+    view->update(delta);
+}
+
+void MainState::onKeyDown(int keyCode) {
+    State::onKeyDown(keyCode);
+    view->onKeyDown(keyCode);
+}
+
+void MainState::onKeyUp(int keyCode) {
+    State::onKeyUp(keyCode);
+    view->onKeyUp(keyCode);
+}

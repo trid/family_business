@@ -15,6 +15,9 @@ private:
 public:
     virtual void draw();
     virtual void onClick(const Point& point, int button);
+    virtual void onKeyUp(int key) {};
+    virtual void onKeyDown(int key) {};
+    virtual void update(int timeDelta) {}
 
     UILayout& getLayout() { return layout; }
 };

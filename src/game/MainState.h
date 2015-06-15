@@ -11,11 +11,16 @@
 
 class MainState : public State {
     ViewPtr view;
+    unsigned int lastTime{SDL_GetTicks()};
 public:
     MainState();
 
     virtual void onClick(const Point &point, int button) override;
+    virtual void onKeyDown(int keyCode) override;
+    virtual void onKeyUp(int keyCode) override;
     virtual void onActivate() override;
+
+    virtual void run() override;
 };
 
 
