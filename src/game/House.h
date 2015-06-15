@@ -6,10 +6,15 @@
 #define FAMILY_BUSINESS_HOME_H
 
 #include <memory>
+#include <vector>
+#include "Family.h"
+
+using Families = std::vector<FamilyPtr>;
 
 class House {
 private:
     int x, y;
+    Families families;
 public:
     House(int x, int y): x(x), y(y) { }
 
