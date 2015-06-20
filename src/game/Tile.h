@@ -9,12 +9,19 @@
 
 #include "House.h"
 
+class Creature;
+using CreaturePtr = std::shared_ptr<Creature>;
+
 class Tile {
 private:
     HousePtr housePtr{nullptr};
+    CreaturePtr creature;
 public:
     void setHouse(HousePtr housePtr) { this->housePtr = housePtr; }
     HousePtr getHouse() { return housePtr; }
+
+    const CreaturePtr &getCreature() const { return creature;  }
+    void setCreature(const CreaturePtr &creature) { Tile::creature = creature; }
 };
 
 using TilePtr = std::shared_ptr<Tile>;

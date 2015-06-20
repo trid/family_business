@@ -10,6 +10,9 @@
 #include <vector>
 
 #include "Character.h"
+#include "House.h"
+
+class Character;
 
 using CharacterPtr = std::shared_ptr<Character>;
 using Children = std::vector<CharacterPtr>;
@@ -18,6 +21,8 @@ class Family {
     CharacterPtr father;
     CharacterPtr mother;
     Children children;
+
+    HousePtr home;
 public:
     Family(CharacterPtr father, CharacterPtr &mother, Children &children) : father(father),
                                                                             mother(mother),
@@ -26,6 +31,9 @@ public:
     CharacterPtr getFather() { return father; }
     CharacterPtr getMother() { return mother; }
     Children& getChildren() { return children; }
+
+    const HousePtr &getHome() const { return home; }
+    void setHome(HousePtr home) { Family::home = home; }
 };
 
 using FamilyPtr = std::shared_ptr<Family>;

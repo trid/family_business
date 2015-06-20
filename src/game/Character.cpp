@@ -4,8 +4,8 @@
 
 #include "Character.h"
 
-Character::Character(const string &name, const string &lastName, Gender gender):
-    name(name), lastName(lastName), gender(gender)
+Character::Character(const string &name, const string &lastName, Gender gender, FamilyPtr family) :
+    name(name), lastName(lastName), gender(gender), familyPtr(family)
 {
 
 }

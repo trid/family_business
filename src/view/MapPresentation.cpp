@@ -13,6 +13,7 @@ MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();
     grass = IMG_LoadTexture(renderer, "res/images/grass.png");
     house = IMG_LoadTexture(renderer, "res/images/house.png");
+    character = IMG_LoadTexture(renderer, "res/images/human.png");
 }
 
 void MapPresentation::draw(SDL_Renderer *renderer) {
@@ -24,6 +25,10 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
             if (gameMap.getTile(x, y)->getHouse()){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
+            }
+            if (gameMap.getTile(x, y)->getCreature()) {
+                SDL_Rect playerDst{x * 32 + dx, y * 32 + dy - 28, 32, 60};
+                SDL_RenderCopy(renderer, character, nullptr, &playerDst);
             }
         }
     }

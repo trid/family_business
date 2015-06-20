@@ -7,7 +7,13 @@
 
 
 class Creature {
-
+private:
+    int x, y;
+public:
+    int getX() const { return x; }
+    void setX(int x) { Creature::x = x; }
+    int getY() const { return y; }
+    void setY(int y) { Creature::y = y; }
 };
 
 

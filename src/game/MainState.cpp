@@ -4,6 +4,7 @@
 
 #include "MainState.h"
 #include "CharacterManager.h"
+#include "Game.h"
 
 MainState::MainState(): view{new MainView()} {
 
@@ -31,6 +32,38 @@ void MainState::run() {
 void MainState::onKeyDown(int keyCode) {
     State::onKeyDown(keyCode);
     view->onKeyDown(keyCode);
+
+    if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
+        CharacterPtr character = Game::getInstance().getPlayerCharacter();
+        if (!character) return;
+        int posX = character->getX();
+        int posY = character->getY();
+
+        GameMap& gameMap = Game::getInstance().getMap();
+        gameMap.getTile(posX, posY)->setCreature(nullptr);
+
+        switch (keyCode) {
+            case SDLK_UP:
+                --posY;
+                break;
+            case SDLK_DOWN:
+                ++posY;
+                break;
+            case SDLK_RIGHT:
+                ++posX;
+                break;
+            case SDLK_LEFT:
+                --posX;
+                break;
+            default:
+                break;
+        }
+
+        character->setX(posX);
+        character->setY(posY);
+
+        gameMap.getTile(posX, posY)->setCreature(character);
+    }
 }
 
 void MainState::onKeyUp(int keyCode) {

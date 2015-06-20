@@ -7,8 +7,10 @@
 
 #include <memory>
 #include <vector>
-#include "Family.h"
 
+class Family;
+
+using FamilyPtr = std::shared_ptr<Family>;
 using Families = std::vector<FamilyPtr>;
 
 class House {

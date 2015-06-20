@@ -33,27 +33,25 @@ void MainView::showFamilyDialog(FamilyPtr familyPtr) {
 
 void MainView::choseCharacter(CharacterPtr characterPtr) {
     choseCharacterDialog->hide();
+    Game::getInstance().setPlayerCharacter(characterPtr);
+    GameMap& gameMap = Game::getInstance().getMap();
+    int posX = gameMap.getHousePosX();
+    int posY = gameMap.getHousePosY();
+    gameMap.getTile(posX, posY)->setCreature(characterPtr);
+    characterPtr->setX(posX);
+    characterPtr->setY(posY);
+    centerOnCharacter();
 }
 
 void MainView::update(int timeDelta) {
     View::update(timeDelta);
 
-    dx += (dxSpeed * timeDelta) / 100;
-    dy += (dySpeed * timeDelta) / 100;
+    centerOnCharacter();
     mapView.setDeltas(dx, dy);
 }
 
 void MainView::onKeyUp(int key) {
     View::onKeyUp(key);
-
-    if (key == SDLK_LEFT || key == SDLK_RIGHT) dxSpeed = 0;
-    if (key == SDLK_UP || key == SDLK_DOWN) dySpeed = 0;
-    if (key == SDLK_SPACE) {
-        GameMap& gameMap = Game::getInstance().getMap();
-        dx = -gameMap.getHousePosX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
-        dy = -gameMap.getHousePosY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
-        mapView.setDeltas(dx, dy);
-    }
 }
 
 void MainView::onKeyDown(int key) {
@@ -73,5 +71,15 @@ void MainView::onKeyDown(int key) {
             dySpeed = -10;
             break;
         default:break;
+    }
+}
+
+void MainView::centerOnCharacter() {
+    CharacterPtr character = Game::getInstance().getPlayerCharacter();
+    if (character) {
+        GameMap& gameMap = Game::getInstance().getMap();
+        dx = -character->getX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
+        dy = -character->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
+        mapView.setDeltas(dx, dy);
     }
 }

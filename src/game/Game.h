@@ -23,6 +23,9 @@ public:
     }
 
     GameMap& getMap() { return gameMap; }
+
+    CharacterPtr getPlayerCharacter() const { return playerCharacter; }
+    void setPlayerCharacter(CharacterPtr playerCharacter) { Game::playerCharacter = playerCharacter; }
 };
 
 
