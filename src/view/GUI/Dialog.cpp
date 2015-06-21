@@ -7,6 +7,10 @@
 #include <algorithm>
 
 void Dialog::draw(SDL_Renderer *renderer) {
+    SDL_Rect rect{getX(), getY(), getWidth(), getHeight()};
+    SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+    SDL_RenderFillRect(renderer, &rect);
+
     for (auto widget: widgets) {
         if (widget->isVisible()) {
             widget->draw(renderer, Point{getX(), getY()});
@@ -15,6 +19,10 @@ void Dialog::draw(SDL_Renderer *renderer) {
 }
 
 void Dialog::draw(SDL_Renderer *renderer, const Point &offset) {
+    SDL_Rect rect{getX() + offset.x, getY() + offset.y, getWidth(), getHeight()};
+    SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+    SDL_RenderFillRect(renderer, &rect);
+
     for (auto widget: widgets) {
         if (widget->isVisible()) {
             widget->draw(renderer, offset + Point(getX(), getY()));

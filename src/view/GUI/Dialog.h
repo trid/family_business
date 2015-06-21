@@ -16,6 +16,7 @@ using Widgets = std::vector<WidgetPtr>;
 class Dialog : public Widget {
 private:
     Widgets widgets;
+    SDL_Color backgroundColor{0, 0, 0, 0};
 public:
     Dialog(int x, int y, int w, int h) : Widget(x, y, w, h) { }
 
@@ -26,6 +27,8 @@ public:
     void removeWidget(WidgetPtr widget);
     void clearWidgets();
 
+    SDL_Color getBgColor() const { return backgroundColor; }
+    void setBgColor(SDL_Color color) { Dialog::backgroundColor = color; }
 
     virtual bool onClick(int x, int y, int button) override;
 };
