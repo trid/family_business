@@ -5,6 +5,8 @@
 #include "MainState.h"
 #include "CharacterManager.h"
 #include "Game.h"
+#include "../Application.h"
+#include "../battle/BattleState.h"
 
 MainState::MainState(): view{new MainView()} {
 
@@ -62,6 +64,11 @@ void MainState::onKeyDown(int keyCode) {
         character->setX(posX);
         character->setY(posY);
 
+        CreaturePtr creature = gameMap.getTile(posX, posY)->getCreature();
+        if (creature && creature->type() != character->type()) {
+            Application::getInstance().pushState(StatePtr{new BattleState()});
+        }
+        
         gameMap.getTile(posX, posY)->setCreature(character);
     }
 }
