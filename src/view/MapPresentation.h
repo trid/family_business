@@ -13,6 +13,7 @@ private:
     SDL_Texture* grass;
     SDL_Texture* house;
     SDL_Texture* character;
+    SDL_Texture* monster;
 
     int dx{}, dy{};
 public:

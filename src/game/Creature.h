@@ -10,6 +10,12 @@ class Creature {
 private:
     int x, y;
 public:
+    enum class Type{
+        Monster,
+        Character
+    };
+
+    virtual Type type() = 0;
     int getX() const { return x; }
     void setX(int x) { Creature::x = x; }
     int getY() const { return y; }

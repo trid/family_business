@@ -33,6 +33,8 @@ public:
     const string& getLastName() { return lastName; }
     Gender getGender() { return gender; }
     FamilyPtr getFamily() { return familyPtr; }
+
+    virtual Type type() { return Type::Character; }
 };
 
 

@@ -9,3 +9,4 @@ Character::Character(const string &name, const string &lastName, Gender gender, 
 {
 
 }
+

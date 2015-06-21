@@ -9,8 +9,10 @@
 #include "Creature.h"
 
 
-class Monster: Creature {
+class Monster: public Creature {
 
+public:
+    virtual Type type() { return Type::Monster; }
 };
 
 
