@@ -24,6 +24,7 @@ class Character: public Creature {
 
     string lastName;
     Gender gender;
+    int age;
 
     FamilyPtr familyPtr;
 public:
