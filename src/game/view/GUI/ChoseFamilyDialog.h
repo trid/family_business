@@ -5,8 +5,8 @@
 #ifndef FAMILY_BUSINESS_CHOSEFAMILYDIALOG_H
 #define FAMILY_BUSINESS_CHOSEFAMILYDIALOG_H
 
-#include "Dialog.h"
-#include "../View.h"
+#include "../../../view/GUI/Dialog.h"
+#include "../../../view/View.h"
 #include "FamilyButton.h"
 
 

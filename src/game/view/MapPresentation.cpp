@@ -5,9 +5,9 @@
 #include <SDL2/SDL_image.h>
 
 #include "MapPresentation.h"
-#include "Screen.h"
-#include "../game/GameMap.h"
-#include "../game/Game.h"
+#include "../../view/Screen.h"
+#include "../GameMap.h"
+#include "../Game.h"
 
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();

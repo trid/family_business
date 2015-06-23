@@ -5,8 +5,8 @@
 #ifndef FAMILY_BUSINESS_CHOSECHARACTERDIALOG_H
 #define FAMILY_BUSINESS_CHOSECHARACTERDIALOG_H
 
-#include "Dialog.h"
-#include "../../game/Family.h"
+#include "../../../view/GUI/Dialog.h"
+#include "../../Family.h"
 #include "CharacterButton.h"
 
 

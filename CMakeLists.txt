@@ -6,10 +6,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 file(GLOB SOURCE_FILES src/*.cpp)
 file(GLOB BATTLE_SOURCE_FILES src/battle/*.cpp)
 file(GLOB GAME_SOURCE_FILES src/game/*.cpp)
+file(GLOB GAME_VIEW_SOURCE_FILES src/game/view/*.cpp)
+file(GLOB GAME_GUI_FILES src/game/view/GUI/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
 file(GLOB GUI_SOURCE_FILES src/view/GUI/*.cpp)
 
-add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES} ${GUI_SOURCE_FILES})
+add_executable(family_business ${SOURCE_FILES} ${BATTLE_SOURCE_FILES} ${GAME_SOURCE_FILES} ${VIEW_SOURCE_FILES} ${GUI_SOURCE_FILES}
+${GAME_VIEW_SOURCE_FILES} ${GAME_GUI_FILES})
 
 if (WIN32)
 	target_link_libraries(family_business liblua.a)

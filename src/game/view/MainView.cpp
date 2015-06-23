@@ -5,8 +5,8 @@
 #include "MainView.h"
 #include "GUI/ChoseFamilyDialog.h"
 #include "GUI/ChoseCharacterDialog.h"
-#include "../game/House.h"
-#include "../game/Game.h"
+#include "../House.h"
+#include "../Game.h"
 
 void MainView::draw() {
     mapView.draw(Screen::getInstance().getRenderer());

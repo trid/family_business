@@ -3,7 +3,7 @@
 //
 
 #include "CharacterButton.h"
-#include "../Screen.h"
+#include "../../../view/Screen.h"
 
 void CharacterButton::draw(SDL_Renderer *renderer) {
     draw(renderer, Point{});

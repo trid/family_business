@@ -8,8 +8,8 @@
 
 #include <functional>
 #include <SDL2/SDL_ttf.h>
-#include "Widget.h"
-#include "../../game/CharacterManager.h"
+#include "../../../view/GUI/Widget.h"
+#include "../../CharacterManager.h"
 
 using CharacterBtnCallback = std::function<void(CharacterPtr)>;
 

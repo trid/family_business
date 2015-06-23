@@ -7,7 +7,7 @@
 
 
 #include "../State.h"
-#include "../view/MainView.h"
+#include "view/MainView.h"
 
 class MainState : public State {
     ViewPtr view;

@@ -4,7 +4,7 @@
 
 #include "ChoseCharacterDialog.h"
 #include "CharacterButton.h"
-#include "../Screen.h"
+#include "../../../view/Screen.h"
 
 void ChoseCharacterDialog::setUp(FamilyPtr familyPtr) {
     clearWidgets();

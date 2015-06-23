@@ -3,10 +3,10 @@
 //
 
 #include "ChoseFamilyDialog.h"
-#include "../Screen.h"
-#include "../../game/MainState.h"
+#include "../../../view/Screen.h"
+#include "../../MainState.h"
 #include "FamilyButton.h"
-#include "../../game/FamilyManager.h"
+#include "../../FamilyManager.h"
 
 void ChoseFamilyDialog::show() {
     Widget::show();

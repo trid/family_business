@@ -6,8 +6,8 @@
 #define FAMILY_BUSINESS_MAINVIEW_H
 
 
-#include "View.h"
-#include "../game/Family.h"
+#include "../../view/View.h"
+#include "../Family.h"
 #include "GUI/ChoseCharacterDialog.h"
 #include "MapPresentation.h"
 

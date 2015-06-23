@@ -4,8 +4,8 @@
 
 #include "FamilyButton.h"
 
-#include "../../game/Family.h"
-#include "../Screen.h"
+#include "../../Family.h"
+#include "../../../view/Screen.h"
 
 FamilyButton::FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, Callback callback) : Widget(x, y, w, h),
                                                                                                      family(family),
