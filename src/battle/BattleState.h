@@ -7,10 +7,20 @@
 
 
 #include "../State.h"
+#include "../game/Tile.h"
+#include "../view/BattleView.h"
+#include "../game/Game.h"
 
 
-class BattleState: public State {
+class BattleState : public State {
+private:
+    Battle battle;
+    ViewPtr battleView;
+public:
+    BattleState(CreaturePtr creature) : battle(Game::getInstance().getPlayerCharacter(), creature),
+                                        battleView(new BattleView(battle)) { }
 
+    virtual void onActivate() override;
 };
 
 

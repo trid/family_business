@@ -22,7 +22,6 @@ class MainView : public View {
     void choseCharacter(CharacterPtr characterPtr);
     void centerOnCharacter();
 
-    float dxSpeed{}, dySpeed{};
     float dx{}, dy{};
 public:
     MainView();

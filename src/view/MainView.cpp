@@ -56,22 +56,6 @@ void MainView::onKeyUp(int key) {
 
 void MainView::onKeyDown(int key) {
     View::onKeyDown(key);
-
-    switch(key) {
-        case SDLK_LEFT:
-            dxSpeed = 10;
-            break;
-        case SDLK_RIGHT:
-            dxSpeed = -10;
-            break;
-        case SDLK_UP:
-            dySpeed = 10;
-            break;
-        case SDLK_DOWN:
-            dySpeed = -10;
-            break;
-        default:break;
-    }
 }
 
 void MainView::centerOnCharacter() {

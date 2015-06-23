@@ -3,3 +3,9 @@
 //
 
 #include "BattleState.h"
+#include "../view/Screen.h"
+
+void BattleState::onActivate() {
+    State::onActivate();
+    Screen::getInstance().setView(battleView);
+}

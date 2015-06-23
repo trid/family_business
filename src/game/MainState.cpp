@@ -66,7 +66,7 @@ void MainState::onKeyDown(int keyCode) {
 
         CreaturePtr creature = gameMap.getTile(posX, posY)->getCreature();
         if (creature && creature->type() != character->type()) {
-            Application::getInstance().pushState(StatePtr{new BattleState()});
+            Application::getInstance().pushState(StatePtr{new BattleState(creature)});
         }
         
         gameMap.getTile(posX, posY)->setCreature(character);

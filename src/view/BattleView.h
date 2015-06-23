@@ -7,9 +7,18 @@
 
 
 #include "View.h"
+#include "../battle/Battle.h"
 
 class BattleView: public View {
+    Battle& battle;
 
+    SDL_Texture* grass;
+    SDL_Texture* character;
+    SDL_Texture* monster;
+public:
+    BattleView(Battle& battle);
+
+    virtual void draw() override;
 };
 
 
