@@ -10,7 +10,6 @@
 #include "view/MainView.h"
 
 class MainState : public State {
-    ViewPtr view;
     unsigned int lastTime{SDL_GetTicks()};
 public:
     MainState();

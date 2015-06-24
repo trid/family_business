@@ -25,7 +25,6 @@ private:
     SDL_Renderer* renderer;
 
     Screen();
-    ViewPtr view;
 public:
     static Screen& getInstance() {
         static Screen instance;
@@ -33,7 +32,6 @@ public:
     }
 
     void draw();
-    void setView(ViewPtr view) { this->view = view; }
     SDL_Renderer* getRenderer() { return renderer; }
 
     int getWidth() { return width; }

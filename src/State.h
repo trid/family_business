@@ -8,10 +8,17 @@
 
 #include  <memory>
 #include "Point.h"
+#include "view/View.h"
 
 
 class State {
+private:
+    ViewPtr view;
+protected:
+    void setView(ViewPtr viewPtr) { view = viewPtr; }
 public:
+    ViewPtr getView() { return view; }
+
     virtual void onPush(){};
     virtual void onPop(){};
     virtual void onActivate(){};

@@ -8,18 +8,18 @@
 #include "../Application.h"
 #include "../battle/BattleState.h"
 
-MainState::MainState(): view{new MainView()} {
-
+MainState::MainState() {
+    ViewPtr view{new MainView()};
+    setView(view);
 }
 
 void MainState::onClick(const Point &point, int button) {
     State::onClick(point, button);
-    view->onClick(point, button);
+    getView()->onClick(point, button);
 }
 
 void MainState::onActivate() {
     State::onActivate();
-    Screen::getInstance().setView(view);
 }
 
 void MainState::run() {
@@ -28,12 +28,12 @@ void MainState::run() {
     unsigned int ticks = SDL_GetTicks();
     unsigned int delta = ticks - lastTime;
     lastTime = ticks;
-    view->update(delta);
+    getView()->update(delta);
 }
 
 void MainState::onKeyDown(int keyCode) {
     State::onKeyDown(keyCode);
-    view->onKeyDown(keyCode);
+    getView()->onKeyDown(keyCode);
 
     if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
         CharacterPtr character = Game::getInstance().getPlayerCharacter();
@@ -75,5 +75,5 @@ void MainState::onKeyDown(int keyCode) {
 
 void MainState::onKeyUp(int keyCode) {
     State::onKeyUp(keyCode);
-    view->onKeyUp(keyCode);
+    getView()->onKeyUp(keyCode);
 }

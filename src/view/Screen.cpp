@@ -8,6 +8,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "View.h"
+#include "../Application.h"
 
 using std::cout;
 using std::endl;
@@ -36,8 +37,9 @@ Screen::Screen() {
 
 void Screen::draw() {
     SDL_RenderClear(renderer);
-    if (view) {
-        view->draw();
+    Application &application = Application::getInstance();
+    if (application.hasState()) {
+        application.getCurrentState().getView()->draw();
     }
     SDL_RenderPresent(renderer);
 }

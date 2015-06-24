@@ -29,6 +29,8 @@ public:
     void popState();
 
     State& getCurrentState() { return *states.back(); }
+
+    bool hasState() { return !states.empty(); }
 };
 
 
