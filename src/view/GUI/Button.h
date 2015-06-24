@@ -17,7 +17,7 @@ private:
 public:
     Button(int x, int y, int w, int h, Callback callback) : Widget(x, y, w, h), callback(callback) { }
 
-    virtual bool onClick(int x, int y, int button) override;
+    virtual bool onClick(Point point, int button) override;
 };
 
 

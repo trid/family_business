@@ -31,8 +31,8 @@ CharacterButton::CharacterButton(int x, int y, int w, int h, CharacterPtr charac
     SDL_FreeSurface(surface);
 }
 
-bool CharacterButton::onClick(int x, int y, int button) {
-    if (Widget::onClick(x, y, button)) {
+bool CharacterButton::onClick(Point point, int button) {
+    if (Widget::onClick(point, button)) {
         callback(character);
         return true;
     }

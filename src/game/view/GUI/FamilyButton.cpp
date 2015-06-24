@@ -38,8 +38,8 @@ FamilyButton::~FamilyButton() {
     SDL_DestroyTexture(label);
 }
 
-bool FamilyButton::onClick(int x, int y, int button) {
-    if (Widget::onClick(x, y, button)) {
+bool FamilyButton::onClick(Point point, int button) {
+    if (Widget::onClick(point, button)) {
         callback(family);
         return true;
     }

@@ -31,7 +31,7 @@ public:
     int setWidth(int w) { this->w = w; }
     int setHeight(int h) { this->h = h; }
 
-    virtual bool onClick(int x, int y, int button);
+    virtual bool onClick(Point point, int button);
 
     virtual void show();
     virtual void hide();

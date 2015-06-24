@@ -31,7 +31,7 @@ public:
 
     virtual void draw(SDL_Renderer *renderer) override;
     virtual void draw(SDL_Renderer *renderer, const Point &offset) override;
-    virtual bool onClick(int x, int y, int button) override;
+    virtual bool onClick(Point point, int button) override;
 };
 
 

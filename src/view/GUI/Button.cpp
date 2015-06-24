@@ -4,8 +4,8 @@
 
 #include "Button.h"
 
-bool Button::onClick(int x, int y, int button) {
-    if (Widget::onClick(x, y, button)) {
+bool Button::onClick(Point point, int button) {
+    if (Widget::onClick(point, button)) {
         callback();
         return true;
     }

@@ -42,10 +42,10 @@ void Dialog::clearWidgets() {
     widgets.clear();
 }
 
-bool Dialog::onClick(int x, int y, int button) {
-    if (Widget::onClick(x, y, button)) {
+bool Dialog::onClick(Point point, int button) {
+    if (Widget::onClick(point, button)) {
         for (auto item: widgets) {
-            if (item->onClick(x - getX(), y - getY(), button)) return true;
+            if (item->onClick(point - Point{getX(), getY()}, button)) return true;
         }
         return true;
     }

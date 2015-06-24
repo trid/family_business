@@ -4,10 +4,10 @@
 
 #include "Widget.h"
 
-bool Widget::onClick(int x, int y, int button) {
+bool Widget::onClick(Point point, int button) {
     if (!visible) return false;
-    if (this->x > x || this->x + w < x) return false;
-    if (this->y > y || this->y + h < y) return false;
+    if (this->x > point.x || this->x + w < point.x) return false;
+    if (this->y > point.y || this->y + h < point.y) return false;
     return true;
 }
 
