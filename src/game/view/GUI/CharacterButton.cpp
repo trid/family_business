@@ -10,8 +10,8 @@ void CharacterButton::draw(SDL_Renderer *renderer) {
 }
 
 void CharacterButton::draw(SDL_Renderer *renderer, const Point &offset) {
-    int realX = getX() + offset.x;
-    int realY = getY() + offset.y;
+    int realX = getLeft() + offset.x;
+    int realY = getTop() + offset.y;
     SDL_Rect rect = SDL_Rect{realX, realY, getWidth(), getHeight()};
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, &rect);

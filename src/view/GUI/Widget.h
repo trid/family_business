@@ -21,8 +21,8 @@ public:
     virtual void draw(SDL_Renderer* renderer) = 0;
     virtual void draw(SDL_Renderer* renderer, const Point& offset) = 0;
 
-    int getX() { return x; }
-    int getY() { return y; }
+    int getLeft() { return x; }
+    int getTop() { return y; }
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
 
