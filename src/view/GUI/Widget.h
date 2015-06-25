@@ -23,8 +23,8 @@ public:
 
     int getLeft() { return x; }
     int getTop() { return y; }
-    void setX(int x) { this->x = x; }
-    void setY(int y) { this->y = y; }
+    void setLeft(int x) { this->x = x; }
+    void setTop(int y) { this->y = y; }
 
     int getWidth() { return w; }
     int getHeight() { return h; }

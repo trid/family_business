@@ -22,5 +22,5 @@ void ChoseCharacterDialog::setUp(FamilyPtr familyPtr) {
     unsigned int height = (children.size() + 2) * 30;
     setHeight(height);
     int y = (Screen::getInstance().getHeight() - height) / 2;
-    setY(y);
+    setTop(y);
 }
