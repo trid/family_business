@@ -23,6 +23,8 @@ class Family {
     Children children;
 
     HousePtr home;
+
+    std::string lastName;
 public:
     Family(CharacterPtr father, CharacterPtr &mother, Children &children) : father(father),
                                                                             mother(mother),
