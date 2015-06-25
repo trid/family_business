@@ -6,16 +6,22 @@
 #define FAMILY_BUSINESS_STATE_H
 
 
-#include  <memory>
+#include <memory>
+#include <vector>
 #include "Point.h"
 #include "view/View.h"
+#include "MouseEventListener.h"
+#include "KeyboardEventListener.h"
 
 
 class State {
 private:
     ViewPtr view;
+    std::vector<MouseEventListenerPtr> mouseEventListeners;
+    std::vector<KeyboardEventListenerPtr> keyboardEventListeners;
 protected:
     void setView(ViewPtr viewPtr) { view = viewPtr; }
+
 public:
     ViewPtr getView() { return view; }
 
@@ -30,6 +36,14 @@ public:
     virtual void onKeyUp(int keyCode) {};
 
     virtual void run(){};
+
+    void addMouseEventListener(MouseEventListenerPtr mouseEventListener);
+    void addKeyboardEventListener(KeyboardEventListenerPtr keyboardEventListener);
+
+    void removeMouseEventListener(MouseEventListenerPtr mouseEventListener);
+    void removeKeyboardEventListener(KeyboardEventListenerPtr keyboardEventListener);
+
+    void clearListeners();
 
     virtual ~State() {};
 };
