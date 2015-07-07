@@ -15,6 +15,7 @@ class BattleView: public View {
     SDL_Texture* grass;
     SDL_Texture* character;
     SDL_Texture* monster;
+    int dx, dy;
 public:
     BattleView(Battle& battle);
 

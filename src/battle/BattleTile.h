@@ -7,16 +7,14 @@
 
 #include <memory>
 
-class Creature;
-
-using CreaturePtr = std::shared_ptr<Creature>;
+#include "BattleCreature.h"
 
 class BattleTile {
 private:
-    CreaturePtr creature;
+    BattleCreaturePtr creature;
 public:
-    const CreaturePtr &getCreature() const { return creature; }
-    void setCreature(const CreaturePtr &creature) { BattleTile::creature = creature; }
+    const BattleCreaturePtr &getCreature() const { return creature; }
+    void setCreature(const BattleCreaturePtr &creature) { BattleTile::creature = creature; }
 };
 
 

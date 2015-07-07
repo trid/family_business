@@ -12,6 +12,7 @@
 class Monster: public Creature {
 
 public:
+    Monster(): Creature(20, 10, 8) {}
     virtual Type type() { return Type::Monster; }
 };
 

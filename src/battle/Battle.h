@@ -5,16 +5,25 @@
 #ifndef FAMILY_BUSINESS_BATTLE_H
 #define FAMILY_BUSINESS_BATTLE_H
 
-
+#include "BattleCreature.h"
 #include "BattleMap.h"
 
 class Battle {
 private:
     BattleMap battleMap;
+    std::vector<BattleCreaturePtr> turns;
+    std::vector<BattleCreaturePtr>::iterator current;
+
+    BattleCreaturePtr character;
+    BattleCreaturePtr monster;
+
+    void updateTurns();
+    void nextCreature();
 public:
-    Battle(CreaturePtr character, CreaturePtr monster): battleMap(character, monster) {}
+    Battle(CreaturePtr character, CreaturePtr monster);
 
     const BattleMap &getBattleMap() const { return battleMap; }
+    void makeTurn();
 };
 
 

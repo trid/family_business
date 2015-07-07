@@ -15,12 +15,12 @@ void BattleView::draw() {
 
     for (int x = 0; x < gameMap.width; x++) {
         for (int y = 0; y < gameMap.width; y++) {
-            SDL_Rect dst{x * 32, y * 32, 32, 32};
+            SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
-            CreaturePtr creature = gameMap.getTile(x, y).getCreature();
+            BattleCreaturePtr creature = gameMap.getTile(x, y).getCreature();
             if (creature) {
-                if (creature->type() == Creature::Type::Character) {
-                    SDL_Rect playerDst{x * 32, y * 32 - 28, 32, 60};
+                if (creature->getType() == Creature::Type::Character) {
+                    SDL_Rect playerDst{x * 32 + dx, y * 32 - 28 + dy, 32, 60};
                     SDL_RenderCopy(renderer, character, nullptr, &playerDst);
                 }
                 else {
@@ -32,8 +32,11 @@ void BattleView::draw() {
 }
 
 BattleView::BattleView(Battle &battle) : battle(battle) {
-    SDL_Renderer *renderer = Screen::getInstance().getRenderer();
+    Screen &screen = Screen::getInstance();
+    SDL_Renderer *renderer = screen.getRenderer();
     grass = IMG_LoadTexture(renderer, "res/images/grass.png");
     character = IMG_LoadTexture(renderer, "res/images/human.png");
     monster = IMG_LoadTexture(renderer, "res/images/monster.png");
+    dx = (screen.getWidth() - 15 * 32) / 2;
+    dy = (screen.getHeight() - 15 * 32) / 2;
 }

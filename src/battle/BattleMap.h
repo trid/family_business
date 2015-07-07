@@ -19,7 +19,7 @@ public:
     static constexpr int width = 15;
     static constexpr int height = 15;
 
-    BattleMap(CreaturePtr character, CreaturePtr monster);
+    BattleMap();
     const BattleTile& getTile(int x, int y) const { return mapData[x][y]; }
     BattleTile& getTile(int x, int y) { return mapData[x][y]; }
 };

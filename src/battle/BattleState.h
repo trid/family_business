@@ -20,6 +20,8 @@ public:
     }
 
     virtual void onActivate() override;
+
+    virtual void run() override;
 };
 
 

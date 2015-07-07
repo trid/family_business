@@ -4,13 +4,10 @@
 
 #include "BattleMap.h"
 
-BattleMap::BattleMap(CreaturePtr character, CreaturePtr monster) {
+BattleMap::BattleMap() {
     mapData.resize(width);
 
     for (auto& item: mapData) {
         item.resize(height);
     }
-
-    mapData[0][0].setCreature(character);
-    mapData[width - 1][height - 1].setCreature(monster);
 }

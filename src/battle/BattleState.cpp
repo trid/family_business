@@ -7,3 +7,8 @@
 void BattleState::onActivate() {
     State::onActivate();
 }
+
+void BattleState::run() {
+    State::run();
+    battle.makeTurn();
+}
