@@ -32,6 +32,7 @@ Screen::Screen() {
         SDL_Quit();
         return;
     }
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     TTF_Init();
 }
 
