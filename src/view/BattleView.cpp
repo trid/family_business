@@ -29,6 +29,18 @@ void BattleView::draw() {
             }
         }
     }
+    BattleCreaturePtr current = *battle.getCurrent();
+    Point currentPosition = current->getPosition();
+    SDL_Rect pos;
+    if (current->getType() == Creature::Type::Character) {
+        pos = {currentPosition.x * 32 + 12 + dx, currentPosition.y * 32 - 38 + dy, 8, 8};
+    }
+    else {
+        pos = {currentPosition.x * 32 + 12 + dx, currentPosition.y * 32 - 10 + dy, 8, 8};
+    }
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &pos);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 }
 
 BattleView::BattleView(Battle &battle) : battle(battle) {

@@ -24,6 +24,7 @@ public:
 
     const BattleMap &getBattleMap() const { return battleMap; }
     void makeTurn();
+    std::vector<BattleCreaturePtr>::iterator& getCurrent() { return current; }
 };
 
 
