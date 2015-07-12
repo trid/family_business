@@ -16,7 +16,7 @@ class BattleCreature {
 private:
     int currentHp;
     Point position;
-    int steps;
+    int steps{0};
     CreaturePtr creaturePtr;
     std::shared_ptr<BattleCreature> target;
 public:
@@ -32,6 +32,7 @@ public:
     void setPosition(const Point &position) { BattleCreature::position = position; }
     int getSteps() const { return steps; }
     void setSteps(int steps) { BattleCreature::steps = steps; }
+    void resetSteps() { steps = getSpeed(); }
 
     void takeDamage(int damage) { currentHp > damage ? currentHp -= damage: currentHp = 0; }
 };

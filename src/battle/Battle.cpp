@@ -9,6 +9,9 @@
 void Battle::updateTurns() {
     std::sort(turns.begin(), turns.end(), [](BattleCreaturePtr creature1, BattleCreaturePtr creature2){ return creature1->getSpeed() > creature2->getSpeed(); });
     current = turns.begin();
+    for (auto creature: turns) {
+        creature->resetSteps();
+    }
 }
 
 void Battle::nextCreature() {
@@ -38,14 +41,12 @@ void Battle::makeTurn() {
                 battleMap.getTile(monsterPosition.x, monsterPosition.y).setCreature(nullptr);
                 monster->setPosition(Point{monsterPosition.x + (distance.x > 0 ? 1 : -1), monsterPosition.y});
                 battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(monster);
-                return;
             }
             else if (abs(distance.y) >= 1) {
                 const Point& monsterPosition = monster->getPosition();
                 battleMap.getTile(monsterPosition.x, monsterPosition.y).setCreature(nullptr);
                 monster->setPosition(Point{monsterPosition.x, monsterPosition.y + (distance.y > 0 ? 1 : -1)});
                 battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(monster);
-                return;
             }
             monster->setSteps(monster->getSteps() - 1);
         }
