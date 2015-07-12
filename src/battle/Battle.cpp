@@ -5,21 +5,33 @@
 #include <algorithm>
 
 #include "Battle.h"
+#include "../Application.h"
 
 void Battle::updateTurns() {
+    auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });
+    turns.resize(iter - turns.begin());
     std::sort(turns.begin(), turns.end(), [](BattleCreaturePtr creature1, BattleCreaturePtr creature2){ return creature1->getSpeed() > creature2->getSpeed(); });
     current = turns.begin();
+
     for (auto creature: turns) {
         creature->resetSteps();
     }
 }
 
 void Battle::nextCreature() {
+    current++;
     if (current == turns.end()) {
         updateTurns();
     }
-    else {
-        current++;
+    if ((*current)->getType() == Creature::Type::Character) {
+        battleMap.calculateMoveable(*current);
+    }
+    if (character->isDead() || monster->isDead()) {
+        Application::getInstance().popState();
+        return;
+    }
+    if ((*current)->isDead()) {
+        nextCreature();
     }
 }
 
@@ -63,4 +75,13 @@ Battle::Battle(CreaturePtr character, CreaturePtr monster) : battleMap(), charac
     turns.push_back(this->monster);
     turns.push_back(this->character);
     updateTurns();
+}
+
+void Battle::makeAttack(Point targetPosition) {
+    BattleCreaturePtr targetCreature = battleMap.getTile(targetPosition.x, targetPosition.y).getCreature();
+    if (targetCreature) {
+        BattleCreaturePtr currentCreature = (*current);
+        targetCreature->takeDamage(currentCreature->getAttack());
+        nextCreature();
+    }
 }

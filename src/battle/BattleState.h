@@ -20,6 +20,7 @@ public:
     }
 
     virtual void onActivate() override;
+    virtual void onClick(const Point &point, int button) override;
 
     virtual void run() override;
 };

@@ -22,9 +22,10 @@ private:
 public:
     Battle(CreaturePtr character, CreaturePtr monster);
 
-    const BattleMap &getBattleMap() const { return battleMap; }
+    BattleMap &getBattleMap() { return battleMap; }
     void makeTurn();
     std::vector<BattleCreaturePtr>::iterator& getCurrent() { return current; }
+    void makeAttack(Point targetPosition);
 };
 
 

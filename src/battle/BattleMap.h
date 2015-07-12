@@ -22,6 +22,8 @@ public:
     BattleMap();
     const BattleTile& getTile(int x, int y) const { return mapData[x][y]; }
     BattleTile& getTile(int x, int y) { return mapData[x][y]; }
+
+    void calculateMoveable(BattleCreaturePtr creature);
 };
 
 

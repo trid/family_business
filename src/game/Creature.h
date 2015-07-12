@@ -19,6 +19,7 @@ public:
     };
 
     Creature(int hitPoints, int attack, int speed) : hitPoints(hitPoints), attack(attack), speed(speed) { }
+    virtual ~Creature() { }
 
     virtual Type type() = 0;
     int getX() const { return x; }
@@ -28,6 +29,8 @@ public:
 
     int getSpeed() { return speed; }
     int getAttack() { return attack; }
+    int getHitPoints() const { return hitPoints; }
+    void setHitPoints(int hitPoints) { Creature::hitPoints = hitPoints; }
 };
 
 

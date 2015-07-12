@@ -33,8 +33,10 @@ public:
     int getSteps() const { return steps; }
     void setSteps(int steps) { BattleCreature::steps = steps; }
     void resetSteps() { steps = getSpeed(); }
+    int getCurrentHp() const { return currentHp; }
 
     void takeDamage(int damage) { currentHp > damage ? currentHp -= damage: currentHp = 0; }
+    bool isDead() { return currentHp == 0; }
 };
 
 using BattleCreaturePtr = std::shared_ptr<BattleCreature>;

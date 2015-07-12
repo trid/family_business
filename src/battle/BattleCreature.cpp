@@ -4,6 +4,7 @@
 
 #include "BattleCreature.h"
 
-BattleCreature::BattleCreature(CreaturePtr creature): creaturePtr(creature), steps(creature->getSpeed()) {
+BattleCreature::BattleCreature(CreaturePtr creature) : creaturePtr(creature), steps(creature->getSpeed()),
+                                                       currentHp(creature->getHitPoints()) {
 
 }

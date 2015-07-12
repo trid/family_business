@@ -12,9 +12,12 @@
 class BattleTile {
 private:
     BattleCreaturePtr creature;
+    bool canMove;
 public:
     const BattleCreaturePtr &getCreature() const { return creature; }
     void setCreature(const BattleCreaturePtr &creature) { BattleTile::creature = creature; }
+    bool getCanMove() const { return canMove; }
+    void setCanMove(bool canMove) { BattleTile::canMove = canMove; }
 };
 
 

@@ -17,7 +17,12 @@ void BattleView::draw() {
         for (int y = 0; y < gameMap.width; y++) {
             SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
-            BattleCreaturePtr creature = gameMap.getTile(x, y).getCreature();
+            const BattleTile &tile = gameMap.getTile(x, y);
+            if (tile.getCanMove()) {
+                SDL_SetRenderDrawColor(renderer, 255, 255, 0, 128);
+                SDL_RenderFillRect(renderer, &dst);
+            }
+            BattleCreaturePtr creature = tile.getCreature();
             if (creature) {
                 if (creature->getType() == Creature::Type::Character) {
                     SDL_Rect playerDst{x * 32 + dx, y * 32 - 28 + dy, 32, 60};
