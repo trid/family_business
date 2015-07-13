@@ -14,22 +14,28 @@ class Widget {
 private:
     int x, y, w, h;
     bool visible = true;
-public:
-    Widget(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) { }
-    virtual ~Widget() {}
 
-    virtual void draw(SDL_Renderer* renderer) = 0;
-    virtual void draw(SDL_Renderer* renderer, const Point& offset) = 0;
+    SDL_Texture* texture;
+
+    void updateTexture();
+protected:
+    virtual void onRedraw(SDL_Renderer* renderer) = 0;
+    SDL_Texture* getTexture() { return texture; }
+public:
+    Widget(int x, int y, int w, int h);
+    virtual ~Widget() { SDL_DestroyTexture(texture); }
+
+    void draw(SDL_Renderer *renderer, SDL_Texture *parent);
 
     int getLeft() { return x; }
     int getTop() { return y; }
     void setLeft(int x) { this->x = x; }
     void setTop(int y) { this->y = y; }
 
-    int getWidth() { return w; }
-    int getHeight() { return h; }
-    int setWidth(int w) { this->w = w; }
-    int setHeight(int h) { this->h = h; }
+    int getWidth() const { return w; }
+    int getHeight() const { return h; }
+    int setWidth(int w) { this->w = w; updateTexture(); }
+    int setHeight(int h) { this->h = h; updateTexture(); }
 
     virtual bool onClick(Point point, int button);
 

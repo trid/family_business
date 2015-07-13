@@ -6,30 +6,6 @@
 
 #include <algorithm>
 
-void Dialog::draw(SDL_Renderer *renderer) {
-    SDL_Rect rect{getLeft(), getTop(), getWidth(), getHeight()};
-    SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-    SDL_RenderFillRect(renderer, &rect);
-
-    for (auto widget: widgets) {
-        if (widget->isVisible()) {
-            widget->draw(renderer, Point{getLeft(), getTop()});
-        }
-    }
-}
-
-void Dialog::draw(SDL_Renderer *renderer, const Point &offset) {
-    SDL_Rect rect{getLeft() + offset.x, getTop() + offset.y, getWidth(), getHeight()};
-    SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-    SDL_RenderFillRect(renderer, &rect);
-
-    for (auto widget: widgets) {
-        if (widget->isVisible()) {
-            widget->draw(renderer, offset + Point(getLeft(), getTop()));
-        }
-    }
-}
-
 void Dialog::addWidget(WidgetPtr widget) {
     widgets.push_back(widget);
 }
@@ -50,4 +26,16 @@ bool Dialog::onClick(Point point, int button) {
         return true;
     }
     return false;
+}
+
+void Dialog::onRedraw(SDL_Renderer *renderer) {
+    SDL_Rect rect{0, 0, getWidth(), getHeight()};
+    SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+    SDL_RenderFillRect(renderer, &rect);
+
+    for (auto widget: widgets) {
+        if (widget->isVisible()) {
+            widget->draw(renderer, getTexture());
+        }
+    }
 }

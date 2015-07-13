@@ -6,8 +6,13 @@
 #define FAMILY_BUSINESS_VILLAGE_H
 
 
-class Village {
+#include "../Point.h"
 
+class Village {
+    Point center;
+
+public:
+    Village(Point center): center(center) {}
 };
 
 

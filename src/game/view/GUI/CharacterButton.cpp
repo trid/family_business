@@ -5,22 +5,6 @@
 #include "CharacterButton.h"
 #include "../../../view/Screen.h"
 
-void CharacterButton::draw(SDL_Renderer *renderer) {
-    draw(renderer, Point{});
-}
-
-void CharacterButton::draw(SDL_Renderer *renderer, const Point &offset) {
-    int realX = getLeft() + offset.x;
-    int realY = getTop() + offset.y;
-    SDL_Rect rect = SDL_Rect{realX, realY, getWidth(), getHeight()};
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &rect);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderDrawRect(renderer, &rect);
-    int surfaceW, surfaceH;
-    SDL_QueryTexture(label, nullptr, nullptr, &surfaceW, &surfaceH);
-    SDL_RenderCopy(renderer, label, nullptr, &rect);
-}
 
 CharacterButton::CharacterButton(int x, int y, int w, int h, CharacterPtr character, CharacterBtnCallback callback)
         : Widget(x, y, w, h), callback(callback), character(character) {
@@ -37,4 +21,15 @@ bool CharacterButton::onClick(Point point, int button) {
         return true;
     }
     return false;
+}
+
+void CharacterButton::onRedraw(SDL_Renderer *renderer) {
+    SDL_Rect rect = SDL_Rect{0, 0, getWidth(), getHeight()};
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(renderer, &rect);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, &rect);
+    int surfaceW, surfaceH;
+    SDL_QueryTexture(label, nullptr, nullptr, &surfaceW, &surfaceH);
+    SDL_RenderCopy(renderer, label, nullptr, &rect);
 }

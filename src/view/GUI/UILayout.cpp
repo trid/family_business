@@ -11,7 +11,7 @@
 void UILayout::draw(SDL_Renderer *renderer) {
     for (auto widget: widgets) {
         if (widget->isVisible()) {
-            widget->draw(renderer);
+            widget->draw(renderer, nullptr);
         }
     }
 }

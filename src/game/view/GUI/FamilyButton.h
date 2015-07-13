@@ -25,12 +25,12 @@ private:
 
     SDL_Texture* label;
     TTF_Font* font;
+protected:
+    virtual void onRedraw(SDL_Renderer *renderer) override;
 public:
     FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, Callback callback);
     virtual ~FamilyButton();
 
-    virtual void draw(SDL_Renderer *renderer) override;
-    virtual void draw(SDL_Renderer *renderer, const Point &offset) override;
     virtual bool onClick(Point point, int button) override;
 };
 

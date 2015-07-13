@@ -17,11 +17,10 @@ class Dialog : public Widget {
 private:
     Widgets widgets;
     SDL_Color backgroundColor{0, 0, 0, 0};
+protected:
+    virtual void onRedraw(SDL_Renderer *renderer) override;
 public:
     Dialog(int x, int y, int w, int h) : Widget(x, y, w, h) { }
-
-    virtual void draw(SDL_Renderer *renderer) override;
-    virtual void draw(SDL_Renderer *renderer, const Point &offset) override;
 
     void addWidget(WidgetPtr widget);
     void removeWidget(WidgetPtr widget);

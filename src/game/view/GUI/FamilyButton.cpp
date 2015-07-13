@@ -17,23 +17,6 @@ FamilyButton::FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, 
     SDL_FreeSurface(surface);
 }
 
-void FamilyButton::draw(SDL_Renderer *renderer) {
-    draw(renderer, Point());
-}
-
-void FamilyButton::draw(SDL_Renderer *renderer, const Point &offset) {
-    int realX = getLeft() + offset.x;
-    int realY = getTop() + offset.y;
-    SDL_Rect rect = SDL_Rect{realX, realY, getWidth(), getHeight()};
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &rect);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderDrawRect(renderer, &rect);
-    int surfaceW, surfaceH;
-    SDL_QueryTexture(label, nullptr, nullptr, &surfaceW, &surfaceH);
-    SDL_RenderCopy(renderer, label, nullptr, &rect);
-}
-
 FamilyButton::~FamilyButton() {
     SDL_DestroyTexture(label);
 }
@@ -44,4 +27,15 @@ bool FamilyButton::onClick(Point point, int button) {
         return true;
     }
     return false;
+}
+
+void FamilyButton::onRedraw(SDL_Renderer *renderer) {
+    SDL_Rect rect = SDL_Rect{0, 0, getWidth(), getHeight()};
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(renderer, &rect);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, &rect);
+    int surfaceW, surfaceH;
+    SDL_QueryTexture(label, nullptr, nullptr, &surfaceW, &surfaceH);
+    SDL_RenderCopy(renderer, label, nullptr, &rect);
 }

@@ -20,12 +20,10 @@ private:
 
     CharacterPtr character;
     CharacterBtnCallback callback;
+protected:
+    virtual void onRedraw(SDL_Renderer *renderer) override;
 public:
     CharacterButton(int x, int y, int w, int h, CharacterPtr character, CharacterBtnCallback callback);
-
-    virtual void draw(SDL_Renderer *renderer);
-    virtual void draw(SDL_Renderer *renderer, const Point &offset);
-
 
     virtual bool onClick(Point point, int button) override;
 };
