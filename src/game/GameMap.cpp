@@ -21,8 +21,9 @@ GameMap::GameMap() {
     generator.seed(std::time(0));
     std::uniform_int_distribution<unsigned int> widthDistribution{0, width - 1};
     std::uniform_int_distribution<unsigned int> heightDistribution{0, height - 1};
-    housePosX = widthDistribution(generator);
-    housePosY = heightDistribution(generator);
+    int housePosX = widthDistribution(generator);
+    int housePosY = heightDistribution(generator);
+    village.setCenter({housePosX, housePosY});
     HousePtr house = HousePtr(new House(housePosX, housePosY));
     mapData[housePosX][housePosY]->setHouse(house);
 

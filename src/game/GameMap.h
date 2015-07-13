@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Tile.h"
+#include "Village.h"
 
 using ColumnData = std::vector<TilePtr>;
 using MapData = std::vector<ColumnData>;
@@ -18,8 +19,7 @@ private:
     unsigned int width{128};
     unsigned int height{128};
 
-    int housePosX;
-    int housePosY;
+    Village village;
 public:
     GameMap();
 
@@ -27,8 +27,8 @@ public:
     unsigned int getHeight() { return height; }
 
     TilePtr getTile(int x, int y) { return mapData[x][y]; }
-    int getHousePosX() { return housePosX; }
-    int getHousePosY() { return housePosY; }
+    int getHousePosX() { return village.getCenter().x; }
+    int getHousePosY() { return village.getCenter().y; }
 };
 
 

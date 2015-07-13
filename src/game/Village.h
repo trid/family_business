@@ -12,7 +12,10 @@ class Village {
     Point center;
 
 public:
-    Village(Point center): center(center) {}
+    Village() {}
+
+    const Point &getCenter() const { return center; }
+    void setCenter(const Point &center) { Village::center = center; }
 };
 
 
