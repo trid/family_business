@@ -19,7 +19,7 @@ class BattleView: public View {
 public:
     BattleView(Battle& battle);
 
-    virtual void draw() override;
+    virtual void draw(SDL_Renderer *renderer) override;
 };
 
 

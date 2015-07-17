@@ -26,7 +26,7 @@ class MainView : public View {
 public:
     MainView();
 
-    virtual void draw() override;
+    virtual void draw(SDL_Renderer *renderer) override;
     virtual void update(int timeDelta) override;
 
     virtual void onKeyUp(int key) override;

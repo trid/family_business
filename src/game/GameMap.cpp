@@ -8,6 +8,7 @@
 
 #include <ctime>
 #include <random>
+#include <unordered_set>
 
 GameMap::GameMap() {
     mapData.resize(width);
@@ -24,8 +25,6 @@ GameMap::GameMap() {
     int housePosX = widthDistribution(generator);
     int housePosY = heightDistribution(generator);
     village.setCenter({housePosX, housePosY});
-    HousePtr house = HousePtr(new House(housePosX, housePosY));
-    mapData[housePosX][housePosY]->setHouse(house);
 
     //Set monster five tiles on north or five tiles on south of house
     CreaturePtr creature{new Monster()};
@@ -37,5 +36,61 @@ GameMap::GameMap() {
     else {
         creature->setY(housePosY + 5);
         mapData[housePosX][housePosY + 5]->setCreature(creature);
+    }
+}
+
+void GameMap::createHouse(FamilyPtr familyPtr) {
+    auto pointHash = [this](const Point& point) { return point.y * width + point.x; };
+
+    std::unordered_set<Point, decltype(pointHash)> queuedTiles(0, pointHash);
+    std::unordered_set<Point, decltype(pointHash)> usedTiles(0, pointHash);
+
+    const Point &startPoint = village.getCenter();
+    queuedTiles.insert(startPoint);
+
+    while (!queuedTiles.empty()) {
+        const Point& point = *queuedTiles.begin();
+        if (!mapData[point.x][point.y]->getHouse()) {
+            const std::shared_ptr<House> &housePtr = std::make_shared<House>(point.x, point.y);
+            housePtr->setFamily(familyPtr);
+            mapData[point.x][point.y]->setHouse(housePtr);
+            break;
+        }
+        usedTiles.insert(point);
+        int top = point.y - 1;
+        int bottom = point.y + 1;
+        int left = point.x - 1;
+        int right = point.x + 1;
+
+        if (top >= 0) {
+            queuedTiles.insert(Point{point.x, top});
+            if (left >= 0) {
+                queuedTiles.insert(Point{left, top});
+            }
+            if (right < width) {
+                queuedTiles.insert(Point{right, top});
+            }
+        }
+
+        if (bottom < height) {
+            queuedTiles.insert(Point{bottom, point.y});
+            if (left >= 0) {
+                queuedTiles.insert(Point{left, bottom});
+            }
+            if (right < width) {
+                queuedTiles.insert(Point{right, bottom});
+            }
+        }
+
+        if (left >= 0) {
+            queuedTiles.insert(Point{left, point.y});
+        }
+        if (right < width) {
+            queuedTiles.insert(Point{right, point.y});
+        }
+
+        for (auto& item: usedTiles) {
+            queuedTiles.erase(item);
+        }
     }
 }

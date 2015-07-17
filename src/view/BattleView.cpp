@@ -8,9 +8,8 @@
 #include "BattleView.h"
 #include "../game/Creature.h"
 
-void BattleView::draw() {
-    View::draw();
-    SDL_Renderer *renderer = Screen::getInstance().getRenderer();
+void BattleView::draw(SDL_Renderer *renderer) {
+    View::draw(nullptr);
     const BattleMap& gameMap = battle.getBattleMap();
 
     for (int x = 0; x < gameMap.width; x++) {

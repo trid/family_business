@@ -9,10 +9,6 @@
 FamilyManager::FamilyManager() {
     CharacterManager& characterManager = CharacterManager::getInstance();
 
-    GameMap& gameMap = Game::getInstance().getMap();
-    int houseX = gameMap.getHousePosX();
-    int houseY = gameMap.getHousePosY();
-
     for (int i = 0; i < 3; i++) {
         CharacterPtr father = characterManager.addCharacter(Gender::Male, (std::shared_ptr<Family>()));
         CharacterPtr mother = characterManager.addCharacter(father->getLastName(), Gender::Female,
@@ -23,7 +19,5 @@ FamilyManager::FamilyManager() {
         }
         FamilyPtr family{new Family(father, mother, children)};
         families.push_back(family);
-
-        family->setHome(gameMap.getTile(houseX, houseY)->getHouse());
     }
 }

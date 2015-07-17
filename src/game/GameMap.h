@@ -29,6 +29,8 @@ public:
     TilePtr getTile(int x, int y) { return mapData[x][y]; }
     int getHousePosX() { return village.getCenter().x; }
     int getHousePosY() { return village.getCenter().y; }
+
+    void createHouse(FamilyPtr familyPtr);
 };
 
 

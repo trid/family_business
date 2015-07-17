@@ -8,9 +8,9 @@
 #include "../House.h"
 #include "../Game.h"
 
-void MainView::draw() {
-    mapView.draw(Screen::getInstance().getRenderer());
-    View::draw();
+void MainView::draw(SDL_Renderer *renderer) {
+    mapView.draw(renderer);
+    View::draw(nullptr);
 }
 
 MainView::MainView() {

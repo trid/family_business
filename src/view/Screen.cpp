@@ -40,7 +40,7 @@ void Screen::draw() {
     SDL_RenderClear(renderer);
     Application &application = Application::getInstance();
     if (application.hasState()) {
-        application.getCurrentState().getView()->draw();
+        application.getCurrentState().getView()->draw(renderer);
     }
     SDL_RenderPresent(renderer);
 }

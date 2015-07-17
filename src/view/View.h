@@ -13,7 +13,7 @@ class View {
 private:
     UILayout layout;
 public:
-    virtual void draw();
+    virtual void draw(SDL_Renderer *renderer);
     virtual void onClick(const Point& point, int button);
     virtual void onKeyUp(int key) {};
     virtual void onKeyDown(int key) {};

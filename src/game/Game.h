@@ -15,7 +15,7 @@ private:
     HousePtr housePtr;
     GameMap gameMap;
 
-    Game(){};
+    Game();
 public:
     static Game& getInstance() {
         static Game instance;

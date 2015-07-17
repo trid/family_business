@@ -4,6 +4,6 @@
 
 #include "MenuView.h"
 
-void MenuView::draw() {
+void MenuView::draw(SDL_Renderer *renderer) {
 
 }

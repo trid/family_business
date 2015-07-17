@@ -6,7 +6,7 @@
 
 #include "Screen.h"
 
-void View::draw() {
+void View::draw(SDL_Renderer *renderer) {
     layout.draw(Screen::getInstance().getRenderer());
 }
 

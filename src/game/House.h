@@ -11,12 +11,11 @@
 class Family;
 
 using FamilyPtr = std::shared_ptr<Family>;
-using Families = std::vector<FamilyPtr>;
 
 class House {
 private:
     int x, y;
-    Families families;
+    FamilyPtr family;
 public:
     House(int x, int y): x(x), y(y) { }
 
@@ -24,6 +23,8 @@ public:
     void setX(int x) { House::x = x; }
     int getY() const { return y; }
     void setY(int y) { House::y = y; }
+    const FamilyPtr &getFamily() const { return family; }
+    void setFamily(const FamilyPtr &family) { House::family = family; }
 };
 
 using HousePtr = std::shared_ptr<House>;
