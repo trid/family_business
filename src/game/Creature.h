@@ -12,6 +12,8 @@ private:
     int hitPoints;
     int attack;
     int speed;
+
+    bool alive{true};
 public:
     enum class Type{
         Monster,
@@ -31,6 +33,8 @@ public:
     int getAttack() { return attack; }
     int getHitPoints() const { return hitPoints; }
     void setHitPoints(int hitPoints) { Creature::hitPoints = hitPoints; }
+
+    bool isAlive() { return alive; }
 };
 
 
