@@ -7,6 +7,7 @@
 
 #include "BattleCreature.h"
 #include "BattleMap.h"
+#include "../game/Party.h"
 
 class Battle {
 private:
@@ -14,13 +15,13 @@ private:
     std::vector<BattleCreaturePtr> turns;
     std::vector<BattleCreaturePtr>::iterator current;
 
-    BattleCreaturePtr character;
-    BattleCreaturePtr monster;
+    std::vector<BattleCreaturePtr> left;
+    std::vector<BattleCreaturePtr> right;
 
     void updateTurns();
     void nextCreature();
 public:
-    Battle(CreaturePtr character, CreaturePtr monster);
+    Battle(PartyPtr first, PartyPtr second);
 
     BattleMap &getBattleMap() { return battleMap; }
     void makeTurn();

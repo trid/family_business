@@ -6,6 +6,7 @@
 
 #include "Battle.h"
 #include "../Application.h"
+#include "../game/Party.h"
 
 void Battle::updateTurns() {
     auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });
@@ -26,10 +27,27 @@ void Battle::nextCreature() {
     if ((*current)->getType() == Creature::Type::Character) {
         battleMap.calculateMoveable(*current);
     }
-    if (character->isDead() || monster->isDead()) {
+
+    bool hasAlive = false;
+    for (auto character: left) {
+        hasAlive = hasAlive || !character->isDead();
+    }
+
+    if (!hasAlive) {
         Application::getInstance().popState();
         return;
     }
+
+    hasAlive = false;
+    for (auto character: right) {
+        hasAlive = hasAlive || !character->isDead();
+    }
+
+    if (!hasAlive) {
+        Application::getInstance().popState();
+        return;
+    }
+
     if ((*current)->isDead()) {
         nextCreature();
     }
@@ -65,15 +83,25 @@ void Battle::makeTurn() {
     }
 }
 
-Battle::Battle(CreaturePtr character, CreaturePtr monster) : battleMap(), character(new BattleCreature(character)),
-                                                             monster(new BattleCreature(monster)) {
-    this->monster->setTarget(this->character);
-    this->character->setPosition({0, 0});
-    this->monster->setPosition({14, 14});
-    battleMap.getTile(0, 0).setCreature(this->character);
-    battleMap.getTile(14, 14).setCreature(this->monster);
-    turns.push_back(this->monster);
-    turns.push_back(this->character);
+Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
+    std::vector<CreaturePtr> &leftCreatures = first->getCreatures();
+    for (int i = 0; i < leftCreatures.size(); i++) {
+        BattleCreaturePtr battleCreaturePtr{new BattleCreature(leftCreatures[i])};
+        battleCreaturePtr->setPosition({0, i});
+        battleMap.getTile(0, i).setCreature(battleCreaturePtr);
+        left.push_back(battleCreaturePtr);
+        turns.push_back(battleCreaturePtr);
+    }
+
+    std::vector<CreaturePtr> &rightCreatures = second->getCreatures();
+    for (int i = 0; i < rightCreatures.size(); i++) {
+        BattleCreaturePtr battleCreaturePtr{new BattleCreature(rightCreatures[i])};
+        battleCreaturePtr->setPosition({14, 14 - i});
+        battleMap.getTile(14, 14 - i).setCreature(battleCreaturePtr);
+        right.push_back(battleCreaturePtr);
+        turns.push_back(battleCreaturePtr);
+    }
+
     updateTurns();
 }
 

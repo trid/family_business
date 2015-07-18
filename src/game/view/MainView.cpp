@@ -34,13 +34,15 @@ void MainView::showFamilyDialog(FamilyPtr familyPtr) {
 
 void MainView::choseCharacter(CharacterPtr characterPtr) {
     choseCharacterDialog->hide();
-    Game::getInstance().setPlayerCharacter(characterPtr);
-    GameMap& gameMap = Game::getInstance().getMap();
+    Game &game = Game::getInstance();
+    game.setPlayerCharacter(characterPtr);
+    GameMap& gameMap = game.getMap();
     int posX = gameMap.getHousePosX();
     int posY = gameMap.getHousePosY();
-    gameMap.getTile(posX, posY)->setCreature(characterPtr);
-    characterPtr->setX(posX);
-    characterPtr->setY(posY);
+    const PartyPtr party = game.getPlayerParty();
+    gameMap.getTile(posX, posY)->setParty(party);
+    party->setX(posX);
+    party->setY(posY);
     centerOnCharacter();
 }
 
@@ -60,11 +62,11 @@ void MainView::onKeyDown(int key) {
 }
 
 void MainView::centerOnCharacter() {
-    CharacterPtr character = Game::getInstance().getPlayerCharacter();
-    if (character) {
+    PartyPtr party = Game::getInstance().getPlayerParty();
+    if (party->getCreatures().size()) {
         GameMap& gameMap = Game::getInstance().getMap();
-        dx = -character->getX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
-        dy = -character->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
+        dx = -party->getX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
+        dy = -party->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
         mapView.setDeltas(dx, dy);
     }
 }

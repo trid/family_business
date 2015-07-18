@@ -15,7 +15,7 @@ class BattleState : public State {
 private:
     Battle battle;
 public:
-    BattleState(CreaturePtr creature) : battle(Game::getInstance().getPlayerCharacter(), creature) {
+    BattleState(PartyPtr first, PartyPtr second) : battle(first, second) {
         setView(ViewPtr(new BattleView(battle)));
     }
 

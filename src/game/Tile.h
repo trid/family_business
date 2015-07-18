@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "House.h"
+#include "Party.h"
 
 class Creature;
 using CreaturePtr = std::shared_ptr<Creature>;
@@ -15,13 +16,13 @@ using CreaturePtr = std::shared_ptr<Creature>;
 class Tile {
 private:
     HousePtr housePtr{nullptr};
-    CreaturePtr creature;
+    PartyPtr party;
 public:
     void setHouse(HousePtr housePtr) { this->housePtr = housePtr; }
     HousePtr getHouse() { return housePtr; }
 
-    const CreaturePtr &getCreature() const { return creature;  }
-    void setCreature(const CreaturePtr &creature) { Tile::creature = creature; }
+    const PartyPtr &getParty() const { return party;  }
+    void setParty(const PartyPtr &party) { Tile::party = party; }
 };
 
 using TilePtr = std::shared_ptr<Tile>;

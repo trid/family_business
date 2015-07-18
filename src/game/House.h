@@ -8,23 +8,30 @@
 #include <memory>
 #include <vector>
 
-class Family;
+#include "Side.h"
+#include "Family.h"
+
+class Character;
 
 using FamilyPtr = std::shared_ptr<Family>;
+using CharacterPtr = std::shared_ptr<Character>;
 
 class House {
 private:
     int x, y;
     FamilyPtr family;
+    Side side{Side::Player};
+    std::vector<CharacterPtr> inside;
 public:
     House(int x, int y): x(x), y(y) { }
+    House(int x, int y, Side side): x(x), y(y), side(side) { }
 
     int getX() const { return x; }
     void setX(int x) { House::x = x; }
     int getY() const { return y; }
     void setY(int y) { House::y = y; }
     const FamilyPtr &getFamily() const { return family; }
-    void setFamily(const FamilyPtr &family) { House::family = family; }
+    void setFamily(const FamilyPtr &family);
 };
 
 using HousePtr = std::shared_ptr<House>;

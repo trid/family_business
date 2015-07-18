@@ -10,12 +10,13 @@
 #include <vector>
 
 #include "Character.h"
-#include "House.h"
 
 class Character;
+class House;
 
 using CharacterPtr = std::shared_ptr<Character>;
 using Children = std::vector<CharacterPtr>;
+using HousePtr = std::shared_ptr<House>;
 
 class Family {
     CharacterPtr father;

@@ -36,13 +36,13 @@ void MainState::onKeyDown(int keyCode) {
     getView()->onKeyDown(keyCode);
 
     if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
-        CharacterPtr character = Game::getInstance().getPlayerCharacter();
-        if (!character) return;
-        int posX = character->getX();
-        int posY = character->getY();
+        PartyPtr playerParty = Game::getInstance().getPlayerParty();
+        if (!playerParty) return;
+        int posX = playerParty->getX();
+        int posY = playerParty->getY();
 
         GameMap& gameMap = Game::getInstance().getMap();
-        gameMap.getTile(posX, posY)->setCreature(nullptr);
+        gameMap.getTile(posX, posY)->setParty(nullptr);
 
         switch (keyCode) {
             case SDLK_UP:
@@ -61,15 +61,15 @@ void MainState::onKeyDown(int keyCode) {
                 break;
         }
 
-        character->setX(posX);
-        character->setY(posY);
+        playerParty->setX(posX);
+        playerParty->setY(posY);
 
-        CreaturePtr creature = gameMap.getTile(posX, posY)->getCreature();
-        if (creature && creature->type() != character->type()) {
-            Application::getInstance().pushState(StatePtr{new BattleState(creature)});
+        PartyPtr party = gameMap.getTile(posX, posY)->getParty();
+        if (party && party->getSide() == Side::AI) {
+            Application::getInstance().pushState(StatePtr{new BattleState(playerParty, party)});
         }
-        
-        gameMap.getTile(posX, posY)->setCreature(character);
+
+        gameMap.getTile(posX, posY)->setParty(playerParty);
     }
 }
 

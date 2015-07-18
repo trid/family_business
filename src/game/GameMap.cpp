@@ -27,16 +27,22 @@ GameMap::GameMap() {
     village.setCenter({housePosX, housePosY});
 
     //Set monster five tiles on north or five tiles on south of house
+    PartyPtr monsterParty{new Party(Side::AI)};
     CreaturePtr creature{new Monster()};
-    creature->setX(housePosX);
+    monsterParty->addCreature(creature);
+    HousePtr housePtr{new House(housePosX, 0, Side::AI)};
+    monsterParty->setX(housePosX);
     if (housePosY - 5 >= 0) {
-        creature->setY(housePosY - 5);
-        mapData[housePosX][housePosY - 5]->setCreature(creature);
+        monsterParty->setY(housePosY - 5);
+        housePtr->setY(housePosY - 4);
+        mapData[housePosX][housePosY - 5]->setParty(monsterParty);
     }
     else {
-        creature->setY(housePosY + 5);
-        mapData[housePosX][housePosY + 5]->setCreature(creature);
+        monsterParty->setY(housePosY + 5);
+        housePtr->setY(housePosY + 4);
+        mapData[housePosX][housePosY + 5]->setParty(monsterParty);
     }
+    mapData[housePtr->getX()][housePtr->getY()]->setHouse(housePtr);
 }
 
 void GameMap::createHouse(FamilyPtr familyPtr) {

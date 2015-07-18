@@ -8,24 +8,32 @@
 
 #include "CharacterManager.h"
 #include "GameMap.h"
+#include "Party.h"
 
 class Game {
 private:
     CharacterPtr playerCharacter;
     HousePtr housePtr;
     GameMap gameMap;
+    PartyPtr playerParty{new Party(Side::Player)};
 
     Game();
+
 public:
-    static Game& getInstance() {
+    static Game &getInstance() {
         static Game instance;
         return instance;
     }
 
-    GameMap& getMap() { return gameMap; }
+    GameMap &getMap() { return gameMap; }
 
     CharacterPtr getPlayerCharacter() const { return playerCharacter; }
-    void setPlayerCharacter(CharacterPtr playerCharacter) { Game::playerCharacter = playerCharacter; }
+    PartyPtr getPlayerParty() { return playerParty; }
+
+    void setPlayerCharacter(CharacterPtr playerCharacter) {
+        Game::playerCharacter = playerCharacter;
+        playerParty->addCreature(playerCharacter);
+    }
 };
 
 

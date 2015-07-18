@@ -27,9 +27,9 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             if (gameMap.getTile(x, y)->getHouse()){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
             }
-            CreaturePtr creature = gameMap.getTile(x, y)->getCreature();
-            if (creature) {
-                if (creature->type() == Creature::Type::Character) {
+            PartyPtr party = gameMap.getTile(x, y)->getParty();
+            if (party) {
+                if (party->getSide() == Side::Player) {
                     SDL_Rect playerDst{x * 32 + dx, y * 32 + dy - 28, 32, 60};
                     SDL_RenderCopy(renderer, character, nullptr, &playerDst);
                 }
