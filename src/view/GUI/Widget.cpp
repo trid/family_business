@@ -32,7 +32,7 @@ void Widget::draw(SDL_Renderer *renderer, SDL_Texture *parent) {
     SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
-Widget::Widget(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) {
+Widget::Widget(int x, int y, int w, int h, std::shared_ptr<Widget> parent) : x(x), y(y), w(w), h(h), parent(parent) {
     texture = SDL_CreateTexture(Screen::getInstance().getRenderer(), SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, w, h);
 }
 
@@ -43,4 +43,13 @@ void Widget::updateTexture() {
         }
         texture = SDL_CreateTexture(Screen::getInstance().getRenderer(), SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, w, h);
     }
+}
+
+void Widget::centrate() {
+    Screen& screen = Screen::getInstance();
+    int parentWidth{parent ? parent->getWidth() : screen.getWidth()};
+    int parentHeight{parent ? parent->getHeight(): screen.getHeight()};
+
+    x = (parentWidth - w) / 2;
+    y = (parentHeight - h) / 2;
 }

@@ -18,14 +18,16 @@ private:
     SDL_Texture* texture;
 
     void updateTexture();
+    std::shared_ptr<Widget> parent;
 protected:
     virtual void onRedraw(SDL_Renderer* renderer) = 0;
     SDL_Texture* getTexture() { return texture; }
 public:
-    Widget(int x, int y, int w, int h);
+    Widget(int x, int y, int w, int h, std::shared_ptr<Widget> parent = nullptr);
     virtual ~Widget() { SDL_DestroyTexture(texture); }
 
     void draw(SDL_Renderer *renderer, SDL_Texture *parent);
+    void centrate();
 
     int getLeft() { return x; }
     int getTop() { return y; }
