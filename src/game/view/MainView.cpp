@@ -15,9 +15,10 @@ void MainView::draw(SDL_Renderer *renderer) {
 
 MainView::MainView() {
     UILayout& layout = getLayout();
-    familyDialogWidget = WidgetPtr{new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0,
-                                                       [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); })};
-    familyDialogWidget->show();
+    ChoseFamilyDialog *dialog = new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0,
+                                                           [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); });
+    familyDialogWidget = WidgetPtr{dialog};
+    dialog->setUp();
     layout.addWidget(familyDialogWidget);
     choseCharacterDialog = ChoseCharacterDialogPtr{new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60,
                                      [this](CharacterPtr characterPtr) { choseCharacter(characterPtr); })};

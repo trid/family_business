@@ -17,7 +17,7 @@ private:
 public:
     ChoseFamilyDialog(int x, int y, int w, int h, Callback callback) : Dialog(x, y, w, h), callback(callback) { }
 
-    virtual void show() override;
+    void setUp();
 };
 
 

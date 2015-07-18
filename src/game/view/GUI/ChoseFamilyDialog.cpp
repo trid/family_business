@@ -8,7 +8,7 @@
 #include "FamilyButton.h"
 #include "../../FamilyManager.h"
 
-void ChoseFamilyDialog::show() {
+void ChoseFamilyDialog::setUp() {
     Widget::show();
 
     const Families& families = FamilyManager::getInstance().getFamilies();
