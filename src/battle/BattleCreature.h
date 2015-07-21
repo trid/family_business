@@ -18,7 +18,6 @@ private:
     Point position;
     int steps{0};
     CreaturePtr creaturePtr;
-    std::shared_ptr<BattleCreature> target;
 public:
     BattleCreature(CreaturePtr creature);
 
@@ -26,8 +25,6 @@ public:
     int getAttack() { return creaturePtr->getAttack(); }
 
     Creature::Type getType() { return creaturePtr->type(); }
-    const std::shared_ptr<BattleCreature> &getTarget() const { return target; }
-    void setTarget(const std::shared_ptr<BattleCreature> &target) { BattleCreature::target = target; }
     const Point &getPosition() const { return position; }
     void setPosition(const Point &position) { BattleCreature::position = position; }
     int getSteps() const { return steps; }

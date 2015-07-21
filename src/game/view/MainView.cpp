@@ -2,6 +2,8 @@
 // Created by dmitry-khovyakov on 5/25/15.
 //
 
+#include <algorithm>
+
 #include "MainView.h"
 #include "GUI/ChoseFamilyDialog.h"
 #include "GUI/ChoseCharacterDialog.h"
@@ -24,6 +26,13 @@ MainView::MainView() {
                                      [this](CharacterPtr characterPtr) { choseCharacter(characterPtr); })};
     choseCharacterDialog->hide();
     layout.addWidget(choseCharacterDialog);
+
+    auto addCharacterToParty = [this](CharacterPtr characterPtr) {
+        this->addCharacterToParty(characterPtr, {}); };
+
+    hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, addCharacterToParty);
+    hireCharacterDialog->hide();
+    layout.addWidget(hireCharacterDialog);
 }
 
 void MainView::showFamilyDialog(FamilyPtr familyPtr) {
@@ -69,4 +78,21 @@ void MainView::centerOnCharacter() {
         dy = -party->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
         mapView.setDeltas(dx, dy);
     }
+}
+
+void MainView::showHireDialog(HousePtr housePtr) {
+    auto addCharacterToParty = [this, housePtr](CharacterPtr characterPtr) {
+        this->addCharacterToParty(characterPtr, housePtr); };
+    hireCharacterDialog->setCallback(addCharacterToParty);
+    hireCharacterDialog->setUp(housePtr);
+    hireCharacterDialog->show();
+}
+
+void MainView::addCharacterToParty(CharacterPtr characterPtr, HousePtr housePtr) {
+    if (Game::getInstance().getPlayerParty()->addCreature(characterPtr)) {
+        std::vector<CharacterPtr> &characters = housePtr->getCharacters();
+        auto iter = std::remove(characters.begin(), characters.end(), characterPtr);
+        characters.erase(iter, characters.end());
+    }
+    hireCharacterDialog->hide();
 }

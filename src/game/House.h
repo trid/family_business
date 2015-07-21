@@ -32,6 +32,7 @@ public:
     void setY(int y) { House::y = y; }
     const FamilyPtr &getFamily() const { return family; }
     void setFamily(const FamilyPtr &family);
+    std::vector<CharacterPtr>& getCharacters() { return inside; }
 };
 
 using HousePtr = std::shared_ptr<House>;

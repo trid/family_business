@@ -10,11 +10,13 @@
 #include "../Family.h"
 #include "GUI/ChoseCharacterDialog.h"
 #include "MapPresentation.h"
+#include "GUI/HireCharacterDialog.h"
 
 
 class MainView : public View {
     WidgetPtr familyDialogWidget;
     ChoseCharacterDialogPtr choseCharacterDialog;
+    HireCharacterDialogPtr hireCharacterDialog;
 
     MapPresentation mapView;
 
@@ -22,7 +24,7 @@ class MainView : public View {
     void choseCharacter(CharacterPtr characterPtr);
     void centerOnCharacter();
 
-    float dx{}, dy{};
+    int dx{}, dy{};
 public:
     MainView();
 
@@ -31,6 +33,10 @@ public:
 
     virtual void onKeyUp(int key) override;
     virtual void onKeyDown(int key) override;
+
+    void showHireDialog(HousePtr housePtr);
+
+    void addCharacterToParty(CharacterPtr shared_ptr, HousePtr housePtr);
 };
 
 

@@ -7,10 +7,11 @@
 #include "Battle.h"
 #include "../Application.h"
 #include "../game/Party.h"
+#include "BattleCreatureAI.h"
 
 void Battle::updateTurns() {
     auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });
-    turns.resize(iter - turns.begin());
+    turns.erase(iter, turns.end());
     std::sort(turns.begin(), turns.end(), [](BattleCreaturePtr creature1, BattleCreaturePtr creature2){ return creature1->getSpeed() > creature2->getSpeed(); });
     current = turns.begin();
 
@@ -20,63 +21,55 @@ void Battle::updateTurns() {
 }
 
 void Battle::nextCreature() {
+    if (isFinished()) {
+        Application::getInstance().popState();
+        return;
+    }
+
     current++;
     if (current == turns.end()) {
         updateTurns();
     }
+
     if ((*current)->getType() == Creature::Type::Character) {
         battleMap.calculateMoveable(*current);
-    }
-
-    bool hasAlive = false;
-    for (auto character: left) {
-        hasAlive = hasAlive || !character->isDead();
-    }
-
-    if (!hasAlive) {
-        Application::getInstance().popState();
-        return;
-    }
-
-    hasAlive = false;
-    for (auto character: right) {
-        hasAlive = hasAlive || !character->isDead();
-    }
-
-    if (!hasAlive) {
-        Application::getInstance().popState();
-        return;
     }
 
     if ((*current)->isDead()) {
         nextCreature();
     }
+
+    if ((*current)->getType() == Creature::Type::Monster) {
+        static_cast<BattleCreatureAI*>(current->get())->updateTarget();
+    }
 }
 
 void Battle::makeTurn() {
     if ((*current)->getType() == Creature::Type::Monster) {
-        BattleCreaturePtr monster = *current;
-        BattleCreaturePtr target = (*current)->getTarget();
+        BattleCreatureAI* monster = static_cast<BattleCreatureAI*>((*current).get());
+        BattleCreaturePtr target = monster->getTarget();
         Point distance = target->getPosition() - (*current)->getPosition();
         if (abs(distance.x + distance.y) == 1) {
             target->takeDamage((*current)->getAttack());
             nextCreature();
+            return;
         }
         else {
             if (monster->getSteps() == 0) {
                 nextCreature();
+                return;
             }
             if (abs(distance.x) >= 1) {
                 const Point& monsterPosition = monster->getPosition();
                 battleMap.getTile(monsterPosition.x, monsterPosition.y).setCreature(nullptr);
                 monster->setPosition(Point{monsterPosition.x + (distance.x > 0 ? 1 : -1), monsterPosition.y});
-                battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(monster);
+                battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(*current);
             }
             else if (abs(distance.y) >= 1) {
                 const Point& monsterPosition = monster->getPosition();
                 battleMap.getTile(monsterPosition.x, monsterPosition.y).setCreature(nullptr);
                 monster->setPosition(Point{monsterPosition.x, monsterPosition.y + (distance.y > 0 ? 1 : -1)});
-                battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(monster);
+                battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(*current);
             }
             monster->setSteps(monster->getSteps() - 1);
         }
@@ -86,7 +79,13 @@ void Battle::makeTurn() {
 Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
     std::vector<CreaturePtr> &leftCreatures = first->getCreatures();
     for (int i = 0; i < leftCreatures.size(); i++) {
-        BattleCreaturePtr battleCreaturePtr{new BattleCreature(leftCreatures[i])};
+        BattleCreaturePtr battleCreaturePtr;
+        if (leftCreatures[i]->type() == Creature::Type::Character) {
+            battleCreaturePtr = std::make_shared<BattleCreature>(leftCreatures[i]);
+        }
+        else {
+            battleCreaturePtr = std::make_shared<BattleCreatureAI>(leftCreatures[i], right);
+        }
         battleCreaturePtr->setPosition({0, i});
         battleMap.getTile(0, i).setCreature(battleCreaturePtr);
         left.push_back(battleCreaturePtr);
@@ -95,14 +94,21 @@ Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
 
     std::vector<CreaturePtr> &rightCreatures = second->getCreatures();
     for (int i = 0; i < rightCreatures.size(); i++) {
-        BattleCreaturePtr battleCreaturePtr{new BattleCreature(rightCreatures[i])};
+        BattleCreaturePtr battleCreaturePtr;
+        if (rightCreatures[i]->type() == Creature::Type::Character) {
+            battleCreaturePtr = std::make_shared<BattleCreature>(rightCreatures[i]);
+        }
+        else {
+            battleCreaturePtr = std::make_shared<BattleCreatureAI>(rightCreatures[i], left);
+        }
         battleCreaturePtr->setPosition({14, 14 - i});
         battleMap.getTile(14, 14 - i).setCreature(battleCreaturePtr);
         right.push_back(battleCreaturePtr);
         turns.push_back(battleCreaturePtr);
     }
 
-    updateTurns();
+    current = std::prev(turns.end());
+    nextCreature();
 }
 
 void Battle::makeAttack(Point targetPosition) {
@@ -112,4 +118,22 @@ void Battle::makeAttack(Point targetPosition) {
         targetCreature->takeDamage(currentCreature->getAttack());
         nextCreature();
     }
+}
+
+bool Battle::isFinished() {
+    bool hasAlive = false;
+    for (auto character: left) {
+        hasAlive = hasAlive || !character->isDead();
+    }
+
+    if (!hasAlive) {
+        return true;
+    }
+
+    hasAlive = false;
+    for (auto character: right) {
+        hasAlive = hasAlive || !character->isDead();
+    }
+
+    return !hasAlive;
 }

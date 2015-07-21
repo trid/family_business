@@ -21,7 +21,7 @@ private:
     int x, y;
 public:
     Party(Side side): side(side) {}
-    void addCreature(CreaturePtr creaturePtr) { creatures.push_back(creaturePtr); }
+    bool addCreature(CreaturePtr creaturePtr);
 
     int getX() const { return x; }
     void setX(int x) { Party::x = x; }

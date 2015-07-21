@@ -20,6 +20,8 @@ private:
 
     void updateTurns();
     void nextCreature();
+
+    bool isFinished();
 public:
     Battle(PartyPtr first, PartyPtr second);
 

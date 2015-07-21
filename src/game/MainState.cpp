@@ -67,13 +67,26 @@ void MainState::onKeyDown(int keyCode) {
         PartyPtr party = gameMap.getTile(posX, posY)->getParty();
         if (party && party->getSide() == Side::AI) {
             Application::getInstance().pushState(StatePtr{new BattleState(playerParty, party)});
+            return;
         }
 
         gameMap.getTile(posX, posY)->setParty(playerParty);
+    }
+    if (keyCode == SDLK_SPACE) {
+        takeMercenary();
     }
 }
 
 void MainState::onKeyUp(int keyCode) {
     State::onKeyUp(keyCode);
     getView()->onKeyUp(keyCode);
+}
+
+void MainState::takeMercenary() {
+    Game &game = Game::getInstance();
+    PartyPtr playerParty = game.getPlayerParty();
+    HousePtr housePtr = game.getMap().getTile(playerParty->getX(), playerParty->getY())->getHouse();
+    if (housePtr) {
+        static_cast<MainView*>(getView().get())->showHireDialog(housePtr);
+    }
 }

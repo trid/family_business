@@ -3,3 +3,11 @@
 //
 
 #include "Party.h"
+
+bool Party::addCreature(CreaturePtr creaturePtr) {
+    if (creatures.size() >= 10) {
+        return false;
+    }
+    creatures.push_back(creaturePtr);
+    return true;
+}
