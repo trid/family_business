@@ -33,6 +33,7 @@ public:
     const FamilyPtr &getFamily() const { return family; }
     void setFamily(const FamilyPtr &family);
     std::vector<CharacterPtr>& getCharacters() { return inside; }
+    Side getSide() { return side; }
 };
 
 using HousePtr = std::shared_ptr<House>;

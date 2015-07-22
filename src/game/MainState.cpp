@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "../Application.h"
 #include "../battle/BattleState.h"
+#include "Monster.h"
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -35,13 +36,13 @@ void MainState::onKeyDown(int keyCode) {
     State::onKeyDown(keyCode);
     getView()->onKeyDown(keyCode);
 
+    PartyPtr playerParty = Game::getInstance().getPlayerParty();
+    GameMap& gameMap = Game::getInstance().getMap();
     if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
-        PartyPtr playerParty = Game::getInstance().getPlayerParty();
         if (!playerParty) return;
         int posX = playerParty->getX();
         int posY = playerParty->getY();
 
-        GameMap& gameMap = Game::getInstance().getMap();
         gameMap.getTile(posX, posY)->setParty(nullptr);
 
         switch (keyCode) {
@@ -73,7 +74,15 @@ void MainState::onKeyDown(int keyCode) {
         gameMap.getTile(posX, posY)->setParty(playerParty);
     }
     if (keyCode == SDLK_SPACE) {
-        takeMercenary();
+        const HousePtr &house = gameMap.getTile(playerParty->getX(), playerParty->getY())->getHouse();
+        if (house) {
+            if (house->getSide() == Side::Player) {
+                takeMercenary();
+            }
+            else {
+                battleMonsters();
+            }
+        }
     }
 }
 
@@ -89,4 +98,15 @@ void MainState::takeMercenary() {
     if (housePtr) {
         static_cast<MainView*>(getView().get())->showHireDialog(housePtr);
     }
+}
+
+void MainState::battleMonsters() {
+    PartyPtr partyPtr = std::make_shared<Party>(Side::AI);
+    // Yes, it's not so beautiful, but as is for now
+    partyPtr->addCreature(std::make_shared<Monster>());
+    partyPtr->addCreature(std::make_shared<Monster>());
+    partyPtr->addCreature(std::make_shared<Monster>());
+    partyPtr->addCreature(std::make_shared<Monster>());
+
+    Application::getInstance().pushState(std::make_shared<BattleState>(Game::getInstance().getPlayerParty(), partyPtr));
 }
