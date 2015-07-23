@@ -13,6 +13,8 @@ private:
     int attack;
     int speed;
 
+    int level = 1;
+
     bool alive{true};
 public:
     enum class Type{
