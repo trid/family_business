@@ -8,7 +8,7 @@ void Creature::addExperience(int experience) {
     this->experience += experience;
     if (this->experience >= level * 100) {
         ++level;
-        experience = 0;
+        this->experience = 0;
 
         switch (skillUpDistributor(generator)){
             case 0:
