@@ -5,6 +5,10 @@
 #ifndef FAMILY_BUSINESS_CREATURE_H
 #define FAMILY_BUSINESS_CREATURE_H
 
+#include <random>
+
+using Generator = std::default_random_engine;
+using Distributor = std::uniform_int_distribution<int>;
 
 class Creature {
 private:
@@ -17,6 +21,9 @@ private:
     int experience{0};
 
     bool alive{true};
+
+    Generator generator;
+    Distributor skillUpDistributor{0, 2};
 public:
     enum class Type{
         Monster,
@@ -38,7 +45,7 @@ public:
     void setHitPoints(int hitPoints) { Creature::hitPoints = hitPoints; }
 
     bool isAlive() { return alive; }
-    void addExperience(int experience) { this->experience += experience; }
+    void addExperience(int experience);
 };
 
 
