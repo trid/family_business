@@ -18,7 +18,7 @@ class MainView : public View {
     ChoseCharacterDialogPtr choseCharacterDialog;
     HireCharacterDialogPtr hireCharacterDialog;
 
-    MapPresentation mapView;
+    DrawablePtr mapView{new MapPresentation};
 
     void showFamilyDialog(FamilyPtr familyPtr);
     void choseCharacter(CharacterPtr characterPtr);

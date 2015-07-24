@@ -13,6 +13,6 @@ public:
     virtual void draw(SDL_Renderer* renderer) = 0;
 };
 
-using DrawablePtr = std::shared_ptr<DrawablePtr>;
+using DrawablePtr = std::shared_ptr<Drawable>;
 
 #endif //FAMILY_BUSINESS_DRAWABLE_H
