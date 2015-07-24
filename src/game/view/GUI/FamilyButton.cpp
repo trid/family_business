@@ -6,12 +6,13 @@
 
 #include "../../Family.h"
 #include "../../../view/Screen.h"
+#include "../../../view/GUI/FontsCache.h"
 
 FamilyButton::FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, Callback callback) : Widget(x, y, w, h),
                                                                                                      family(family),
                                                                                                      callback(
                                                                                                              callback) {
-    font = TTF_OpenFont("res/fonts/FreeMono.ttf", 16);
+    font = FontsCache::getInstance().getFont("res/fonts/FreeMono.ttf", 16);
     SDL_Surface *surface = TTF_RenderText_Solid(font, family->getLastName().c_str(), SDL_Color{0, 0, 0, 255});
     label = SDL_CreateTextureFromSurface(Screen::getInstance().getRenderer(), surface);
     SDL_FreeSurface(surface);

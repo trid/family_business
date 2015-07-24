@@ -4,11 +4,12 @@
 
 #include "CharacterButton.h"
 #include "../../../view/Screen.h"
+#include "../../../view/GUI/FontsCache.h"
 
 
 CharacterButton::CharacterButton(int x, int y, int w, int h, CharacterPtr character, CharacterBtnCallback callback)
         : Widget(x, y, w, h), callback(callback), character(character) {
-    font = TTF_OpenFont("res/fonts/FreeMono.ttf", 16);
+    font = FontsCache::getInstance().getFont("res/fonts/FreeMono.ttf", 16);
     SDL_Surface *surface = TTF_RenderText_Solid(font, (character->getName() + " " + character->getLastName()).c_str(),
                                                 SDL_Color{0, 0, 0, 255});
     label = SDL_CreateTextureFromSurface(Screen::getInstance().getRenderer(), surface);
