@@ -11,8 +11,7 @@
 #include "../Game.h"
 
 void MainView::draw(SDL_Renderer *renderer) {
-    mapView.draw(renderer);
-    View::draw(nullptr);
+    View::draw(renderer);
 }
 
 MainView::MainView() {
@@ -33,6 +32,8 @@ MainView::MainView() {
     hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, addCharacterToParty);
     hireCharacterDialog->hide();
     layout.addWidget(hireCharacterDialog);
+
+    addDrawable(mapView);
 }
 
 void MainView::showFamilyDialog(FamilyPtr familyPtr) {
@@ -59,7 +60,7 @@ void MainView::update(int timeDelta) {
     View::update(timeDelta);
 
     centerOnCharacter();
-    mapView.setDeltas(dx, dy);
+    static_cast<MapPresentation*>(mapView.get())->setDeltas(dx, dy);
 }
 
 void MainView::onKeyUp(int key) {
@@ -76,7 +77,7 @@ void MainView::centerOnCharacter() {
         GameMap& gameMap = Game::getInstance().getMap();
         dx = -party->getX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
         dy = -party->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
-        mapView.setDeltas(dx, dy);
+        static_cast<MapPresentation*>(mapView.get())->setDeltas(dx, dy);
     }
 }
 

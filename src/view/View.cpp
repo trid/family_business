@@ -7,6 +7,10 @@
 #include "Screen.h"
 
 void View::draw(SDL_Renderer *renderer) {
+    for (auto item: drawables) {
+        item->draw(renderer);
+    }
+
     layout.draw(Screen::getInstance().getRenderer());
 }
 

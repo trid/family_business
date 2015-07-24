@@ -121,19 +121,31 @@ void Battle::makeAttack(Point targetPosition) {
 }
 
 bool Battle::isFinished() {
-    bool hasAlive = false;
+    bool playerAlive = false;
     for (auto character: left) {
-        hasAlive = hasAlive || !character->isDead();
+        playerAlive = playerAlive || !character->isDead();
     }
 
-    if (!hasAlive) {
+    if (!playerAlive) {
         return true;
     }
 
-    hasAlive = false;
+    bool monstersAlive = false;
     for (auto character: right) {
-        hasAlive = hasAlive || !character->isDead();
+        monstersAlive = monstersAlive || !character->isDead();
     }
 
-    return !hasAlive;
+    if (!monstersAlive) {
+        int exp = right.size() * 100;
+        int aliveCharacters = std::count_if(left.begin(), left.end(), [](BattleCreaturePtr battleCreaturePtr){ return !battleCreaturePtr->isDead(); });
+        int share = exp / aliveCharacters;
+
+        for (auto character: left) {
+            if (!character->isDead()) {
+                character->getCreature()->addExperience(share);
+            }
+        }
+    }
+
+    return !monstersAlive;
 }

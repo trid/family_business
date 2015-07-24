@@ -34,6 +34,7 @@ public:
 
     void takeDamage(int damage) { currentHp > damage ? currentHp -= damage: currentHp = 0; }
     bool isDead() { return currentHp == 0; }
+    CreaturePtr getCreature() { return creaturePtr; }
 };
 
 using BattleCreaturePtr = std::shared_ptr<BattleCreature>;
