@@ -60,6 +60,7 @@ void GameMap::createHouse(FamilyPtr familyPtr) {
             const std::shared_ptr<House> &housePtr = std::make_shared<House>(point.x, point.y);
             housePtr->setFamily(familyPtr);
             mapData[point.x][point.y]->setHouse(housePtr);
+            familyPtr->setHome(housePtr);
             break;
         }
         usedTiles.insert(point);
