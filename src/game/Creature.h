@@ -13,7 +13,8 @@ private:
     int attack;
     int speed;
 
-    int level = 1;
+    int level{1};
+    int experience{0};
 
     bool alive{true};
 public:
@@ -37,6 +38,7 @@ public:
     void setHitPoints(int hitPoints) { Creature::hitPoints = hitPoints; }
 
     bool isAlive() { return alive; }
+    void addExperience(int experience) { this->experience += experience; }
 };
 
 
