@@ -11,8 +11,10 @@ FamilyManager::FamilyManager() {
 
     for (int i = 0; i < 3; i++) {
         CharacterPtr father = characterManager.addCharacter(Gender::Male, (std::shared_ptr<Family>()));
+        father->addExperience(100);
         CharacterPtr mother = characterManager.addCharacter(father->getLastName(), Gender::Female,
                                                             (std::shared_ptr<Family>()));
+        mother->addExperience(100);
         Children children;
         for (int j = 0; j < 3; j++) {
             children.push_back(characterManager.addCharacter(father->getLastName(), (std::shared_ptr<Family>())));
