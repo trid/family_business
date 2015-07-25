@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(family_business)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libgcc -static-libstdc++")
 
 file(GLOB SOURCE_FILES src/*.cpp)
 file(GLOB BATTLE_SOURCE_FILES src/battle/*.cpp)
