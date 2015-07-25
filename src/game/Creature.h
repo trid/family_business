@@ -16,6 +16,7 @@ private:
     int hitPoints;
     int attack;
     int speed;
+    int defence;
 
     int level{1};
     int experience{0};
@@ -43,6 +44,8 @@ public:
     int getAttack() { return attack; }
     int getHitPoints() const { return hitPoints; }
     void setHitPoints(int hitPoints) { Creature::hitPoints = hitPoints; }
+    int getDefence() const { return defence; }
+    void setDefence(int defence) { Creature::defence = defence; }
 
     bool isAlive() { return alive; }
     void addExperience(int experience);

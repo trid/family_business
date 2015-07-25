@@ -8,3 +8,9 @@ BattleCreature::BattleCreature(CreaturePtr creature) : creaturePtr(creature), st
                                                        currentHp(creature->getHitPoints()) {
 
 }
+
+void BattleCreature::takeDamage(int damage) {
+    int noDefenceDamage = damage - creaturePtr->getDefence();
+    int realDamage = noDefenceDamage > 0 ? noDefenceDamage : 0;
+    currentHp > realDamage ? currentHp -= realDamage: currentHp = 0;
+}

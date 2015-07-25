@@ -32,7 +32,7 @@ public:
     void resetSteps() { steps = getSpeed(); }
     int getCurrentHp() const { return currentHp; }
 
-    void takeDamage(int damage) { currentHp > damage ? currentHp -= damage: currentHp = 0; }
+    void takeDamage(int damage);
     bool isDead() { return currentHp == 0; }
     CreaturePtr getCreature() { return creaturePtr; }
 };
