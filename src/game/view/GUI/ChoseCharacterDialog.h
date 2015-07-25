@@ -13,9 +13,9 @@
 class ChoseCharacterDialog : public Dialog {
 private:
     CharacterBtnCallback callback;
+    WidgetPtr label;
 public:
-    ChoseCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback) : Dialog(x, y, w, h),
-                                                                                      callback(callback) { }
+    ChoseCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback);
 
     void setUp(FamilyPtr familyPtr);
 };

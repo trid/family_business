@@ -9,7 +9,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "Widget.h"
 
-class Label : Widget {
+class Label : public Widget {
 private:
     std::string text;
     SDL_Texture* label;

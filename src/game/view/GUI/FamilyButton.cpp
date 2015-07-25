@@ -36,7 +36,5 @@ void FamilyButton::onRedraw(SDL_Renderer *renderer) {
     SDL_RenderFillRect(renderer, &rect);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderer, &rect);
-    int surfaceW, surfaceH;
-    SDL_QueryTexture(label, nullptr, nullptr, &surfaceW, &surfaceH);
     SDL_RenderCopy(renderer, label, nullptr, &rect);
 }

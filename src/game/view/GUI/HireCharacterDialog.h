@@ -13,9 +13,9 @@
 class HireCharacterDialog : public Dialog {
     CharacterBtnCallback callback;
     HousePtr housePtr;
+    WidgetPtr label;
 public:
-    HireCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback) : Dialog(x, y, w, h),
-                                                                                     callback(callback) { }
+    HireCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback);
 
     void setUp(HousePtr housePtr);
     void setCallback(CharacterBtnCallback callback) { this->callback = callback; }

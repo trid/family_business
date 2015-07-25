@@ -14,8 +14,9 @@ class ChoseFamilyDialog: public Dialog {
 private:
     static constexpr int buttonHeight = 30;
     Callback callback;
+    WidgetPtr label;
 public:
-    ChoseFamilyDialog(int x, int y, int w, int h, Callback callback) : Dialog(x, y, w, h), callback(callback) { }
+    ChoseFamilyDialog(int x, int y, int w, int h, Callback callback);
 
     void setUp();
 };
