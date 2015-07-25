@@ -25,7 +25,7 @@ public:
     void removeWidget(WidgetPtr widget);
     void clearWidgets();
 
-    void onClick(const Point& point, int button);
+    bool onClick(const Point &point, int button);
 };
 
 
