@@ -24,10 +24,10 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
         for (int y = 0; y < gameMap.getHeight(); y++) {
             SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
-            if (gameMap.getTile(x, y)->getHouse()){
+            if (gameMap.getTile(x, y).getHouse()){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
             }
-            PartyPtr party = gameMap.getTile(x, y)->getParty();
+            PartyPtr party = gameMap.getTile(x, y).getParty();
             if (party) {
                 if (party->getSide() == Side::Player) {
                     SDL_Rect playerDst{x * 32 + dx, y * 32 + dy - 28, 32, 60};

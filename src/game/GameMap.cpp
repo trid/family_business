@@ -14,9 +14,6 @@ GameMap::GameMap() {
     mapData.resize(width);
     for (auto& item: mapData) {
         item.resize(height);
-        for (auto& tile: item) {
-            tile = TilePtr{new Tile()};
-        }
     }
     std::default_random_engine generator{};
     generator.seed(std::time(0));
@@ -35,14 +32,14 @@ GameMap::GameMap() {
     if (housePosY - 5 >= 0) {
         monsterParty->setY(housePosY - 5);
         housePtr->setY(housePosY - 4);
-        mapData[housePosX][housePosY - 5]->setParty(monsterParty);
+        mapData[housePosX][housePosY - 5].setParty(monsterParty);
     }
     else {
         monsterParty->setY(housePosY + 5);
         housePtr->setY(housePosY + 4);
-        mapData[housePosX][housePosY + 5]->setParty(monsterParty);
+        mapData[housePosX][housePosY + 5].setParty(monsterParty);
     }
-    mapData[housePtr->getX()][housePtr->getY()]->setHouse(housePtr);
+    mapData[housePtr->getX()][housePtr->getY()].setHouse(housePtr);
 }
 
 void GameMap::createHouse(FamilyPtr familyPtr) {
@@ -56,10 +53,10 @@ void GameMap::createHouse(FamilyPtr familyPtr) {
 
     while (!queuedTiles.empty()) {
         const Point& point = *queuedTiles.begin();
-        if (!mapData[point.x][point.y]->getHouse()) {
+        if (!mapData[point.x][point.y].getHouse()) {
             const std::shared_ptr<House> &housePtr = std::make_shared<House>(point.x, point.y);
             housePtr->setFamily(familyPtr);
-            mapData[point.x][point.y]->setHouse(housePtr);
+            mapData[point.x][point.y].setHouse(housePtr);
             familyPtr->setHome(housePtr);
             break;
         }

@@ -10,7 +10,7 @@
 #include "Tile.h"
 #include "Village.h"
 
-using ColumnData = std::vector<TilePtr>;
+using ColumnData = std::vector<Tile>;
 using MapData = std::vector<ColumnData>;
 
 class GameMap {
@@ -26,7 +26,7 @@ public:
     unsigned int getWidth() { return width; }
     unsigned int getHeight() { return height; }
 
-    TilePtr getTile(int x, int y) { return mapData[x][y]; }
+    Tile& getTile(int x, int y) { return mapData[x][y]; }
     int getHousePosX() { return village.getCenter().x; }
     int getHousePosY() { return village.getCenter().y; }
 

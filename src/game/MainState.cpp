@@ -43,7 +43,7 @@ void MainState::onKeyDown(int keyCode) {
         int posX = playerParty->getX();
         int posY = playerParty->getY();
 
-        gameMap.getTile(posX, posY)->setParty(nullptr);
+        gameMap.getTile(posX, posY).setParty(nullptr);
 
         switch (keyCode) {
             case SDLK_UP:
@@ -65,16 +65,16 @@ void MainState::onKeyDown(int keyCode) {
         playerParty->setX(posX);
         playerParty->setY(posY);
 
-        PartyPtr party = gameMap.getTile(posX, posY)->getParty();
+        PartyPtr party = gameMap.getTile(posX, posY).getParty();
         if (party && party->getSide() == Side::AI) {
             Application::getInstance().pushState(StatePtr{new BattleState(playerParty, party)});
             return;
         }
 
-        gameMap.getTile(posX, posY)->setParty(playerParty);
+        gameMap.getTile(posX, posY).setParty(playerParty);
     }
     if (keyCode == SDLK_SPACE) {
-        const HousePtr &house = gameMap.getTile(playerParty->getX(), playerParty->getY())->getHouse();
+        const HousePtr &house = gameMap.getTile(playerParty->getX(), playerParty->getY()).getHouse();
         if (house) {
             if (house->getSide() == Side::Player) {
                 takeMercenary();
@@ -94,7 +94,7 @@ void MainState::onKeyUp(int keyCode) {
 void MainState::takeMercenary() {
     Game &game = Game::getInstance();
     PartyPtr playerParty = game.getPlayerParty();
-    HousePtr housePtr = game.getMap().getTile(playerParty->getX(), playerParty->getY())->getHouse();
+    HousePtr housePtr = game.getMap().getTile(playerParty->getX(), playerParty->getY()).getHouse();
     if (housePtr) {
         static_cast<MainView*>(getView().get())->showHireDialog(housePtr);
     }

@@ -50,7 +50,7 @@ void MainView::choseCharacter(CharacterPtr characterPtr) {
     int posX = gameMap.getHousePosX();
     int posY = gameMap.getHousePosY();
     const PartyPtr party = game.getPlayerParty();
-    gameMap.getTile(posX, posY)->setParty(party);
+    gameMap.getTile(posX, posY).setParty(party);
     party->setX(posX);
     party->setY(posY);
     centerOnCharacter();
