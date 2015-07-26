@@ -8,6 +8,7 @@
 #include "../Application.h"
 #include "../battle/BattleState.h"
 #include "Monster.h"
+#include "../MessageManager.h"
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -72,6 +73,10 @@ void MainState::onKeyDown(int keyCode) {
         }
 
         gameMap.getTile(posX, posY).setParty(playerParty);
+        MessageParameters parameters;
+        parameters.setParameter("x", posX);
+        parameters.setParameter("y", posY);
+        MessageManager::getInstance().sendMessage("character_moved", parameters);
     }
     if (keyCode == SDLK_SPACE) {
         const HousePtr &house = gameMap.getTile(playerParty->getX(), playerParty->getY()).getHouse();

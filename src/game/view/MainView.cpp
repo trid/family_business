@@ -58,9 +58,6 @@ void MainView::choseCharacter(CharacterPtr characterPtr) {
 
 void MainView::update(int timeDelta) {
     View::update(timeDelta);
-
-    centerOnCharacter();
-    static_cast<MapPresentation*>(mapView.get())->setDeltas(dx, dy);
 }
 
 void MainView::onKeyUp(int key) {

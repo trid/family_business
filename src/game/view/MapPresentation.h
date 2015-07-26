@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 #include "../../view/Drawable.h"
+#include "../../MessageListener.h"
 
 class MapPresentation: public Drawable {
 private:
@@ -17,6 +18,14 @@ private:
     SDL_Texture* monster;
 
     int dx{}, dy{};
+
+    class CharacterMoveListener: public MessageListener {
+    private:
+        MapPresentation& mapPresentation;
+    public:
+        CharacterMoveListener(MapPresentation &mapPresentation) : mapPresentation(mapPresentation) { }
+        virtual void onMessage(MessageParameters &messageParameters) override;
+    };
 public:
     MapPresentation();
 
@@ -25,6 +34,8 @@ public:
 
     void setDeltas(int dx, int dy) { this->dx = dx; this->dy = dy; }
 };
+
+
 
 
 #endif //FAMILY_BUSINESS_MAPVIEW_H

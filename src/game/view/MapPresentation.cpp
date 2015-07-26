@@ -8,6 +8,7 @@
 #include "../../view/Screen.h"
 #include "../GameMap.h"
 #include "../Game.h"
+#include "../../MessageManager.h"
 
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();
@@ -15,6 +16,9 @@ MapPresentation::MapPresentation() {
     house = IMG_LoadTexture(renderer, "res/images/house.png");
     character = IMG_LoadTexture(renderer, "res/images/human.png");
     monster = IMG_LoadTexture(renderer, "res/images/monster.png");
+
+    MessageListenerPtr moveListener = std::make_shared<CharacterMoveListener>(*this);
+    MessageManager::getInstance().addListener("character_moved", moveListener);
 }
 
 void MapPresentation::draw(SDL_Renderer *renderer) {
@@ -43,4 +47,14 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
 
 void MapPresentation::update(int timeDelta) {
 
+}
+
+void MapPresentation::CharacterMoveListener::onMessage(MessageParameters &messageParameters) {
+    int x = messageParameters.getParameter("x").getInt();
+    int y = messageParameters.getParameter("y").getInt();
+
+    int dx = -x * 32 - 16 + Screen::getInstance().getWidth() / 2;
+    int dy = -y * 32 - 16 + Screen::getInstance().getHeight() / 2;
+
+    mapPresentation.setDeltas(dx, dy);
 }

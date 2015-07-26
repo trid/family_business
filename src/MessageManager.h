@@ -17,9 +17,14 @@ class MessageManager {
 private:
     Mapping mapping;
 public:
-    void addListener(std::string &type, MessageListenerPtr listener);
-    void removeListener(std::string &type, MessageListenerPtr listener);
-    void sendMessage(std::string& type, MessageParameters& parameters);
+    static MessageManager& getInstance() {
+        static MessageManager messageManager;
+        return messageManager;
+    }
+
+    void addListener(const std::string &type, MessageListenerPtr listener);
+    void removeListener(const std::string &type, MessageListenerPtr listener);
+    void sendMessage(const std::string &type, MessageParameters &parameters);
 };
 
 

@@ -4,15 +4,15 @@
 
 #include "MessageManager.h"
 
-void MessageManager::addListener(std::string &type, MessageListenerPtr listener) {
+void MessageManager::addListener(const std::string &type, MessageListenerPtr listener) {
     mapping[type].push_back(listener);
 }
 
-void MessageManager::removeListener(std::string &type, MessageListenerPtr listener) {
+void MessageManager::removeListener(const std::string &type, MessageListenerPtr listener) {
     mapping[type].remove(listener);
 }
 
-void MessageManager::sendMessage(std::string &type, MessageParameters &parameters) {
+void MessageManager::sendMessage(const std::string &type, MessageParameters &parameters) {
     if (mapping.find(type) != mapping.end()) {
         for (auto listener: mapping[type]) {
             listener->onMessage(parameters);

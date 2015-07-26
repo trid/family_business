@@ -17,14 +17,15 @@ class MessageParameters {
 private:
     Parameters parameters;
 public:
+    MessageParameters() = default;
     MessageParameters(const std::initializer_list<std::pair<std::string, Variant>> parameters) {
         for (auto item: parameters){
             this->parameters[item.first] = item.second;
         }
     }
 
-    Variant& getParameter(std::string& name) { return parameters[name]; }
-    void setParameter(std::string& name, Variant& param) { parameters[name] = param; }
+    Variant& getParameter(const std::string& name) { return parameters[name]; }
+    void setParameter(const std::string& name, Variant param) { parameters[name] = param; }
 };
 
 

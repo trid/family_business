@@ -14,7 +14,8 @@ private:
         Integer,
         Float,
         Bool,
-        Pointer
+        Pointer,
+        None
     };
 
     Type type;
@@ -26,6 +27,12 @@ private:
         void* pointerData; // If you have to use it, may be something is wrong
     } data;
 public:
+    Variant(int i) { setData(i); }
+    Variant(float f) { setData(f); }
+    Variant(bool b) { setData(b); }
+    Variant(void* p) { setData(p); }
+    Variant() { type = Type::None; }
+
     void setData(int data) {
         this->data.intData = data;
         type = Type::Integer;
