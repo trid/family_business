@@ -32,7 +32,7 @@ public:
     void draw(SDL_Renderer* renderer) override;
     void update(int timeDelta);
 
-    void setDeltas(int dx, int dy) { this->dx = dx; this->dy = dy; }
+    void setDeltas(int dx, int dy);
 };
 
 

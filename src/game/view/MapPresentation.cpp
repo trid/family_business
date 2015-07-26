@@ -58,3 +58,24 @@ void MapPresentation::CharacterMoveListener::onMessage(MessageParameters &messag
 
     mapPresentation.setDeltas(dx, dy);
 }
+
+void MapPresentation::setDeltas(int dx, int dy) {
+    this->dx = dx;
+    this->dy = dy;
+    if (this->dx >= 0) {
+        this->dx = 0;
+    }
+    if (this->dy >= 0) {
+        this->dy = 0;
+    }
+    int mapWidth = Game::getInstance().getMap().getWidth();
+    int mapHeight = Game::getInstance().getMap().getHeight();
+    int maxDx = -mapWidth * 32 + Screen::getInstance().getWidth();
+    int maxDy = -mapHeight * 32 + Screen::getInstance().getHeight();
+    if (this->dx <= maxDx) {
+        this->dx = maxDx;
+    }
+    if (this->dy <= maxDy) {
+        this->dy = maxDy;
+    }
+}
