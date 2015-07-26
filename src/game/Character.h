@@ -9,12 +9,13 @@
 #include <string>
 
 #include "Creature.h"
+#include "Item.h"
 
 class Family;
 
 using std::string;
 using FamilyPtr = std::shared_ptr<Family>;
-
+using Items = std::vector<ItemPtr>;
 
 enum class Gender{Male, Female};
 
@@ -27,6 +28,8 @@ class Character: public Creature {
     int age;
 
     FamilyPtr familyPtr;
+
+    Items inventory;
 public:
     Character(const string &name, const string &lastName, Gender gender, FamilyPtr family);
 
@@ -34,6 +37,7 @@ public:
     const string& getLastName() { return lastName; }
     Gender getGender() { return gender; }
     FamilyPtr getFamily() { return familyPtr; }
+    void addItem(ItemPtr item) { inventory.push_back(item); }
 
     virtual Type type() { return Type::Character; }
 };
