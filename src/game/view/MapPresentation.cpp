@@ -23,9 +23,11 @@ MapPresentation::MapPresentation() {
 
 void MapPresentation::draw(SDL_Renderer *renderer) {
     GameMap& gameMap = Game::getInstance().getMap();
+    Screen& screen = Screen::getInstance();
 
-    for (int x = 0; x < gameMap.getWidth(); x++) {
-        for (int y = 0; y < gameMap.getHeight(); y++) {
+    for (int x = -dx / 32; x < (-dx + screen.getWidth()) / 32 && x < gameMap.getWidth(); x++) {
+        int t = (-dy + screen.getHeight()) / 32;
+        for (int y = -dy / 32; y < t + 1 && y < gameMap.getHeight(); y++) {
             SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
             if (gameMap.getTile(x, y).getHouse()){
