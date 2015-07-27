@@ -30,6 +30,8 @@ class Character: public Creature {
     FamilyPtr familyPtr;
 
     Items inventory;
+    ItemPtr armor{nullptr};
+    ItemPtr weapon{nullptr};
 public:
     Character(const string &name, const string &lastName, Gender gender, FamilyPtr family);
 
@@ -38,6 +40,10 @@ public:
     Gender getGender() { return gender; }
     FamilyPtr getFamily() { return familyPtr; }
     void addItem(ItemPtr item) { inventory.push_back(item); }
+
+    void equip(ItemPtr item);
+    void unequipArmor();
+    void unequipWeapon();
 
     virtual Type type() { return Type::Character; }
 };

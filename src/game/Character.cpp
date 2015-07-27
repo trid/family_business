@@ -11,3 +11,18 @@ Character::Character(const string &name, const string &lastName, Gender gender, 
 
 }
 
+void Character::equip(ItemPtr item) {
+    if (item->getType() == ItemType::Armor) {
+        if (armor) {
+            unequipArmor();
+        }
+        setDefence(getDefence() + item->getLevel());
+    }
+}
+
+void Character::unequipArmor() {
+    if (armor) {
+        setDefence(getDefence() - armor->getLevel());
+        armor = nullptr;
+    }
+}
