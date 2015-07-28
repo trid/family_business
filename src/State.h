@@ -31,9 +31,9 @@ public:
     virtual void onDeactivate(){};
 
     // System messages
-    virtual void onClick(const Point &point, int button){};
-    virtual void onKeyDown(int keyCode) {};
-    virtual void onKeyUp(int keyCode) {};
+    virtual void onClick(const Point &point, int button){ view->onClick(point, button); }
+    virtual void onKeyDown(int keyCode) { view->onKeyDown(keyCode); }
+    virtual void onKeyUp(int keyCode) { view->onKeyUp(keyCode); }
 
     virtual void run(){};
 
