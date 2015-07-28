@@ -24,7 +24,7 @@ public:
         }
     }
 
-    Variant& getParameter(const std::string& name) { return parameters[name]; }
+    Variant getParameter(const std::string &name) const { return parameters.at(name); }
     void setParameter(const std::string& name, Variant param) { parameters[name] = param; }
 };
 

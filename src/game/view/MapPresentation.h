@@ -24,7 +24,7 @@ private:
         MapPresentation& mapPresentation;
     public:
         CharacterMoveListener(MapPresentation &mapPresentation) : mapPresentation(mapPresentation) { }
-        virtual void onMessage(MessageParameters &messageParameters) override;
+        virtual void onMessage(const MessageParameters &messageParameters) override;
     };
 public:
     MapPresentation();

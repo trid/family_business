@@ -11,7 +11,7 @@
 
 class MessageListener {
 public:
-    virtual void onMessage(MessageParameters& messageParameters) = 0;
+    virtual void onMessage(const MessageParameters &messageParameters) = 0;
 };
 
 using MessageListenerPtr = std::shared_ptr<MessageListener>;

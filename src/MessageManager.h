@@ -24,7 +24,7 @@ public:
 
     void addListener(const std::string &type, MessageListenerPtr listener);
     void removeListener(const std::string &type, MessageListenerPtr listener);
-    void sendMessage(const std::string &type, MessageParameters &parameters);
+    void sendMessage(const std::string &type, const MessageParameters &parameters);
 };
 
 

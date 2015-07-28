@@ -50,7 +50,7 @@ void MapPresentation::update(int timeDelta) {
 
 }
 
-void MapPresentation::CharacterMoveListener::onMessage(MessageParameters &messageParameters) {
+void MapPresentation::CharacterMoveListener::onMessage(const MessageParameters &messageParameters) {
     int x = messageParameters.getParameter("x").getInt();
     int y = messageParameters.getParameter("y").getInt();
 

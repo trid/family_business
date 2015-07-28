@@ -11,6 +11,11 @@
 
 class MainState : public State {
     unsigned int lastTime{SDL_GetTicks()};
+
+    class CharacterWinListener: public MessageListener {
+    public:
+        virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
 public:
     MainState();
 

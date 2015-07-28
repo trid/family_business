@@ -13,6 +13,8 @@
 MainState::MainState() {
     ViewPtr view{new MainView()};
     setView(view);
+    MessageListenerPtr listenerPtr{new CharacterWinListener};
+    MessageManager::getInstance().addListener("player_win", listenerPtr);
 }
 
 void MainState::onClick(const Point &point, int button) {
@@ -108,10 +110,22 @@ void MainState::takeMercenary() {
 void MainState::battleMonsters() {
     PartyPtr partyPtr = std::make_shared<Party>(Side::AI);
     // Yes, it's not so beautiful, but as is for now
+    /*partyPtr->addCreature(std::make_shared<Monster>());
     partyPtr->addCreature(std::make_shared<Monster>());
-    partyPtr->addCreature(std::make_shared<Monster>());
-    partyPtr->addCreature(std::make_shared<Monster>());
+    partyPtr->addCreature(std::make_shared<Monster>());*/
     partyPtr->addCreature(std::make_shared<Monster>());
 
     Application::getInstance().pushState(std::make_shared<BattleState>(Game::getInstance().getPlayerParty(), partyPtr));
+}
+
+void MainState::CharacterWinListener::onMessage(const MessageParameters &messageParameters) {
+    Game& game = Game::getInstance();
+    PartyPtr partyPtr = game.getPlayerParty();
+    GameMap& gameMap = game.getMap();
+    HousePtr housePtr = gameMap.getTile(partyPtr->getX(), partyPtr->getY()).getHouse();
+
+    if (housePtr && housePtr->getSide() == Side::AI) {
+        CharacterPtr characterPtr = game.getPlayerCharacter();
+        characterPtr->addItem(ItemPtr{new Item(ItemType::Armor, 1)});
+    }
 }

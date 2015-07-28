@@ -12,7 +12,7 @@ void MessageManager::removeListener(const std::string &type, MessageListenerPtr 
     mapping[type].remove(listener);
 }
 
-void MessageManager::sendMessage(const std::string &type, MessageParameters &parameters) {
+void MessageManager::sendMessage(const std::string &type, const MessageParameters &parameters) {
     if (mapping.find(type) != mapping.end()) {
         for (auto listener: mapping[type]) {
             listener->onMessage(parameters);

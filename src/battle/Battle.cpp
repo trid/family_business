@@ -8,6 +8,7 @@
 #include "../Application.h"
 #include "../game/Party.h"
 #include "BattleCreatureAI.h"
+#include "../MessageManager.h"
 
 void Battle::updateTurns() {
     auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });
@@ -145,6 +146,8 @@ bool Battle::isFinished() {
                 character->getCreature()->addExperience(share);
             }
         }
+
+        MessageManager::getInstance().sendMessage("player_win", MessageParameters());
     }
 
     return !monstersAlive;
