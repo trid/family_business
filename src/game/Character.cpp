@@ -8,7 +8,9 @@ Character::Character(const string &name, const string &lastName, Gender gender, 
     Creature(15, 5, 6),
     name(name), lastName(lastName), gender(gender), familyPtr(family)
 {
-
+    ItemPtr weapon{new Item{ItemType::Weapon, 1}};
+    addItem(weapon);
+    equip(weapon);
 }
 
 void Character::equip(ItemPtr item) {
@@ -18,11 +20,27 @@ void Character::equip(ItemPtr item) {
         }
         setDefence(getDefence() + item->getLevel());
     }
+    else {
+        if (weapon) {
+            unequipWeapon();
+        }
+        setAttack(getAttack() + item->getLevel());
+    }
+    item->setEquiped(true);
 }
 
 void Character::unequipArmor() {
     if (armor) {
         setDefence(getDefence() - armor->getLevel());
+        armor->setEquiped(false);
         armor = nullptr;
+    }
+}
+
+void Character::unequipWeapon() {
+    if (weapon) {
+        setAttack(getAttack() - weapon->getLevel());
+        weapon->setEquiped(false);
+        weapon = nullptr;
     }
 }
