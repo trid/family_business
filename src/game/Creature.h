@@ -42,7 +42,7 @@ public:
 
     int getSpeed() { return speed; }
     int getAttack() { return attack; }
-    voif setAttack(int attack) { this->attack = attack; }
+    void setAttack(int attack) { this->attack = attack; }
     int getHitPoints() const { return hitPoints; }
     void setHitPoints(int hitPoints) { Creature::hitPoints = hitPoints; }
     int getDefence() const { return defence; }
