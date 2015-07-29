@@ -27,7 +27,10 @@ void ChoseFamilyDialog::setUp() {
     }
 }
 
-ChoseFamilyDialog::ChoseFamilyDialog(int x, int y, int w, int h, Callback callback) : Dialog(x, y, w, h),
-                                                                                      callback(callback) {
+ChoseFamilyDialog::ChoseFamilyDialog(int x, int y, int w, int h, UILayout &layout, Callback callback) : Dialog(x, y, w,
+                                                                                                               h,
+                                                                                                               layout),
+                                                                                                        callback(
+                                                                                                                callback) {
     label = std::shared_ptr<Widget>{new Label(0, 0, w, 14, nullptr, "Chose family")};
 }

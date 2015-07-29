@@ -15,7 +15,8 @@ class HireCharacterDialog : public Dialog {
     HousePtr housePtr;
     WidgetPtr label;
 public:
-    HireCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback);
+    HireCharacterDialog(int x, int y, int w, int h, UILayout &layout,
+                                                 CharacterBtnCallback callback);
 
     void setUp(HousePtr housePtr);
     void setCallback(CharacterBtnCallback callback) { this->callback = callback; }

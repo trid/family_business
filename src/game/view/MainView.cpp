@@ -15,22 +15,24 @@ void MainView::draw(SDL_Renderer *renderer) {
 }
 
 MainView::MainView() {
-    UILayout& layout = getLayout();
-    ChoseFamilyDialog *dialog = new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0,
-                                                           [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); });
+    UILayout &layout = getLayout();
+    ChoseFamilyDialog *dialog = new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0, layout,
+                                                      [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); });
     familyDialogWidget = WidgetPtr{dialog};
     dialog->setUp();
+    dialog->show();
     layout.addWidget(familyDialogWidget);
-    choseCharacterDialog = ChoseCharacterDialogPtr{new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60,
+    choseCharacterDialog = ChoseCharacterDialogPtr{
+            new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
                                      [this](CharacterPtr characterPtr) { choseCharacter(characterPtr); })};
-    choseCharacterDialog->hide();
     layout.addWidget(choseCharacterDialog);
 
     auto addCharacterToParty = [this](CharacterPtr characterPtr) {
-        this->addCharacterToParty(characterPtr, {}); };
+        this->addCharacterToParty(characterPtr, {});
+    };
 
-    hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, addCharacterToParty);
-    hireCharacterDialog->hide();
+    hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
+                                                                addCharacterToParty);
     layout.addWidget(hireCharacterDialog);
 
     addDrawable(mapView);
@@ -46,7 +48,7 @@ void MainView::choseCharacter(CharacterPtr characterPtr) {
     choseCharacterDialog->hide();
     Game &game = Game::getInstance();
     game.setPlayerCharacter(characterPtr);
-    GameMap& gameMap = game.getMap();
+    GameMap &gameMap = game.getMap();
     int posX = gameMap.getHousePosX();
     int posY = gameMap.getHousePosY();
     const PartyPtr party = game.getPlayerParty();
@@ -71,16 +73,17 @@ void MainView::onKeyDown(int key) {
 void MainView::centerOnCharacter() {
     PartyPtr party = Game::getInstance().getPlayerParty();
     if (party->getCreatures().size()) {
-        GameMap& gameMap = Game::getInstance().getMap();
+        GameMap &gameMap = Game::getInstance().getMap();
         dx = -party->getX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
         dy = -party->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
-        static_cast<MapPresentation*>(mapView.get())->setDeltas(dx, dy);
+        static_cast<MapPresentation *>(mapView.get())->setDeltas(dx, dy);
     }
 }
 
 void MainView::showHireDialog(HousePtr housePtr) {
     auto addCharacterToParty = [this, housePtr](CharacterPtr characterPtr) {
-        this->addCharacterToParty(characterPtr, housePtr); };
+        this->addCharacterToParty(characterPtr, housePtr);
+    };
     hireCharacterDialog->setCallback(addCharacterToParty);
     hireCharacterDialog->setUp(housePtr);
     hireCharacterDialog->show();

@@ -23,7 +23,7 @@ void ChoseCharacterDialog::setUp(FamilyPtr familyPtr) {
         ++i;
     }
 
-    Children& children = familyPtr->getChildren();
+    Children &children = familyPtr->getChildren();
 
     for (auto child: children) {
         if (!child->isAlive()) {
@@ -40,7 +40,8 @@ void ChoseCharacterDialog::setUp(FamilyPtr familyPtr) {
     setTop(y);
 }
 
-ChoseCharacterDialog::ChoseCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback) : Dialog(x, y, w, h),
-                                                                                                        callback(callback) {
+ChoseCharacterDialog::ChoseCharacterDialog(int x, int y, int w, int h, UILayout &layout,
+                                           CharacterBtnCallback callback) : Dialog(x, y, w, h, layout),
+                                                                            callback(callback) {
     label = std::shared_ptr<Widget>{new Label(0, 0, w, 14, nullptr, "Chose character")};
 }

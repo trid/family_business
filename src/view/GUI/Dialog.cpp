@@ -39,3 +39,4 @@ void Dialog::onRedraw(SDL_Renderer *renderer) {
         }
     }
 }
+

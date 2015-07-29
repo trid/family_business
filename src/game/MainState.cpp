@@ -39,6 +39,10 @@ void MainState::onKeyDown(int keyCode) {
     State::onKeyDown(keyCode);
     getView()->onKeyDown(keyCode);
 
+    if (getView()->getLayout().isDialogActive()) {
+        return;
+    }
+
     PartyPtr playerParty = Game::getInstance().getPlayerParty();
     GameMap& gameMap = Game::getInstance().getMap();
     if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {

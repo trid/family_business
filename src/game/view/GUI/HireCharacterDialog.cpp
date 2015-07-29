@@ -11,7 +11,7 @@ void HireCharacterDialog::setUp(HousePtr housePtr) {
 
     addWidget(label);
 
-    auto& characters = housePtr->getCharacters();
+    auto &characters = housePtr->getCharacters();
 
     int i = 0;
     for (auto character: characters) {
@@ -25,7 +25,8 @@ void HireCharacterDialog::setUp(HousePtr housePtr) {
     centrate();
 }
 
-HireCharacterDialog::HireCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback)  : Dialog(x, y, w, h),
-                                                                                                       callback(callback) {
+HireCharacterDialog::HireCharacterDialog(int x, int y, int w, int h, UILayout &layout,
+                                         CharacterBtnCallback callback) : Dialog(x, y, w, h, layout),
+                                                                          callback(callback) {
     label = std::shared_ptr<Widget>{new Label(0, 0, w, 14, nullptr, "Chose mercenary")};
 }

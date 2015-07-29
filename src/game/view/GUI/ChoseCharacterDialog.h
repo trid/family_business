@@ -15,7 +15,8 @@ private:
     CharacterBtnCallback callback;
     WidgetPtr label;
 public:
-    ChoseCharacterDialog(int x, int y, int w, int h, CharacterBtnCallback callback);
+    ChoseCharacterDialog(int x, int y, int w, int h, UILayout &layout,
+                                                   CharacterBtnCallback callback);
 
     void setUp(FamilyPtr familyPtr);
 };

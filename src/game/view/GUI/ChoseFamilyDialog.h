@@ -16,7 +16,7 @@ private:
     Callback callback;
     WidgetPtr label;
 public:
-    ChoseFamilyDialog(int x, int y, int w, int h, Callback callback);
+    ChoseFamilyDialog(int x, int y, int w, int h, UILayout &layout, Callback callback);
 
     void setUp();
 };

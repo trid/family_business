@@ -18,6 +18,7 @@ using Widgets = std::vector<WidgetPtr>;
 class UILayout {
 private:
     Widgets widgets;
+    bool dialogActive;
 public:
     void draw(SDL_Renderer *renderer);
 
@@ -26,6 +27,9 @@ public:
     void clearWidgets();
 
     bool onClick(const Point &point, int button);
+
+    bool isDialogActive() const { return dialogActive; }
+    void setDialogActive(bool dialogActive) { UILayout::dialogActive = dialogActive; }
 };
 
 
