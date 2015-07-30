@@ -19,6 +19,8 @@ using Children = std::vector<CharacterPtr>;
 using HousePtr = std::shared_ptr<House>;
 
 class Family {
+    int id;
+
     CharacterPtr father;
     CharacterPtr mother;
     Children children;
@@ -37,6 +39,8 @@ public:
 
     const HousePtr &getHome() const { return home; }
     void setHome(HousePtr home) { Family::home = home; }
+
+    int getId() const { return id; }
 };
 
 using FamilyPtr = std::shared_ptr<Family>;
