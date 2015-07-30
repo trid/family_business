@@ -12,7 +12,7 @@ void BattleCreatureAI::updateTarget() {
 
     for (auto creature: enemyParty) {
         if (creature->isDead()) {
-            break;
+            continue;
         }
 
         diff = creature->getPosition() - getPosition();
