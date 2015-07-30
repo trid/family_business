@@ -46,6 +46,7 @@ public:
     void unequipWeapon();
 
     virtual Type type() { return Type::Character; }
+    ItemPtr getWeapon() { return weapon; }
 };
 
 

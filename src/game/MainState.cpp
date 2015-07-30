@@ -19,7 +19,6 @@ MainState::MainState() {
 
 void MainState::onClick(const Point &point, int button) {
     State::onClick(point, button);
-    getView()->onClick(point, button);
 }
 
 void MainState::onActivate() {

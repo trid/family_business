@@ -9,6 +9,7 @@
 #include "../game/Party.h"
 #include "BattleCreatureAI.h"
 #include "../MessageManager.h"
+#include "../game/Family.h"
 
 void Battle::updateTurns() {
     auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });
@@ -116,8 +117,13 @@ void Battle::makeAttack(Point targetPosition) {
     BattleCreaturePtr targetCreature = battleMap.getTile(targetPosition.x, targetPosition.y).getCreature();
     if (targetCreature) {
         BattleCreaturePtr currentCreature = (*current);
-        targetCreature->takeDamage(currentCreature->getAttack());
-        nextCreature();
+        Character* character = static_cast<Character*>(currentCreature->getCreature().get());
+        Point distanceVec = targetCreature->getPosition() - currentCreature->getPosition();
+        int distance = abs(distanceVec.x) + abs(distanceVec.y);
+        if (character->getWeapon() || distance == 1) {
+            targetCreature->takeDamage(currentCreature->getAttack());
+            nextCreature();
+        }
     }
 }
 

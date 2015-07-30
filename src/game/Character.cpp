@@ -19,12 +19,14 @@ void Character::equip(ItemPtr item) {
             unequipArmor();
         }
         setDefence(getDefence() + item->getLevel());
+        armor = item;
     }
     else {
         if (weapon) {
             unequipWeapon();
         }
         setAttack(getAttack() + item->getLevel());
+        weapon = item;
     }
     item->setEquiped(true);
 }
