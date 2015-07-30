@@ -6,16 +6,21 @@
 #define FAMILY_BUSINESS_BUTTON_H
 
 #include <functional>
+#include <SDL2/SDL_ttf.h>
 #include "Widget.h"
 
 using Callback = std::function<void()>;
 
-class Button: public Widget {
+class Button : public Widget {
 private:
     Callback callback;
-
+    std::string text;
+    TTF_Font* font;
+    SDL_Texture* label;
+protected:
+    virtual void onRedraw(SDL_Renderer *renderer);
 public:
-    Button(int x, int y, int w, int h, Callback callback) : Widget(x, y, w, h), callback(callback) { }
+    Button(int x, int y, int w, int h, std::string text, Callback callback);
 
     virtual bool onClick(Point point, int button) override;
 };
