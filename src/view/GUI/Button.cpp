@@ -23,9 +23,19 @@ void Button::onRedraw(SDL_Renderer *renderer) {
     SDL_RenderCopy(renderer, label, nullptr, &rect);
 }
 
-Button::Button(int x, int y, int w, int h, std::string text, Callback callback) : Widget(x, y, w, h), text(text),
+Button::Button(int x, int y, int w, int h, const std::string &text, Callback callback) : Widget(x, y, w, h),
                                                                                   callback(callback) {
     font = FontsCache::getInstance().getFont("res/fonts/FreeMono.ttf", 16);
+    setText(text);
+}
+
+void Button::setText(const std::string &text) {
+    this->text = text;
+
+    if (label) {
+        SDL_DestroyTexture(label);
+    }
+
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), SDL_Color{0, 0, 0, 255});
     label = SDL_CreateTextureFromSurface(Screen::getInstance().getRenderer(), surface);
     SDL_FreeSurface(surface);

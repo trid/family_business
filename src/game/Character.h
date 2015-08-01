@@ -47,6 +47,7 @@ public:
 
     virtual Type type() { return Type::Character; }
     ItemPtr getWeapon() { return weapon; }
+    const Items& getItems() const { return inventory; }
 };
 
 

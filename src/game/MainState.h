@@ -8,6 +8,7 @@
 
 #include "../State.h"
 #include "view/MainView.h"
+#include "view/GUI/CharacterPanel.h"
 
 class MainState : public State {
     unsigned int lastTime{SDL_GetTicks()};

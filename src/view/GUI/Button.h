@@ -16,13 +16,15 @@ private:
     Callback callback;
     std::string text;
     TTF_Font* font;
-    SDL_Texture* label;
+    SDL_Texture* label{nullptr};
 protected:
     virtual void onRedraw(SDL_Renderer *renderer);
 public:
-    Button(int x, int y, int w, int h, std::string text, Callback callback);
+    Button(int x, int y, int w, int h, const std::string &text, Callback callback);
 
     virtual bool onClick(Point point, int button) override;
+
+    void setText(const std::string& text);
 };
 
 

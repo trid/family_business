@@ -9,6 +9,7 @@
 #include "GUI/ChoseCharacterDialog.h"
 #include "../House.h"
 #include "../Game.h"
+#include "GUI/CharacterPanel.h"
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
@@ -34,6 +35,8 @@ MainView::MainView() {
     hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
                                                                 addCharacterToParty);
     layout.addWidget(hireCharacterDialog);
+    WidgetPtr sidePanel{new CharacterPanel(650, 0, 150, 600, nullptr)};
+    layout.addWidget(sidePanel);
 
     addDrawable(mapView);
 }

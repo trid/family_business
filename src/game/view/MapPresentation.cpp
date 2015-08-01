@@ -25,7 +25,7 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
     GameMap& gameMap = Game::getInstance().getMap();
     Screen& screen = Screen::getInstance();
 
-    for (int x = -dx / 32; x < (-dx + screen.getWidth()) / 32 && x < gameMap.getWidth(); x++) {
+    for (int x = -dx / 32; x < (-dx + screen.getWidth() - 150) / 32 + 1 && x < gameMap.getWidth(); x++) {
         for (int y = -dy / 32; y < ((-dy + screen.getHeight()) / 32 + 1) && y < gameMap.getHeight(); y++) {
             SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
@@ -71,7 +71,7 @@ void MapPresentation::setDeltas(int dx, int dy) {
     }
     int mapWidth = Game::getInstance().getMap().getWidth();
     int mapHeight = Game::getInstance().getMap().getHeight();
-    int maxDx = -mapWidth * 32 + Screen::getInstance().getWidth();
+    int maxDx = -mapWidth * 32 + Screen::getInstance().getWidth() - 150;
     int maxDy = -mapHeight * 32 + Screen::getInstance().getHeight();
     if (this->dx <= maxDx) {
         this->dx = maxDx;

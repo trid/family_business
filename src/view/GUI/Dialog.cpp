@@ -11,7 +11,8 @@ void Dialog::addWidget(WidgetPtr widget) {
 }
 
 void Dialog::removeWidget(WidgetPtr widget) {
-    std::remove(begin(widgets), end(widgets), widget);
+    auto iter = std::remove(begin(widgets), end(widgets), widget);
+    widgets.erase(iter, widgets.end());
 }
 
 void Dialog::clearWidgets() {
