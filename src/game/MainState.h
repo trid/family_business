@@ -9,13 +9,20 @@
 #include "../State.h"
 #include "view/MainView.h"
 #include "view/GUI/CharacterPanel.h"
+#include "Movement.h"
 
 class MainState : public State {
     unsigned int lastTime{SDL_GetTicks()};
+    std::vector<MovementPtr> movement;
 
     class CharacterWinListener: public MessageListener {
     public:
         virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
+
+    class CharacterMovedListener: public MessageListener {
+    public:
+        virtual void onMessage(const MessageParameters &messageParameters);
     };
 public:
     MainState();

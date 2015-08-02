@@ -2,6 +2,8 @@
 // Created by TriD on 24.05.2015.
 //
 
+#include <algorithm>
+
 #include "MainState.h"
 #include "CharacterManager.h"
 #include "Game.h"
@@ -14,7 +16,10 @@ MainState::MainState() {
     ViewPtr view{new MainView()};
     setView(view);
     MessageListenerPtr listenerPtr{new CharacterWinListener};
-    MessageManager::getInstance().addListener("player_win", listenerPtr);
+    MessageListenerPtr movementListener{new CharacterMovedListener};
+    MessageManager &messageManager = MessageManager::getInstance();
+    messageManager.addListener("player_win", listenerPtr);
+    messageManager.addListener("character_moved", movementListener);
 }
 
 void MainState::onClick(const Point &point, int button) {
@@ -32,6 +37,12 @@ void MainState::run() {
     unsigned int delta = ticks - lastTime;
     lastTime = ticks;
     getView()->update(delta);
+
+    for (auto item: movement) {
+        item->update(delta);
+    }
+    auto iter = std::remove_if(movement.begin(), movement.end(), [](MovementPtr movementPtr){ return movementPtr->isFinished(); });
+    movement.erase(iter, movement.end());
 }
 
 void MainState::onKeyDown(int keyCode) {
@@ -48,8 +59,6 @@ void MainState::onKeyDown(int keyCode) {
         if (!playerParty) return;
         int posX = playerParty->getX();
         int posY = playerParty->getY();
-
-        gameMap.getTile(posX, posY).setParty(nullptr);
 
         switch (keyCode) {
             case SDLK_UP:
@@ -68,20 +77,12 @@ void MainState::onKeyDown(int keyCode) {
                 break;
         }
 
-        playerParty->setX(posX);
-        playerParty->setY(posY);
-
-        PartyPtr party = gameMap.getTile(posX, posY).getParty();
-        if (party && party->getSide() == Side::AI) {
-            Application::getInstance().pushState(StatePtr{new BattleState(playerParty, party)});
-            return;
+        if (!playerParty->isMoving()) {
+            MessageManager::getInstance().sendMessage("party_moving", MessageParameters());
+            MovementPtr movementPtr{new Movement{playerParty, {posX, posY}}};
+            movement.push_back(movementPtr);
+            playerParty->setMoving(true);
         }
-
-        gameMap.getTile(posX, posY).setParty(playerParty);
-        MessageParameters parameters;
-        parameters.setParameter("x", posX);
-        parameters.setParameter("y", posY);
-        MessageManager::getInstance().sendMessage("character_moved", parameters);
     }
     if (keyCode == SDLK_SPACE) {
         const HousePtr &house = gameMap.getTile(playerParty->getX(), playerParty->getY()).getHouse();
@@ -131,4 +132,24 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
         CharacterPtr characterPtr = game.getPlayerCharacter();
         characterPtr->addItem(ItemPtr{new Item(ItemType::Armor, 1)});
     }
+}
+
+void MainState::CharacterMovedListener::onMessage(const MessageParameters &messageParameters) {
+    Game& game = Game::getInstance();
+    GameMap &gameMap = game.getMap();
+    PartyPtr playerParty = game.getPlayerParty();
+
+    gameMap.getTile(playerParty->getX(), playerParty->getY()).setParty(nullptr);
+    int posX = messageParameters.getParameter("x").getInt();
+    playerParty->setX(posX);
+    int posY = messageParameters.getParameter("y").getInt();
+    playerParty->setY(posY);
+
+    PartyPtr party = gameMap.getTile(posX, posY).getParty();
+    if (party && party->getSide() == Side::AI) {
+        Application::getInstance().pushState(StatePtr{new BattleState(playerParty, party)});
+        return;
+    }
+
+    gameMap.getTile(posX, posY).setParty(playerParty);
 }

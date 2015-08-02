@@ -19,6 +19,8 @@ private:
     std::vector<CreaturePtr> creatures;
     Side side;
     int x, y;
+
+    bool moving{false};
 public:
     Party(Side side): side(side) {}
     bool addCreature(CreaturePtr creaturePtr);
@@ -30,6 +32,9 @@ public:
 
     const Side getSide() const { return side; }
     std::vector<CreaturePtr>& getCreatures() { return creatures; }
+
+    bool isMoving() const { return moving; }
+    void setMoving(bool moving) { Party::moving = moving; }
 };
 
 using PartyPtr = std::shared_ptr<Party>;
