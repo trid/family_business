@@ -11,7 +11,10 @@ using Generator = std::default_random_engine;
 using Distributor = std::uniform_int_distribution<int>;
 
 class Creature {
+friend class CreatureManager;
 private:
+    int id;
+
     int x, y;
     int hitPoints;
     int attack;
@@ -32,6 +35,9 @@ public:
     };
 
     Creature(int hitPoints, int attack, int speed) : hitPoints(hitPoints), attack(attack), speed(speed) { }
+    Creature(const Creature&) = delete;
+    Creature& operator=(const Creature&) = delete;
+
     virtual ~Creature() { }
 
     virtual Type type() = 0;
@@ -50,6 +56,8 @@ public:
 
     bool isAlive() { return alive; }
     void addExperience(int experience);
+
+    int getId() const { return id; }
 };
 
 

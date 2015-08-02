@@ -21,8 +21,6 @@ enum class Gender{Male, Female};
 
 
 class Character: public Creature {
-    int id;
-
     string name;
 
     string lastName;
@@ -36,8 +34,6 @@ class Character: public Creature {
     ItemPtr weapon{nullptr};
 public:
     Character(const string &name, const string &lastName, Gender gender, FamilyPtr family);
-
-    int getId() const { return id; }
 
     const string& getName() { return name; }
     const string& getLastName() { return lastName; }

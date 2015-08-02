@@ -14,19 +14,19 @@ void ChoseCharacterDialog::setUp(FamilyPtr familyPtr) {
 
     int i = 0;
 
-    if (familyPtr->getFather()->isAlive()) {
-        addWidget(WidgetPtr(new CharacterButton(0, 14, getWidth(), 30, familyPtr->getFather(), callback)));
+    if (familyPtr->getFather().isAlive()) {
+        addWidget(WidgetPtr(new CharacterButton(0, 14, getWidth(), 30, familyPtr->getFatherId(), callback)));
         ++i;
     }
-    if (familyPtr->getMother()->isAlive()) {
-        addWidget(WidgetPtr(new CharacterButton(0, i * 30 + 14, getWidth(), 30, familyPtr->getMother(), callback)));
+    if (familyPtr->getMother().isAlive()) {
+        addWidget(WidgetPtr(new CharacterButton(0, i * 30 + 14, getWidth(), 30, familyPtr->getMotherId(), callback)));
         ++i;
     }
 
     Children &children = familyPtr->getChildren();
 
     for (auto child: children) {
-        if (!child->isAlive()) {
+        if (!getCreatureById(child).isAlive()) {
             continue;
         }
         addWidget(WidgetPtr(

@@ -14,7 +14,6 @@
 class Character;
 
 using FamilyPtr = std::shared_ptr<Family>;
-using CharacterPtr = std::shared_ptr<Character>;
 
 class House {
 private:
@@ -22,7 +21,7 @@ private:
     int x, y;
     FamilyPtr family;
     Side side{Side::Player};
-    std::vector<CharacterPtr> inside;
+    std::vector<int> inside;
 public:
     House(int x, int y): x(x), y(y) { }
     House(int x, int y, Side side): x(x), y(y), side(side) { }
@@ -35,7 +34,7 @@ public:
     void setY(int y) { House::y = y; }
     const FamilyPtr &getFamily() const { return family; }
     void setFamily(const FamilyPtr &family);
-    std::vector<CharacterPtr>& getCharacters() { return inside; }
+    std::vector<int>& getCharacters() { return inside; }
     Side getSide() { return side; }
 };
 

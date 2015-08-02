@@ -8,8 +8,8 @@
 void House::setFamily(const FamilyPtr &family) {
     House::family = family;
 
-    inside.push_back(family->getFather());
-    inside.push_back(family->getMother());
+    inside.push_back(family->getFatherId());
+    inside.push_back(family->getMotherId());
 
     for (auto character: family->getChildren()) {
         inside.push_back(character);

@@ -11,19 +11,19 @@
 #include "../../../view/GUI/Widget.h"
 #include "../../CharacterManager.h"
 
-using CharacterBtnCallback = std::function<void(CharacterPtr)>;
+using CharacterBtnCallback = std::function<void(int)>;
 
 class CharacterButton: public Widget {
 private:
     SDL_Texture* label;
     TTF_Font* font;
 
-    CharacterPtr character;
+    int characterId;
     CharacterBtnCallback callback;
 protected:
     virtual void onRedraw(SDL_Renderer *renderer) override;
 public:
-    CharacterButton(int x, int y, int w, int h, CharacterPtr character, CharacterBtnCallback callback);
+    CharacterButton(int x, int y, int w, int h, int characterId, CharacterBtnCallback callback);
 
     virtual bool onClick(Point point, int button) override;
 };

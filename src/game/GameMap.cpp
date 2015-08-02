@@ -25,8 +25,7 @@ GameMap::GameMap() {
 
     //Set monster five tiles on north or five tiles on south of house
     PartyPtr monsterParty{new Party(Side::AI)};
-    CreaturePtr creature{new Monster()};
-    monsterParty->addCreature(creature);
+    monsterParty->addCreature(CreatureManager::getInstance().createMonster());
     HousePtr housePtr{new House(housePosX, 0, Side::AI)};
     monsterParty->setX(housePosX);
     if (housePosY - 5 >= 0) {

@@ -9,10 +9,11 @@
 #include "CharacterManager.h"
 #include "GameMap.h"
 #include "Party.h"
+#include "CreatureManager.h"
 
 class Game {
 private:
-    CharacterPtr playerCharacter;
+    int playerCharacter;
     HousePtr housePtr;
     GameMap gameMap;
     PartyPtr playerParty{new Party(Side::Player)};
@@ -27,10 +28,10 @@ public:
 
     GameMap &getMap() { return gameMap; }
 
-    CharacterPtr getPlayerCharacter() const { return playerCharacter; }
+    Character& getPlayerCharacter() const { return static_cast<Character&>(getCreatureById(playerCharacter)); }
     PartyPtr getPlayerParty() { return playerParty; }
 
-    void setPlayerCharacter(CharacterPtr playerCharacter) {
+    void setPlayerCharacter(int playerCharacter) {
         Game::playerCharacter = playerCharacter;
         playerParty->addCreature(playerCharacter);
     }

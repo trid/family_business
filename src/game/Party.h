@@ -12,16 +12,15 @@
 
 #include "Creature.h"
 
-using CreaturePtr = std::shared_ptr<Creature>;
 
 class Party {
 private:
-    std::vector<CreaturePtr> creatures;
+    std::vector<int> creatureIds;
     Side side;
     int x, y;
 public:
     Party(Side side): side(side) {}
-    bool addCreature(CreaturePtr creaturePtr);
+    bool addCreature(int creaturePtr);
 
     int getX() const { return x; }
     void setX(int x) { Party::x = x; }
@@ -29,7 +28,7 @@ public:
     void setY(int y) { Party::y = y; }
 
     const Side getSide() const { return side; }
-    std::vector<CreaturePtr>& getCreatures() { return creatures; }
+    std::vector<int>& getCreatures() { return creatureIds; }
 };
 
 using PartyPtr = std::shared_ptr<Party>;
