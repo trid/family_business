@@ -4,33 +4,41 @@
 
 #include "CharacterManager.h"
 #include "Character.h"
+#include "CreatureManager.h"
 
 #include <fstream>
 #include <ctime>
 
-CharacterPtr CharacterManager::addCharacter(Gender gender, FamilyPtr family) {
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(
+int CharacterManager::addCharacter(Gender gender, FamilyPtr family) {
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    std::unique_ptr<Creature> character = std::unique_ptr<Character>(
             new Character(name, lastNames[lastNamesRNG(generator)], gender,
                           family));
+    return CreatureManager::getInstance().registerCreature(character);
 }
 
-CharacterPtr CharacterManager::addCharacter(const string &lastName, FamilyPtr family) {
+int CharacterManager::addCharacter(const string &lastName, FamilyPtr family) {
     Gender gender = genderRNG(generator) ? Gender::Male : Gender::Female;
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(new Character(name, lastName, gender, family));
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, family));
+    return CreatureManager::getInstance().registerCreature(character);
 }
 
-CharacterPtr CharacterManager::addCharacter(const CharacterPtr mother, CharacterPtr father) {
+int CharacterManager::addCharacter(const CharacterPtr mother, CharacterPtr father) {
     Gender gender = genderRNG(generator) ? Gender::Male : Gender::Female;
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(new Character(name, father->getLastName(), gender, father->getFamily()));
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, father->getLastName(), gender, father->getFamily()));
+    return CreatureManager::getInstance().registerCreature(character);
 }
 
-CharacterPtr CharacterManager::addCharacter(const string &lastName, Gender gender, FamilyPtr family) {
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(
-            new Character(name, lastName, gender, family));
+int CharacterManager::addCharacter(const string &lastName, Gender gender, FamilyPtr family) {
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, family));
+    return CreatureManager::getInstance().registerCreature(character);
 }
 
 CharacterManager::CharacterManager() {

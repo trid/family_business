@@ -17,7 +17,7 @@ private:
     const BattleCreatureParty &enemyParty;
     std::shared_ptr<BattleCreature> target;
 public:
-    BattleCreatureAI(const CreaturePtr &creature, const BattleCreatureParty &enemies) : BattleCreature(creature),
+    BattleCreatureAI(const int creature, const BattleCreatureParty &enemies) : BattleCreature(creature),
                                                                                         enemyParty(enemies) { }
     const std::shared_ptr<BattleCreature> &getTarget() const { return target; }
     void setTarget(const std::shared_ptr<BattleCreature> &target) { BattleCreatureAI::target = target; }

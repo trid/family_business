@@ -8,23 +8,22 @@
 #include <memory>
 
 #include "../Point.h"
-#include "../game/Creature.h"
+#include "../game/CreatureManager.h"
 
-using CreaturePtr = std::shared_ptr<Creature>;
 
 class BattleCreature {
 private:
     int currentHp;
     Point position;
     int steps{0};
-    CreaturePtr creaturePtr;
+    int creatureId;
 public:
-    BattleCreature(CreaturePtr creature);
+    BattleCreature(int creature);
 
-    int getSpeed() { return creaturePtr->getSpeed(); }
-    int getAttack() { return creaturePtr->getAttack(); }
+    int getSpeed() { return getCreature().getSpeed(); }
+    int getAttack() { return getCreature().getAttack(); }
 
-    Creature::Type getType() { return creaturePtr->type(); }
+    Creature::Type getType() { return getCreature().type(); }
     const Point &getPosition() const { return position; }
     void setPosition(const Point &position) { BattleCreature::position = position; }
     int getSteps() const { return steps; }
@@ -34,7 +33,8 @@ public:
 
     void takeDamage(int damage);
     bool isDead() { return currentHp == 0; }
-    CreaturePtr getCreature() { return creaturePtr; }
+    Creature& getCreature() { return CreatureManager::getInstance().getCreatureById(creatureId); }
+    int getCreatureId() { return creatureId; }
 };
 
 using BattleCreaturePtr = std::shared_ptr<BattleCreature>;

@@ -10,16 +10,17 @@ FamilyManager::FamilyManager() {
     CharacterManager& characterManager = CharacterManager::getInstance();
 
     for (int i = 0; i < 3; i++) {
-        CharacterPtr father = characterManager.addCharacter(Gender::Male, (std::shared_ptr<Family>()));
-        father->addExperience(100);
-        CharacterPtr mother = characterManager.addCharacter(father->getLastName(), Gender::Female,
+        int fatherId = characterManager.addCharacter(Gender::Male, (std::shared_ptr<Family>()));
+        Character& father = static_cast<Character&>(getCreatureById(fatherId));
+        father.addExperience(100);
+        int motherId = characterManager.addCharacter(father.getLastName(), Gender::Female,
                                                             (std::shared_ptr<Family>()));
-        mother->addExperience(100);
+        getCreatureById(motherId).addExperience(100);
         Children children;
         for (int j = 0; j < 3; j++) {
-            children.push_back(characterManager.addCharacter(father->getLastName(), (std::shared_ptr<Family>())));
+            children.push_back(characterManager.addCharacter(father.getLastName(), (std::shared_ptr<Family>())));
         }
-        FamilyPtr family{new Family(father, mother, children)};
+        FamilyPtr family{new Family(fatherId, motherId, children)};
         families.push_back(family);
     }
 }

@@ -25,11 +25,11 @@ MainView::MainView() {
     layout.addWidget(familyDialogWidget);
     choseCharacterDialog = ChoseCharacterDialogPtr{
             new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
-                                     [this](CharacterPtr characterPtr) { choseCharacter(characterPtr); })};
+                                     [this](int characterId) { choseCharacter(characterId); })};
     layout.addWidget(choseCharacterDialog);
 
-    auto addCharacterToParty = [this](CharacterPtr characterPtr) {
-        this->addCharacterToParty(characterPtr, {});
+    auto addCharacterToParty = [this](int characterId) {
+        this->addCharacterToParty(characterId, {});
     };
 
     hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
@@ -47,10 +47,10 @@ void MainView::showFamilyDialog(FamilyPtr familyPtr) {
     choseCharacterDialog->show();
 }
 
-void MainView::choseCharacter(CharacterPtr characterPtr) {
+void MainView::choseCharacter(int characterId) {
     choseCharacterDialog->hide();
     Game &game = Game::getInstance();
-    game.setPlayerCharacter(characterPtr);
+    game.setPlayerCharacter(characterId);
     GameMap &gameMap = game.getMap();
     int posX = gameMap.getHousePosX();
     int posY = gameMap.getHousePosY();
@@ -84,17 +84,17 @@ void MainView::centerOnCharacter() {
 }
 
 void MainView::showHireDialog(HousePtr housePtr) {
-    auto addCharacterToParty = [this, housePtr](CharacterPtr characterPtr) {
-        this->addCharacterToParty(characterPtr, housePtr);
+    auto addCharacterToParty = [this, housePtr](int character) {
+        this->addCharacterToParty(character, housePtr);
     };
     hireCharacterDialog->setCallback(addCharacterToParty);
     hireCharacterDialog->setUp(housePtr);
     hireCharacterDialog->show();
 }
 
-void MainView::addCharacterToParty(CharacterPtr characterPtr, HousePtr housePtr) {
+void MainView::addCharacterToParty(int characterPtr, HousePtr housePtr) {
     if (Game::getInstance().getPlayerParty()->addCreature(characterPtr)) {
-        std::vector<CharacterPtr> &characters = housePtr->getCharacters();
+        std::vector<int>& characters = housePtr->getCharacters();
         auto iter = std::remove(characters.begin(), characters.end(), characterPtr);
         characters.erase(iter, characters.end());
     }

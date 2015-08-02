@@ -42,10 +42,10 @@ public:
         return instance;
     }
 
-    CharacterPtr addCharacter(Gender gender, FamilyPtr family);
-    CharacterPtr addCharacter(const string &lastName, FamilyPtr family);
-    CharacterPtr addCharacter(const CharacterPtr mother, CharacterPtr father);
-    CharacterPtr addCharacter(const string &lastName, Gender gender, FamilyPtr family);
+    int addCharacter(Gender gender, FamilyPtr family);
+    int addCharacter(const string &lastName, FamilyPtr family);
+    int addCharacter(const CharacterPtr mother, CharacterPtr father);
+    int addCharacter(const string &lastName, Gender gender, FamilyPtr family);
 };
 
 

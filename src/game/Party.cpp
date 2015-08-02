@@ -4,10 +4,10 @@
 
 #include "Party.h"
 
-bool Party::addCreature(CreaturePtr creaturePtr) {
-    if (creatures.size() >= 10) {
+bool Party::addCreature(int creaturePtr) {
+    if (creatureIds.size() >= 10) {
         return false;
     }
-    creatures.push_back(creaturePtr);
+    creatureIds.push_back(creaturePtr);
     return true;
 }

@@ -14,9 +14,9 @@ void HireCharacterDialog::setUp(HousePtr housePtr) {
     auto &characters = housePtr->getCharacters();
 
     int i = 0;
-    for (auto character: characters) {
-        if (character->isAlive()) {
-            WidgetPtr button{new CharacterButton(0, i * 30 + 14, getWidth(), 30, character, callback)};
+    for (auto characterId: characters) {
+        if (getCreatureById(characterId).isAlive()) {
+            WidgetPtr button{new CharacterButton(0, i * 30 + 14, getWidth(), 30, characterId, callback)};
             addWidget(button);
             i++;
         }

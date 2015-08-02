@@ -10,9 +10,6 @@
 #include "House.h"
 #include "Party.h"
 
-class Creature;
-using CreaturePtr = std::shared_ptr<Creature>;
-
 class Tile {
 private:
     HousePtr housePtr{nullptr};

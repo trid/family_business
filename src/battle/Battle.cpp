@@ -10,6 +10,7 @@
 #include "BattleCreatureAI.h"
 #include "../MessageManager.h"
 #include "../game/Family.h"
+#include "../game/CreatureManager.h"
 
 void Battle::updateTurns() {
     auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });
@@ -79,10 +80,11 @@ void Battle::makeTurn() {
 }
 
 Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
-    std::vector<CreaturePtr> &leftCreatures = first->getCreatures();
+    std::vector<int> &leftCreatures = first->getCreatures();
     for (int i = 0; i < leftCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
-        if (leftCreatures[i]->type() == Creature::Type::Character) {
+        Creature& leftCreature = CreatureManager::getInstance().getCreatureById(leftCreatures[i]);
+        if (leftCreature.type() == Creature::Type::Character) {
             battleCreaturePtr = std::make_shared<BattleCreature>(leftCreatures[i]);
         }
         else {
@@ -94,10 +96,11 @@ Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
         turns.push_back(battleCreaturePtr);
     }
 
-    std::vector<CreaturePtr> &rightCreatures = second->getCreatures();
+    std::vector<int> &rightCreatures = second->getCreatures();
     for (int i = 0; i < rightCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
-        if (rightCreatures[i]->type() == Creature::Type::Character) {
+        Creature& rightCreature = CreatureManager::getInstance().getCreatureById(rightCreatures[i]);
+        if (rightCreature.type() == Creature::Type::Character) {
             battleCreaturePtr = std::make_shared<BattleCreature>(rightCreatures[i]);
         }
         else {
@@ -117,10 +120,10 @@ void Battle::makeAttack(Point targetPosition) {
     BattleCreaturePtr targetCreature = battleMap.getTile(targetPosition.x, targetPosition.y).getCreature();
     if (targetCreature) {
         BattleCreaturePtr currentCreature = (*current);
-        Character* character = static_cast<Character*>(currentCreature->getCreature().get());
+        Character& character = static_cast<Character&>(currentCreature->getCreature());
         Point distanceVec = targetCreature->getPosition() - currentCreature->getPosition();
         int distance = abs(distanceVec.x) + abs(distanceVec.y);
-        if (character->getWeapon() || distance == 1) {
+        if (character.getWeapon() || distance == 1) {
             targetCreature->takeDamage(currentCreature->getAttack());
             nextCreature();
         }
@@ -149,7 +152,7 @@ bool Battle::isFinished() {
 
         for (auto character: left) {
             if (!character->isDead()) {
-                character->getCreature()->addExperience(share);
+                character->getCreature().addExperience(share);
             }
         }
 

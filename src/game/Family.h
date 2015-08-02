@@ -10,33 +10,44 @@
 #include <vector>
 
 #include "Character.h"
+#include "CreatureManager.h"
 
 class Character;
+
 class House;
 
 using CharacterPtr = std::shared_ptr<Character>;
-using Children = std::vector<CharacterPtr>;
+using Children = std::vector<int>;
 using HousePtr = std::shared_ptr<House>;
 
 class Family {
-    CharacterPtr father;
-    CharacterPtr mother;
+    int id;
+
+    int father;
+    int mother;
     Children children;
 
     HousePtr home;
 
     std::string lastName;
 public:
-    Family(CharacterPtr father, CharacterPtr &mother, Children &children) : father(father),
-                                                                            mother(mother),
-                                                                            children(std::move(children)) { }
-    const std::string& getLastName() { return father->getLastName(); }
-    CharacterPtr getFather() { return father; }
-    CharacterPtr getMother() { return mother; }
-    Children& getChildren() { return children; }
+    Family(int father, int &mother, Children &children) : father(father),
+                                                          mother(mother),
+                                                          children(std::move(children)) { }
+
+    const std::string &getLastName() { return static_cast<Character&>(getCreatureById(father)).getLastName(); }
+
+    Character& getFather() { return static_cast<Character&>(getCreatureById(father)); }
+    int getFatherId() { return father; }
+    Character& getMother() { return static_cast<Character&>(getCreatureById(mother)); }
+    int getMotherId() { return mother; }
+    Children &getChildren() { return children; }
 
     const HousePtr &getHome() const { return home; }
+
     void setHome(HousePtr home) { Family::home = home; }
+
+    int getId() const { return id; }
 };
 
 using FamilyPtr = std::shared_ptr<Family>;

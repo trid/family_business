@@ -117,7 +117,7 @@ void MainState::battleMonsters() {
     /*partyPtr->addCreature(std::make_shared<Monster>());
     partyPtr->addCreature(std::make_shared<Monster>());
     partyPtr->addCreature(std::make_shared<Monster>());*/
-    partyPtr->addCreature(std::make_shared<Monster>());
+    partyPtr->addCreature(CreatureManager::getInstance().createMonster());
 
     Application::getInstance().pushState(std::make_shared<BattleState>(Game::getInstance().getPlayerParty(), partyPtr));
 }
@@ -129,8 +129,8 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
     HousePtr housePtr = gameMap.getTile(partyPtr->getX(), partyPtr->getY()).getHouse();
 
     if (housePtr && housePtr->getSide() == Side::AI) {
-        CharacterPtr characterPtr = game.getPlayerCharacter();
-        characterPtr->addItem(ItemPtr{new Item(ItemType::Armor, 1)});
+        Character& character = game.getPlayerCharacter();
+        character.addItem(ItemPtr{new Item(ItemType::Armor, 1)});
     }
 }
 

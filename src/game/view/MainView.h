@@ -21,7 +21,7 @@ class MainView : public View {
     DrawablePtr mapView{new MapPresentation};
 
     void showFamilyDialog(FamilyPtr familyPtr);
-    void choseCharacter(CharacterPtr characterPtr);
+    void choseCharacter(int characterId);
     void centerOnCharacter();
 
     int dx{}, dy{};
@@ -36,7 +36,7 @@ public:
 
     void showHireDialog(HousePtr housePtr);
 
-    void addCharacterToParty(CharacterPtr shared_ptr, HousePtr housePtr);
+    void addCharacterToParty(int shared_ptr, HousePtr housePtr);
 };
 
 
