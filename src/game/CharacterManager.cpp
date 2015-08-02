@@ -9,28 +9,40 @@
 #include <ctime>
 
 CharacterPtr CharacterManager::addCharacter(Gender gender, FamilyPtr family) {
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    const std::shared_ptr<Character> character = std::shared_ptr<Character>(
             new Character(name, lastNames[lastNamesRNG(generator)], gender,
                           family));
+    characters.push_back(character);
+    return character;
 }
 
 CharacterPtr CharacterManager::addCharacter(const string &lastName, FamilyPtr family) {
     Gender gender = genderRNG(generator) ? Gender::Male : Gender::Female;
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(new Character(name, lastName, gender, family));
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    const std::shared_ptr<Character> character = std::shared_ptr<Character>(new Character(name, lastName, gender, family));
+    characters.push_back(character);
+    return character;
 }
 
 CharacterPtr CharacterManager::addCharacter(const CharacterPtr mother, CharacterPtr father) {
     Gender gender = genderRNG(generator) ? Gender::Male : Gender::Female;
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(new Character(name, father->getLastName(), gender, father->getFamily()));
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    const std::shared_ptr<Character> character = std::shared_ptr<Character>(new Character(name, father->getLastName(), gender, father->getFamily()));
+    characters.push_back(character);
+    return character;
 }
 
 CharacterPtr CharacterManager::addCharacter(const string &lastName, Gender gender, FamilyPtr family) {
-    std::string &name = gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    return std::shared_ptr<Character>(
-            new Character(name, lastName, gender, family));
+    std::string &name =
+            gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
+    const std::shared_ptr<Character> character = std::shared_ptr<Character>(
+                new Character(name, lastName, gender, family));
+    characters.push_back(character);
+    return character;
 }
 
 CharacterManager::CharacterManager() {

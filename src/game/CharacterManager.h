@@ -36,6 +36,8 @@ private:
     Distributor femaleNamesRNG;
     Distributor lastNamesRNG;
     Distributor genderRNG;
+
+    Characters characters;
 public:
     static CharacterManager& getInstance(){
         static CharacterManager instance;
@@ -46,6 +48,8 @@ public:
     CharacterPtr addCharacter(const string &lastName, FamilyPtr family);
     CharacterPtr addCharacter(const CharacterPtr mother, CharacterPtr father);
     CharacterPtr addCharacter(const string &lastName, Gender gender, FamilyPtr family);
+
+    Character& getCharacterById(int id) { return *characters[id]; }
 };
 
 
