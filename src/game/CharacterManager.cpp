@@ -9,32 +9,34 @@
 #include <fstream>
 #include <ctime>
 
-int CharacterManager::addCharacter(Gender gender, FamilyPtr family) {
+int CharacterManager::addCharacter(Gender gender, int familyId) {
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
     std::unique_ptr<Creature> character = std::unique_ptr<Character>(
             new Character(name, lastNames[lastNamesRNG(generator)], gender,
-                          family));
+                          familyId));
     return CreatureManager::getInstance().registerCreature(character);
 }
 
-int CharacterManager::addCharacter(const string &lastName, FamilyPtr family) {
+int CharacterManager::addCharacter(const string &lastName, int familyId) {
     Gender gender = genderRNG(generator) ? Gender::Male : Gender::Female;
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, family));
+    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, familyId));
     return CreatureManager::getInstance().registerCreature(character);
 }
 
-int CharacterManager::addCharacter(const CharacterPtr mother, CharacterPtr father) {
+int CharacterManager::addCharacter(int motherId, int fatherId) {
     Gender gender = genderRNG(generator) ? Gender::Male : Gender::Female;
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
-    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, father->getLastName(), gender, father->getFamily()));
+    Character& father = static_cast<Character&>(getCreatureById(fatherId));
+    std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, father.getLastName(), gender,
+                                                                                   father.getFamilyId()));
     return CreatureManager::getInstance().registerCreature(character);
 }
 
-int CharacterManager::addCharacter(const string &lastName, Gender gender, FamilyPtr family) {
+int CharacterManager::addCharacter(const string &lastName, Gender gender, int family) {
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
     std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, family));

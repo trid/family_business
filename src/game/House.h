@@ -13,13 +13,11 @@
 
 class Character;
 
-using FamilyPtr = std::shared_ptr<Family>;
-
 class House {
 private:
     int id;
     int x, y;
-    FamilyPtr family;
+    int familyId;
     Side side{Side::Player};
     std::vector<int> inside;
 public:
@@ -32,8 +30,8 @@ public:
     void setX(int x) { House::x = x; }
     int getY() const { return y; }
     void setY(int y) { House::y = y; }
-    const FamilyPtr &getFamily() const { return family; }
-    void setFamily(const FamilyPtr &family);
+    const int getFamily() const { return familyId; }
+    void setFamily(int familyId);
     std::vector<int>& getCharacters() { return inside; }
     Side getSide() { return side; }
 };

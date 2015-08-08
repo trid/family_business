@@ -12,11 +12,9 @@
 #include "Character.h"
 #include "CreatureManager.h"
 
-class Character;
 
 class House;
 
-using CharacterPtr = std::shared_ptr<Character>;
 using Children = std::vector<int>;
 using HousePtr = std::shared_ptr<House>;
 
@@ -31,7 +29,7 @@ class Family {
 
     std::string lastName;
 public:
-    Family(int father, int &mother, Children &children) : father(father),
+    Family(int id, int father, int &mother, Children &children) : id(id), father(father),
                                                           mother(mother),
                                                           children(std::move(children)) { }
 
@@ -49,7 +47,5 @@ public:
 
     int getId() const { return id; }
 };
-
-using FamilyPtr = std::shared_ptr<Family>;
 
 #endif //FAMILY_BUSINESS_FAMILY_H

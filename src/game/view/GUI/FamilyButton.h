@@ -12,15 +12,12 @@
 
 #include "../../../view/GUI/Widget.h"
 
-class Family;
-class MainView;
 
-using FamilyPtr = std::shared_ptr<Family>;
-using Callback = std::function<void(FamilyPtr)>;
+using Callback = std::function<void(int)>;
 
 class FamilyButton: public Widget {
 private:
-    FamilyPtr family;
+    int familyId;
     Callback callback;
 
     SDL_Texture* label;
@@ -28,7 +25,7 @@ private:
 protected:
     virtual void onRedraw(SDL_Renderer *renderer) override;
 public:
-    FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, Callback callback);
+    FamilyButton(int x, int y, int w, int h, int familyId, Callback callback);
     virtual ~FamilyButton();
 
     virtual bool onClick(Point point, int button) override;

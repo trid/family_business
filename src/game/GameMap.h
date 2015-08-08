@@ -30,7 +30,7 @@ public:
     int getHousePosX() { return village.getCenter().x; }
     int getHousePosY() { return village.getCenter().y; }
 
-    void createHouse(FamilyPtr familyPtr);
+    void createHouse(int familyId);
 };
 
 

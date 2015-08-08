@@ -14,11 +14,6 @@
 
 using std::string;
 
-class Character;
-
-using CharacterPtr = std::shared_ptr<Character>;
-using Characters = std::vector<CharacterPtr>;
-
 using Generator = std::default_random_engine;
 using Distributor = std::uniform_int_distribution<int>;
 
@@ -42,10 +37,10 @@ public:
         return instance;
     }
 
-    int addCharacter(Gender gender, FamilyPtr family);
-    int addCharacter(const string &lastName, FamilyPtr family);
-    int addCharacter(const CharacterPtr mother, CharacterPtr father);
-    int addCharacter(const string &lastName, Gender gender, FamilyPtr family);
+    int addCharacter(Gender gender, int familyId);
+    int addCharacter(const string &lastName, int familyId);
+    int addCharacter(int mother, int father);
+    int addCharacter(const string &lastName, Gender gender, int family);
 };
 
 

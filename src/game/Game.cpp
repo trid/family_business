@@ -8,7 +8,7 @@
 Game::Game() {
     const Families& families = FamilyManager::getInstance().getFamilies();
 
-    for (auto family: families) {
-        gameMap.createHouse(family);
+    for (auto& family: families) {
+        gameMap.createHouse(family->getId());
     }
 }

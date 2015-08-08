@@ -18,7 +18,7 @@ public:
     ChoseCharacterDialog(int x, int y, int w, int h, UILayout &layout,
                                                    CharacterBtnCallback callback);
 
-    void setUp(FamilyPtr familyPtr);
+    void setUp(int familyId);
 };
 
 using ChoseCharacterDialogPtr = std::shared_ptr<ChoseCharacterDialog>;

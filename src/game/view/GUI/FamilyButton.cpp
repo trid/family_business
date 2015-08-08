@@ -7,13 +7,14 @@
 #include "../../Family.h"
 #include "../../../view/Screen.h"
 #include "../../../view/GUI/FontsCache.h"
+#include "../../FamilyManager.h"
 
-FamilyButton::FamilyButton(int x, int y, int w, int h, const FamilyPtr &family, Callback callback) : Widget(x, y, w, h),
-                                                                                                     family(family),
+FamilyButton::FamilyButton(int x, int y, int w, int h, int familyId, Callback callback) : Widget(x, y, w, h),
+                                                                                                     familyId(familyId),
                                                                                                      callback(
                                                                                                              callback) {
     font = FontsCache::getInstance().getFont("res/fonts/FreeMono.ttf", 16);
-    SDL_Surface *surface = TTF_RenderText_Solid(font, family->getLastName().c_str(), SDL_Color{0, 0, 0, 255});
+    SDL_Surface *surface = TTF_RenderText_Solid(font, getFamilyById(familyId).getLastName().c_str(), SDL_Color{0, 0, 0, 255});
     label = SDL_CreateTextureFromSurface(Screen::getInstance().getRenderer(), surface);
     SDL_FreeSurface(surface);
 }
@@ -24,7 +25,7 @@ FamilyButton::~FamilyButton() {
 
 bool FamilyButton::onClick(Point point, int button) {
     if (Widget::onClick(point, button)) {
-        callback(family);
+        callback(familyId);
         return true;
     }
     return false;

@@ -6,24 +6,27 @@
 #include "CharacterButton.h"
 #include "../../../view/Screen.h"
 #include "../../../view/GUI/Label.h"
+#include "../../FamilyManager.h"
 
-void ChoseCharacterDialog::setUp(FamilyPtr familyPtr) {
+void ChoseCharacterDialog::setUp(int familyId) {
     clearWidgets();
 
     addWidget(label);
 
     int i = 0;
 
-    if (familyPtr->getFather().isAlive()) {
-        addWidget(WidgetPtr(new CharacterButton(0, 14, getWidth(), 30, familyPtr->getFatherId(), callback)));
+    Family& family = getFamilyById(familyId);
+
+    if (family.getFather().isAlive()) {
+        addWidget(WidgetPtr(new CharacterButton(0, 14, getWidth(), 30, family.getFatherId(), callback)));
         ++i;
     }
-    if (familyPtr->getMother().isAlive()) {
-        addWidget(WidgetPtr(new CharacterButton(0, i * 30 + 14, getWidth(), 30, familyPtr->getMotherId(), callback)));
+    if (family.getMother().isAlive()) {
+        addWidget(WidgetPtr(new CharacterButton(0, i * 30 + 14, getWidth(), 30, family.getMotherId(), callback)));
         ++i;
     }
 
-    Children &children = familyPtr->getChildren();
+    Children &children = family.getChildren();
 
     for (auto child: children) {
         if (!getCreatureById(child).isAlive()) {

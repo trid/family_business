@@ -5,6 +5,7 @@
 #include "GameMap.h"
 #include "Game.h"
 #include "Monster.h"
+#include "FamilyManager.h"
 
 #include <ctime>
 #include <random>
@@ -41,7 +42,7 @@ GameMap::GameMap() {
     mapData[housePtr->getX()][housePtr->getY()].setHouse(housePtr);
 }
 
-void GameMap::createHouse(FamilyPtr familyPtr) {
+void GameMap::createHouse(int familyId) {
     auto pointHash = [this](const Point& point) { return point.y * width + point.x; };
 
     std::unordered_set<Point, decltype(pointHash)> queuedTiles(0, pointHash);
@@ -54,9 +55,9 @@ void GameMap::createHouse(FamilyPtr familyPtr) {
         const Point& point = *queuedTiles.begin();
         if (!mapData[point.x][point.y].getHouse()) {
             const std::shared_ptr<House> &housePtr = std::make_shared<House>(point.x, point.y);
-            housePtr->setFamily(familyPtr);
+            housePtr->setFamily(familyId);
             mapData[point.x][point.y].setHouse(housePtr);
-            familyPtr->setHome(housePtr);
+            getFamilyById(familyId).setHome(housePtr);
             break;
         }
         usedTiles.insert(point);

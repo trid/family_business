@@ -21,7 +21,7 @@ class MainView : public View {
 
     DrawablePtr mapView{new MapPresentation};
 
-    void showFamilyDialog(FamilyPtr familyPtr);
+    void showFamilyDialog(int familyId);
     void choseCharacter(int characterId);
     void centerOnCharacter();
 

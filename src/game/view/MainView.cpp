@@ -21,7 +21,7 @@ void MainView::draw(SDL_Renderer *renderer) {
 MainView::MainView() {
     UILayout &layout = getLayout();
     ChoseFamilyDialog *dialog = new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0, layout,
-                                                      [this](FamilyPtr familyPtr) { showFamilyDialog(familyPtr); });
+                                                      [this](int familyId) { showFamilyDialog(familyId); });
     familyDialogWidget = WidgetPtr{dialog};
     dialog->setUp();
     dialog->show();
@@ -51,9 +51,9 @@ MainView::MainView() {
     messageManager.addListener("party_moving", std::make_shared<CharacterMovingListener>(*this));
 }
 
-void MainView::showFamilyDialog(FamilyPtr familyPtr) {
+void MainView::showFamilyDialog(int familyId) {
     familyDialogWidget->hide();
-    choseCharacterDialog->setUp(familyPtr);
+    choseCharacterDialog->setUp(familyId);
     choseCharacterDialog->show();
 }
 

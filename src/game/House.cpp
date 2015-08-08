@@ -4,14 +4,16 @@
 
 #include "Family.h"
 #include "House.h"
+#include "FamilyManager.h"
 
-void House::setFamily(const FamilyPtr &family) {
-    House::family = family;
+void House::setFamily(int familyId) {
+    House::familyId = familyId;
+    Family& family = getFamilyById(familyId);
 
-    inside.push_back(family->getFatherId());
-    inside.push_back(family->getMotherId());
+    inside.push_back(family.getFatherId());
+    inside.push_back(family.getMotherId());
 
-    for (auto character: family->getChildren()) {
+    for (auto character: family.getChildren()) {
         inside.push_back(character);
     }
 }

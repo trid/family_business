@@ -4,9 +4,9 @@
 
 #include "Character.h"
 
-Character::Character(const string &name, const string &lastName, Gender gender, FamilyPtr family) :
+Character::Character(const string &name, const string &lastName, Gender gender, int familyId) :
     Creature(15, 5, 6),
-    name(name), lastName(lastName), gender(gender), familyPtr(family)
+    name(name), lastName(lastName), gender(gender), familyId(familyId)
 {
     ItemPtr weapon{new Item{ItemType::Weapon, 1}};
     addItem(weapon);

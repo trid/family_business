@@ -22,7 +22,7 @@ void ChoseFamilyDialog::setUp() {
     int y = (Screen::getInstance().getHeight() - height) / 2;
 
     for (int i = 0; i < families.size(); i++) {
-        WidgetPtr button{new FamilyButton(0, i * buttonHeight + 14, getWidth(), buttonHeight, families[i], callback)};
+        WidgetPtr button{new FamilyButton(0, i * buttonHeight + 14, getWidth(), buttonHeight, families[i]->getId(), callback)};
         addWidget(button);
     }
 }
