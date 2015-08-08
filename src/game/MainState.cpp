@@ -78,7 +78,10 @@ void MainState::onKeyDown(int keyCode) {
         }
 
         if (!playerParty->isMoving()) {
-            MessageManager::getInstance().sendMessage("party_moving", MessageParameters());
+            MessageParameters parameters;
+            parameters.setParameter("dx", posX - playerParty->getX());
+            parameters.setParameter("dy", posY - playerParty->getY());
+            MessageManager::getInstance().sendMessage("party_moving", parameters);
             MovementPtr movementPtr{new Movement{playerParty, {posX, posY}}};
             movement.push_back(movementPtr);
             playerParty->setMoving(true);

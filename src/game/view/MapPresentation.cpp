@@ -34,11 +34,7 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             }
             PartyPtr party = gameMap.getTile(x, y).getParty();
             if (party) {
-                if (party->getSide() == Side::Player) {
-                    SDL_Rect playerDst{x * 32 + dx, y * 32 + dy - 28, 32, 60};
-                    SDL_RenderCopy(renderer, character, nullptr, &playerDst);
-                }
-                else {
+                if (party->getSide() == Side::AI) {
                     SDL_RenderCopy(renderer, monster, nullptr, &dst);
                 }
             }
@@ -54,7 +50,7 @@ void MapPresentation::CharacterMoveListener::onMessage(const MessageParameters &
     int x = messageParameters.getParameter("x").getInt();
     int y = messageParameters.getParameter("y").getInt();
 
-    int dx = -x * 32 - 16 + Screen::getInstance().getWidth() / 2;
+    int dx = -x * 32 - 16 + (Screen::getInstance().getWidth() - 150) / 2;
     int dy = -y * 32 - 16 + Screen::getInstance().getHeight() / 2;
 
     mapPresentation.setDeltas(dx, dy);

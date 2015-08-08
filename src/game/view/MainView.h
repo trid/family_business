@@ -11,6 +11,7 @@
 #include "GUI/ChoseCharacterDialog.h"
 #include "MapPresentation.h"
 #include "GUI/HireCharacterDialog.h"
+#include "../../view/Image.h"
 
 
 class MainView : public View {
@@ -25,6 +26,24 @@ class MainView : public View {
     void centerOnCharacter();
 
     int dx{}, dy{};
+
+    ImagePtr playerPartyImage;
+
+    class CharacterMovedListener : public MessageListener{
+    private:
+        MainView& view;
+    public:
+        CharacterMovedListener(MainView& view): view(view) {}
+        virtual void onMessage(const MessageParameters &messageParameters);
+    };
+
+    class CharacterMovingListener : public MessageListener{
+    private:
+        MainView& view;
+    public:
+        CharacterMovingListener(MainView& view): view(view) {}
+        virtual void onMessage(const MessageParameters &messageParameters);
+    };
 public:
     MainView();
 

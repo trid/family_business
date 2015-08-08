@@ -10,6 +10,9 @@
 #include "../House.h"
 #include "../Game.h"
 #include "GUI/CharacterPanel.h"
+#include "../../view/SpriteManager.h"
+#include "../../MessageManager.h"
+#include "../../view/MovementAnimation.h"
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
@@ -38,7 +41,14 @@ MainView::MainView() {
     WidgetPtr sidePanel{new CharacterPanel(650, 0, 150, 600, nullptr)};
     layout.addWidget(sidePanel);
 
+    playerPartyImage = ImagePtr{new Image(SpriteManager::getInstance().getTexture("res/images/human.png"), {800, 600})};
+
     addDrawable(mapView);
+    addDrawable(playerPartyImage);
+
+    MessageManager &messageManager = MessageManager::getInstance();
+    messageManager.addListener("character_moved", std::make_shared<CharacterMovedListener>(*this));
+    messageManager.addListener("party_moving", std::make_shared<CharacterMovingListener>(*this));
 }
 
 void MainView::showFamilyDialog(FamilyPtr familyPtr) {
@@ -59,6 +69,23 @@ void MainView::choseCharacter(int characterId) {
     party->setX(posX);
     party->setY(posY);
     centerOnCharacter();
+    
+    Point characterPositionWorld{posX * 32, posY * 32};
+    int characterImagePosX = (650 - 32) / 2;
+    int characterImagePosY = (600 - 32) / 2 - 28;
+    if (characterPositionWorld.x <= (650 - 32) / 2) {
+        characterImagePosX = posX * 32;
+    }
+    if (characterPositionWorld.x >= gameMap.getWidth() * 32 - (650 - 32) / 2) {
+        characterImagePosX = (650 - (gameMap.getWidth() - posX) * 32);
+    }
+    if (characterPositionWorld.y <= (600 - 32) / 2) {
+        characterImagePosY = posY * 32 - 28;
+    }
+    if (characterPositionWorld.y >= gameMap.getHeight() * 32 - (600 - 32) / 2) {
+        characterImagePosY = (600 - (gameMap.getWidth() - posX) * 32 - 28);
+    }
+    playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
 }
 
 void MainView::update(int timeDelta) {
@@ -77,7 +104,7 @@ void MainView::centerOnCharacter() {
     PartyPtr party = Game::getInstance().getPlayerParty();
     if (party->getCreatures().size()) {
         GameMap &gameMap = Game::getInstance().getMap();
-        dx = -party->getX() * 32 - 16 + Screen::getInstance().getWidth() / 2;
+        dx = -party->getX() * 32 - 16 + (Screen::getInstance().getWidth() - 150) / 2;
         dy = -party->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
         static_cast<MapPresentation *>(mapView.get())->setDeltas(dx, dy);
     }
@@ -99,4 +126,39 @@ void MainView::addCharacterToParty(int characterPtr, HousePtr housePtr) {
         characters.erase(iter, characters.end());
     }
     hireCharacterDialog->hide();
+}
+
+void MainView::CharacterMovedListener::onMessage(const MessageParameters &messageParameters) {
+    int x = messageParameters.getParameter("x").getInt();
+    int y = messageParameters.getParameter("y").getInt();
+
+    Point characterPositionWorld{x * 32, y * 32};
+    int characterImagePosX = (650 - 32) / 2;
+    int characterImagePosY = (600 - 32) / 2 - 28;
+
+    GameMap& gameMap = Game::getInstance().getMap();
+
+    if (characterPositionWorld.x <= (650 - 32) / 2) {
+        characterImagePosX = x * 32;
+    }
+    if (characterPositionWorld.x >= gameMap.getWidth() * 32 - (650 - 32) / 2) {
+        characterImagePosX = (650 - (gameMap.getWidth() - x) * 32);
+    }
+    if (characterPositionWorld.y <= (600 - 32) / 2) {
+        characterImagePosY = y * 32 - 28;
+    }
+    if (characterPositionWorld.y >= gameMap.getHeight() * 32 - (600 - 32) / 2) {
+        characterImagePosY = (600 - (gameMap.getWidth() - y) * 32 - 28);
+    }
+    view.playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
+}
+
+void MainView::CharacterMovingListener::onMessage(const MessageParameters &messageParameters) {
+    PartyPtr partyPtr = Game::getInstance().getPlayerParty();
+    int dx = messageParameters.getParameter("dx").getInt();
+    int dy = messageParameters.getParameter("dy").getInt();
+    int x = view.playerPartyImage->getPosition().x + dx * 32;
+    int y = view.playerPartyImage->getPosition().y + dy * 32;
+    AnimationPtr animationPtr{new MovementAnimation(view.playerPartyImage, {x, y}, 500)};
+    view.addAnimation(animationPtr);
 }

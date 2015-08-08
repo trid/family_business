@@ -10,8 +10,8 @@
 #include "../../../view/GUI/Button.h"
 
 void InventoryList::update() {
-    CharacterPtr playerCharacter = Game::getInstance().getPlayerCharacter();
-    Items items = playerCharacter->getItems();
+    Character& playerCharacter = Game::getInstance().getPlayerCharacter();
+    Items items = playerCharacter.getItems();
     
     for (int i = 0; i < items.size(); i++) {
         std::stringstream ss;
@@ -27,13 +27,13 @@ void InventoryList::update() {
             ss << "*";
         }
 
-        auto callback = [this, item, playerCharacter](){
+        auto callback = [this, item, &playerCharacter](){
             if (item->isEquiped()) {
-                item->getType() == ItemType::Armor ? playerCharacter->unequipArmor() : playerCharacter->unequipWeapon();
+                item->getType() == ItemType::Armor ? playerCharacter.unequipArmor() : playerCharacter.unequipWeapon();
                 this->update();
             }
             else {
-                Game::getInstance().getPlayerCharacter()->equip(item);
+                Game::getInstance().getPlayerCharacter().equip(item);
                 this->update();
             }
         };

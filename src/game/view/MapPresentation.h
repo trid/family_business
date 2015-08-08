@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 #include "../../view/Drawable.h"
 #include "../../MessageListener.h"
+#include "../../Point.h"
 
 class MapPresentation: public Drawable {
 private:

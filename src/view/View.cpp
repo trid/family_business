@@ -17,3 +17,12 @@ void View::draw(SDL_Renderer *renderer) {
 void View::onClick(const Point &point, int button) {
     layout.onClick(point, button);
 }
+
+void View::update(int timeDelta) {
+    for (auto animation: animations) {
+        animation->update(timeDelta);
+    }
+
+    auto iter = std::remove_if(animations.begin(), animations.end(), [](AnimationPtr animationPtr){ return animationPtr->isFinished();});
+    animations.erase(iter, animations.end());
+}
