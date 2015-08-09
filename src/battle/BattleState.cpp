@@ -3,6 +3,8 @@
 //
 
 #include "BattleState.h"
+#include "../MessageParameters.h"
+#include "../MessageManager.h"
 
 void BattleState::onActivate() {
     State::onActivate();
@@ -11,10 +13,19 @@ void BattleState::onActivate() {
 void BattleState::run() {
     State::run();
     battle.makeTurn();
+
+    unsigned int ticks = SDL_GetTicks();
+    unsigned int delta = ticks - lastTime;
+    lastTime = ticks;
+    getView()->update(delta);
 }
 
 void BattleState::onClick(const Point &point, int button) {
     State::onClick(point, button);
+
+    if (battle.isBlockInput()) {
+        return;
+    }
 
     BattleCreaturePtr current = *battle.getCurrent();
     if (current->getType() != Creature::Type::Character) {
@@ -40,7 +51,7 @@ void BattleState::onClick(const Point &point, int button) {
     }
     else {
         if (tile.getCanMove()) {
-            Point diff = current->getPosition() - Point{posX, posY};
+            Point diff = Point{posX, posY} - current->getPosition();
             int dist = std::abs(diff.x) + std::abs(diff.y);
             if (dist > current->getSteps()) {
                 return;
@@ -50,6 +61,10 @@ void BattleState::onClick(const Point &point, int button) {
             tile.setCreature(current);
             current->setPosition({posX, posY});
             battle.getBattleMap().calculateMoveable(current);
+            MessageParameters messageParameters;
+            messageParameters.setParameter("dx", diff.x);
+            messageParameters.setParameter("dy", diff.y);
+            MessageManager::getInstance().sendMessage("creature_moving", messageParameters);
         }
     }
 }

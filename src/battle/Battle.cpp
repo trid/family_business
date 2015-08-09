@@ -62,17 +62,25 @@ void Battle::makeTurn() {
                 nextCreature();
                 return;
             }
+            MessageManager& messageManager = MessageManager::getInstance();
+            MessageParameters messageParameters;
             if (abs(distance.x) >= 1) {
                 const Point& monsterPosition = monster->getPosition();
                 battleMap.getTile(monsterPosition.x, monsterPosition.y).setCreature(nullptr);
                 monster->setPosition(Point{monsterPosition.x + (distance.x > 0 ? 1 : -1), monsterPosition.y});
                 battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(*current);
+                messageParameters.setParameter("dx", distance.x > 0 ? 1 : -1);
+                messageParameters.setParameter("dy", 0);
+                messageManager.sendMessage("creature_moving", messageParameters);
             }
             else if (abs(distance.y) >= 1) {
                 const Point& monsterPosition = monster->getPosition();
                 battleMap.getTile(monsterPosition.x, monsterPosition.y).setCreature(nullptr);
                 monster->setPosition(Point{monsterPosition.x, monsterPosition.y + (distance.y > 0 ? 1 : -1)});
                 battleMap.getTile(monster->getPosition().x, monster->getPosition().y).setCreature(*current);
+                messageParameters.setParameter("dx", 0);
+                messageParameters.setParameter("dy", distance.y > 0 ? 1 : -1);
+                messageManager.sendMessage("creature_moving", messageParameters);
             }
             monster->setSteps(monster->getSteps() - 1);
         }
@@ -85,10 +93,10 @@ Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
         BattleCreaturePtr battleCreaturePtr;
         Creature& leftCreature = CreatureManager::getInstance().getCreatureById(leftCreatures[i]);
         if (leftCreature.type() == Creature::Type::Character) {
-            battleCreaturePtr = std::make_shared<BattleCreature>(leftCreatures[i]);
+            battleCreaturePtr = std::make_shared<BattleCreature>(i, leftCreatures[i]);
         }
         else {
-            battleCreaturePtr = std::make_shared<BattleCreatureAI>(leftCreatures[i], right);
+            battleCreaturePtr = std::make_shared<BattleCreatureAI>(i, leftCreatures[i], right);
         }
         battleCreaturePtr->setPosition({0, i});
         battleMap.getTile(0, i).setCreature(battleCreaturePtr);
@@ -101,10 +109,10 @@ Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
         BattleCreaturePtr battleCreaturePtr;
         Creature& rightCreature = CreatureManager::getInstance().getCreatureById(rightCreatures[i]);
         if (rightCreature.type() == Creature::Type::Character) {
-            battleCreaturePtr = std::make_shared<BattleCreature>(rightCreatures[i]);
+            battleCreaturePtr = std::make_shared<BattleCreature>(leftCreatures.size() + i, rightCreatures[i]);
         }
         else {
-            battleCreaturePtr = std::make_shared<BattleCreatureAI>(rightCreatures[i], left);
+            battleCreaturePtr = std::make_shared<BattleCreatureAI>(leftCreatures.size() + i, rightCreatures[i], left);
         }
         battleCreaturePtr->setPosition({14, 14 - i});
         battleMap.getTile(14, 14 - i).setCreature(battleCreaturePtr);

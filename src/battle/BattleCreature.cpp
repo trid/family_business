@@ -4,8 +4,8 @@
 
 #include "BattleCreature.h"
 
-BattleCreature::BattleCreature(int creature) : creatureId(creature), steps(getCreatureById(creature).getSpeed()),
-                                                       currentHp(getCreatureById(creature).getHitPoints()) {
+BattleCreature::BattleCreature(int id, int creature) : creatureId(creature), steps(getCreatureById(creature).getSpeed()),
+                                                       currentHp(getCreatureById(creature).getHitPoints()), id(id) {
 
 }
 

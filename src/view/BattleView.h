@@ -5,9 +5,15 @@
 #ifndef FAMILY_BUSINESS_BATTLEVIEW_H
 #define FAMILY_BUSINESS_BATTLEVIEW_H
 
+#include <queue>
+#include <vector>
 
 #include "View.h"
 #include "../battle/Battle.h"
+#include "Image.h"
+#include "../MessageListener.h"
+
+using BattleCreaturesView = std::vector<ImagePtr>;
 
 class BattleView: public View {
     Battle& battle;
@@ -16,10 +22,35 @@ class BattleView: public View {
     SDL_Texture* character;
     SDL_Texture* monster;
     int dx, dy;
+
+    bool showingAnimation{false};
+
+    BattleCreaturesView battleCreaturesView;
+
+    std::queue<std::pair<int, Point>> movements;
+
+    void startMovementAnimation();
+
+    class CreatureMovingListener: public MessageListener {
+    private:
+        BattleView& battleView;
+    public:
+        CreatureMovingListener(BattleView &battleView) : battleView(battleView) { }
+        virtual void onMessage(const MessageParameters &messageParameters);
+    };
+
+    class AnimationFinishedListener: public MessageListener {
+    private:
+        BattleView& battleView;
+    public:
+        AnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
+        virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
 public:
     BattleView(Battle& battle);
 
     virtual void draw(SDL_Renderer *renderer) override;
+    bool isShowingAnimation() { return showingAnimation; }
 };
 
 

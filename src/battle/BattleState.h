@@ -9,11 +9,13 @@
 #include "../State.h"
 #include "../view/BattleView.h"
 #include "../game/Game.h"
+#include "Battle.h"
 
 
 class BattleState : public State {
 private:
     Battle battle;
+    unsigned int lastTime{SDL_GetTicks()};
 public:
     BattleState(PartyPtr first, PartyPtr second) : battle(first, second) {
         setView(ViewPtr(new BattleView(battle)));

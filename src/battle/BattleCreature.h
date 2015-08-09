@@ -13,12 +13,13 @@
 
 class BattleCreature {
 private:
+    int id;
     int currentHp;
     Point position;
     int steps{0};
     int creatureId;
 public:
-    BattleCreature(int creature);
+    BattleCreature(int id, int creature);
 
     int getSpeed() { return getCreature().getSpeed(); }
     int getAttack() { return getCreature().getAttack(); }
@@ -35,6 +36,7 @@ public:
     bool isDead() { return currentHp == 0; }
     Creature& getCreature() { return CreatureManager::getInstance().getCreatureById(creatureId); }
     int getCreatureId() { return creatureId; }
+    int getId() { return id; }
 };
 
 using BattleCreaturePtr = std::shared_ptr<BattleCreature>;

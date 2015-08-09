@@ -22,6 +22,8 @@ private:
     void nextCreature();
 
     bool isFinished();
+
+    bool blockInput;
 public:
     Battle(PartyPtr first, PartyPtr second);
 
@@ -29,6 +31,10 @@ public:
     void makeTurn();
     std::vector<BattleCreaturePtr>::iterator& getCurrent() { return current; }
     void makeAttack(Point targetPosition);
+    std::vector<BattleCreaturePtr>& getLeft() { return left; }
+    std::vector<BattleCreaturePtr>& getRight() { return right; }
+    bool isBlockInput() const { return blockInput; }
+    void setBlockInput(bool blockInput) { Battle::blockInput = blockInput; }
 };
 
 

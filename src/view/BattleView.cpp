@@ -7,9 +7,11 @@
 
 #include "BattleView.h"
 #include "../game/Creature.h"
+#include "SpriteManager.h"
+#include "../MessageManager.h"
+#include "MovementAnimation.h"
 
 void BattleView::draw(SDL_Renderer *renderer) {
-    View::draw(nullptr);
     const BattleMap& gameMap = battle.getBattleMap();
 
     for (int x = 0; x < gameMap.width; x++) {
@@ -21,7 +23,7 @@ void BattleView::draw(SDL_Renderer *renderer) {
                 SDL_SetRenderDrawColor(renderer, 255, 255, 0, 128);
                 SDL_RenderFillRect(renderer, &dst);
             }
-            BattleCreaturePtr creature = tile.getCreature();
+            /*BattleCreaturePtr creature = tile.getCreature();
             if (creature) {
                 if (creature->getType() == Creature::Type::Character) {
                     SDL_Rect playerDst{x * 32 + dx, y * 32 - 28 + dy, 32, 60};
@@ -30,7 +32,7 @@ void BattleView::draw(SDL_Renderer *renderer) {
                 else {
                     SDL_RenderCopy(renderer, monster, nullptr, &dst);
                 }
-            }
+            }*/
         }
     }
     BattleCreaturePtr current = *battle.getCurrent();
@@ -45,6 +47,8 @@ void BattleView::draw(SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     SDL_RenderFillRect(renderer, &pos);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+    View::draw(renderer);
 }
 
 BattleView::BattleView(Battle &battle) : battle(battle) {
@@ -55,4 +59,80 @@ BattleView::BattleView(Battle &battle) : battle(battle) {
     monster = IMG_LoadTexture(renderer, "res/images/monster.png");
     dx = (screen.getWidth() - 15 * 32) / 2;
     dy = (screen.getHeight() - 15 * 32) / 2;
+
+    auto& left = battle.getLeft();
+    auto& right = battle.getRight();
+    battleCreaturesView.resize(left.size() + right.size());
+
+    //TODO: refactor this. There is a better way.
+    for (auto& item: left) {
+        Creature::Type type = item->getType();
+        int id = item->getId();
+        SDL_Texture* sprite;
+        Point position{};
+        if (type == Creature::Type::Character) {
+            sprite = SpriteManager::getInstance().getTexture("res/images/human.png");
+            position.x = item->getPosition().x * 32 + dx;
+            position.y = item->getPosition().y * 32 + dy - 28;
+        }
+        else {
+            sprite = SpriteManager::getInstance().getTexture("res/images/monster.png");
+            position.x = item->getPosition().x * 32 + dx;
+            position.y = item->getPosition().y * 32 + dy;
+        }
+        battleCreaturesView[item->getId()] = std::make_shared<Image>(sprite, position);
+    }
+
+    for (auto& item: right) {
+        Creature::Type type = item->getType();
+        int id = item->getId();
+        SDL_Texture* sprite;
+        Point position{};
+        if (type == Creature::Type::Character) {
+            sprite = SpriteManager::getInstance().getTexture("res/images/human.png");
+            position.x = item->getPosition().x * 32 + dx;
+            position.y = item->getPosition().y * 32 + dy - 28;
+        }
+        else {
+            sprite = SpriteManager::getInstance().getTexture("res/images/monster.png");
+            position.x = item->getPosition().x * 32 + dx;
+            position.y = item->getPosition().y * 32 + dy;
+        }
+        battleCreaturesView[item->getId()] = std::make_shared<Image>(sprite, position);
+    }
+
+    for (auto item: battleCreaturesView) {
+        addDrawable(item);
+    }
+
+    MessageManager &messageManager = MessageManager::getInstance();
+    messageManager.addListener("creature_moving", std::make_shared<CreatureMovingListener>(*this));
+    messageManager.addListener("movement_animation_finished", std::make_shared<AnimationFinishedListener>(*this));
+}
+
+void BattleView::CreatureMovingListener::onMessage(const MessageParameters &messageParameters) {
+    int dx = messageParameters.getParameter("dx").getInt();
+    int dy = messageParameters.getParameter("dy").getInt();
+    battleView.movements.push(std::make_pair((*battleView.battle.getCurrent())->getId(), Point{dx, dy}));
+    battleView.startMovementAnimation();
+}
+
+void BattleView::startMovementAnimation() {
+    if (!movements.empty() && !showingAnimation) {
+        battle.setBlockInput(true);
+        auto target = movements.front();
+        ImagePtr imagePtr = battleCreaturesView[target.first];
+        target.second.x *= 32;
+        target.second.y *= 32;
+        movements.pop();
+        AnimationPtr animationPtr{new MovementAnimation(imagePtr, imagePtr->getPosition() + target.second, 500)};
+        addAnimation(animationPtr);
+        showingAnimation = true;
+    }
+}
+
+void BattleView::AnimationFinishedListener::onMessage(const MessageParameters &messageParameters) {
+    battleView.showingAnimation = false;
+    battleView.battle.setBlockInput(false);
+    battleView.startMovementAnimation();
 }
