@@ -5,13 +5,16 @@
 #include "Application.h"
 #include "view/Screen.h"
 #include "EventManager.h"
+#include "MessageManager.h"
 
 void Application::run() {
     while (running) {
         Screen::getInstance().draw();
         EventManager::getInstance().process();
+        MessageManager::getInstance().update();
         if (!states.empty()) {
-            states.back()->run();
+            auto state = states.back();
+            state->run();
         }
     }
 }

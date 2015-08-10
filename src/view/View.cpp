@@ -2,6 +2,7 @@
 // Created by dmitry-khovyakov on 5/25/15.
 //
 
+#include <iostream>
 #include "View.h"
 
 #include "Screen.h"
@@ -23,6 +24,7 @@ void View::update(int timeDelta) {
         animation->update(timeDelta);
     }
 
+    std::for_each(animations.begin(), animations.end(), [](AnimationPtr animationPtr) { if (animationPtr->isFinished()) animationPtr->finalize(); });
     auto iter = std::remove_if(animations.begin(), animations.end(), [](AnimationPtr animationPtr){ return animationPtr->isFinished();});
     animations.erase(iter, animations.end());
 }

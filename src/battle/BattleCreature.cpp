@@ -10,7 +10,8 @@ BattleCreature::BattleCreature(int id, int creature) : creatureId(creature), ste
 }
 
 void BattleCreature::takeDamage(int damage) {
-    int noDefenceDamage = damage - getCreatureById(creatureId).getDefence();
+    int defence = getCreatureById(creatureId).getDefence();
+    int noDefenceDamage = damage - defence;
     int realDamage = noDefenceDamage > 0 ? noDefenceDamage : 0;
     currentHp > realDamage ? currentHp -= realDamage: currentHp = 0;
 }

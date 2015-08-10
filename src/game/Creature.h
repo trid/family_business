@@ -19,7 +19,7 @@ private:
     int hitPoints;
     int attack;
     int speed;
-    int defence;
+    int defence{0};
 
     int level{1};
     int experience{0};

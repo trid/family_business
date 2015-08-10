@@ -24,8 +24,8 @@ public:
                                                                               time(time) { }
 
     virtual void update(int delta);
-
     virtual bool isFinished();
+    virtual void finalize();
 };
 
 

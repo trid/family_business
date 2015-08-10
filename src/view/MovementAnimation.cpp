@@ -13,12 +13,14 @@ void MovementAnimation::update(int delta) {
         newPosition.y = begin.y + distance.y * passed / time;
         image->setPosition(newPosition);
     }
-    else {
-        image->setPosition(target);
-        MessageManager::getInstance().sendMessage("movement_animation_finished", MessageParameters());
-    }
 }
 
 bool MovementAnimation::isFinished() {
     return passed >= time;
+}
+
+void MovementAnimation::finalize() {
+    image->setPosition(target);
+    MessageParameters parameters = MessageParameters();
+    MessageManager::getInstance().enqueuMessage("movement_animation_finished", parameters);
 }

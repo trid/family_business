@@ -53,6 +53,11 @@ void Battle::makeTurn() {
         BattleCreaturePtr target = monster->getTarget();
         Point distance = target->getPosition() - (*current)->getPosition();
         if (abs(distance.x + distance.y) == 1) {
+            MessageParameters messageParameters;
+            MessageManager& messageManager = MessageManager::getInstance();
+            messageParameters.setParameter("creature", monster->getId());
+            messageParameters.setParameter("target", target->getId());
+            messageManager.sendMessage("creature_attack", messageParameters);
             target->takeDamage((*current)->getAttack());
             nextCreature();
             return;
@@ -131,7 +136,19 @@ void Battle::makeAttack(Point targetPosition) {
         Character& character = static_cast<Character&>(currentCreature->getCreature());
         Point distanceVec = targetCreature->getPosition() - currentCreature->getPosition();
         int distance = abs(distanceVec.x) + abs(distanceVec.y);
-        if (character.getWeapon() || distance == 1) {
+        MessageManager& messageManager = MessageManager::getInstance();
+        MessageParameters messageParameters;
+        if (character.getWeapon() && distance > 1) {
+            messageParameters.setParameter("creature", currentCreature->getId());
+            messageParameters.setParameter("target", targetCreature->getId());
+            messageManager.sendMessage("creature_shot", messageParameters);
+            targetCreature->takeDamage(currentCreature->getAttack());
+            nextCreature();
+        }
+        if (distance == 1) {
+            messageParameters.setParameter("creature", currentCreature->getId());
+            messageParameters.setParameter("target", targetCreature->getId());
+            messageManager.sendMessage("creature_attack", messageParameters);
             targetCreature->takeDamage(currentCreature->getAttack());
             nextCreature();
         }

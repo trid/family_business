@@ -8,14 +8,17 @@
 #include <list>
 #include <string>
 #include <unordered_map>
+#include <bits/stl_bvector.h>
 #include "MessageListener.h"
 
-using Listeners = std::list<MessageListenerPtr>;
+using Listeners = std::vector<MessageListenerPtr>;
 using Mapping = std::unordered_map<std::string, Listeners>;
+using MessageQueue = std::vector<std::pair<std::string, MessageParameters>>;
 
 class MessageManager {
 private:
     Mapping mapping;
+    MessageQueue messageQueue;
 public:
     static MessageManager& getInstance() {
         static MessageManager messageManager;
@@ -25,6 +28,8 @@ public:
     void addListener(const std::string &type, MessageListenerPtr listener);
     void removeListener(const std::string &type, MessageListenerPtr listener);
     void sendMessage(const std::string &type, const MessageParameters &parameters);
+    void enqueuMessage(const std::string &type, MessageParameters& parameters);
+    void update();
 };
 
 

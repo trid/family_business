@@ -12,6 +12,7 @@
 #include "../battle/Battle.h"
 #include "Image.h"
 #include "../MessageListener.h"
+#include "Sprite.h"
 
 using BattleCreaturesView = std::vector<ImagePtr>;
 
@@ -26,6 +27,8 @@ class BattleView: public View {
     bool showingAnimation{false};
 
     BattleCreaturesView battleCreaturesView;
+    ImagePtr arrowImage;
+    SpritePtr attackSprite;
 
     std::queue<std::pair<int, Point>> movements;
 
@@ -44,6 +47,30 @@ class BattleView: public View {
         BattleView& battleView;
     public:
         AnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
+        virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
+
+    class CreatureShotListener: public MessageListener {
+    private:
+        BattleView& battleView;
+    public:
+        CreatureShotListener(BattleView &battleView) : battleView(battleView) { }
+        virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
+
+    class CreatureAttackListener: public MessageListener {
+    private:
+        BattleView& battleView;
+    public:
+        CreatureAttackListener(BattleView &battleView) : battleView(battleView) { }
+        virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
+
+    class SpriteAnimationFinishedListener: public MessageListener {
+    private:
+        BattleView& battleView;
+    public:
+        SpriteAnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
         virtual void onMessage(const MessageParameters &messageParameters) override;
     };
 public:

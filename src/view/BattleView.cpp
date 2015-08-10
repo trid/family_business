@@ -10,6 +10,7 @@
 #include "SpriteManager.h"
 #include "../MessageManager.h"
 #include "MovementAnimation.h"
+#include "SpriteAnimation.h"
 
 void BattleView::draw(SDL_Renderer *renderer) {
     const BattleMap& gameMap = battle.getBattleMap();
@@ -65,18 +66,19 @@ BattleView::BattleView(Battle &battle) : battle(battle) {
     battleCreaturesView.resize(left.size() + right.size());
 
     //TODO: refactor this. There is a better way.
+    SpriteManager &spriteManager = SpriteManager::getInstance();
     for (auto& item: left) {
         Creature::Type type = item->getType();
         int id = item->getId();
         SDL_Texture* sprite;
         Point position{};
         if (type == Creature::Type::Character) {
-            sprite = SpriteManager::getInstance().getTexture("res/images/human.png");
+            sprite = spriteManager.getTexture("res/images/human.png");
             position.x = item->getPosition().x * 32 + dx;
             position.y = item->getPosition().y * 32 + dy - 28;
         }
         else {
-            sprite = SpriteManager::getInstance().getTexture("res/images/monster.png");
+            sprite = spriteManager.getTexture("res/images/monster.png");
             position.x = item->getPosition().x * 32 + dx;
             position.y = item->getPosition().y * 32 + dy;
         }
@@ -89,12 +91,12 @@ BattleView::BattleView(Battle &battle) : battle(battle) {
         SDL_Texture* sprite;
         Point position{};
         if (type == Creature::Type::Character) {
-            sprite = SpriteManager::getInstance().getTexture("res/images/human.png");
+            sprite = spriteManager.getTexture("res/images/human.png");
             position.x = item->getPosition().x * 32 + dx;
             position.y = item->getPosition().y * 32 + dy - 28;
         }
         else {
-            sprite = SpriteManager::getInstance().getTexture("res/images/monster.png");
+            sprite = spriteManager.getTexture("res/images/monster.png");
             position.x = item->getPosition().x * 32 + dx;
             position.y = item->getPosition().y * 32 + dy;
         }
@@ -105,9 +107,17 @@ BattleView::BattleView(Battle &battle) : battle(battle) {
         addDrawable(item);
     }
 
+    arrowImage = std::make_shared<Image>(spriteManager.getTexture("res/images/arrow.png"), Point{800, 600});
+    addDrawable(arrowImage);
+
+    attackSprite = std::make_shared<Sprite>(Point{34, 34}, Point{800, 600}, spriteManager.getTexture("res/images/attack.png"));
+    addDrawable(attackSprite);
+
     MessageManager &messageManager = MessageManager::getInstance();
     messageManager.addListener("creature_moving", std::make_shared<CreatureMovingListener>(*this));
     messageManager.addListener("movement_animation_finished", std::make_shared<AnimationFinishedListener>(*this));
+    messageManager.addListener("creature_shot", std::make_shared<CreatureShotListener>(*this));
+    messageManager.addListener("creature_attack", std::make_shared<CreatureAttackListener>(*this));
 }
 
 void BattleView::CreatureMovingListener::onMessage(const MessageParameters &messageParameters) {
@@ -135,4 +145,33 @@ void BattleView::AnimationFinishedListener::onMessage(const MessageParameters &m
     battleView.showingAnimation = false;
     battleView.battle.setBlockInput(false);
     battleView.startMovementAnimation();
+    //TODO: do something with this brute hack
+    battleView.arrowImage->setPosition({800, 600});
+}
+
+void BattleView::CreatureShotListener::onMessage(const MessageParameters &messageParameters) {
+    int creatureId = messageParameters.getParameter("creature").getInt();
+    int targetId = messageParameters.getParameter("target").getInt();
+
+    ImagePtr creatureImage = battleView.battleCreaturesView[creatureId];
+    ImagePtr targetImage = battleView.battleCreaturesView[targetId];
+
+    battleView.arrowImage->setPosition(creatureImage->getPosition());
+    AnimationPtr animationPtr = std::make_shared<MovementAnimation>(battleView.arrowImage, targetImage->getPosition(), 500);
+    battleView.addAnimation(animationPtr);
+    battleView.showingAnimation = true;
+}
+
+void BattleView::CreatureAttackListener::onMessage(const MessageParameters &messageParameters) {
+    int targetId = messageParameters.getParameter("target").getInt();
+    ImagePtr targetImage = battleView.battleCreaturesView[targetId];
+    battleView.attackSprite->setPosition(targetImage->getPosition());
+    battleView.attackSprite->resetFrame();
+    AnimationPtr animationPtr = std::make_shared<SpriteAnimation>(battleView.attackSprite, 3, 200);
+    battleView.addAnimation(animationPtr);
+    battleView.showingAnimation = true;
+}
+
+void BattleView::SpriteAnimationFinishedListener::onMessage(const MessageParameters &messageParameters) {
+    battleView.attackSprite->setPosition({800, 600});
 }
