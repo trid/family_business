@@ -9,17 +9,20 @@
 
 #include "House.h"
 #include "Party.h"
+#include "LandscapeType.h"
 
 class Tile {
 private:
     HousePtr housePtr{nullptr};
     PartyPtr party;
+    LandscapeType landscapeType;
 public:
     void setHouse(HousePtr housePtr) { this->housePtr = housePtr; }
     HousePtr getHouse() { return housePtr; }
-
     const PartyPtr &getParty() const { return party;  }
     void setParty(const PartyPtr &party) { Tile::party = party; }
+    const LandscapeType &getLandscapeType() const { return landscapeType; }
+    void setLandscapeType(const LandscapeType &landscapeType) { Tile::landscapeType = landscapeType; }
 };
 
 using TilePtr = std::shared_ptr<Tile>;

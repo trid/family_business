@@ -9,6 +9,7 @@
 #include "../GameMap.h"
 #include "../Game.h"
 #include "../../MessageManager.h"
+#include "../../view/SpriteManager.h"
 
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();
@@ -16,6 +17,7 @@ MapPresentation::MapPresentation() {
     house = IMG_LoadTexture(renderer, "res/images/house.png");
     character = IMG_LoadTexture(renderer, "res/images/human.png");
     monster = IMG_LoadTexture(renderer, "res/images/monster.png");
+    tree = SpriteManager::getInstance().getTexture("res/images/tree.png");
 
     MessageListenerPtr moveListener = std::make_shared<CharacterMoveListener>(*this);
     MessageManager::getInstance().addListener("character_moved", moveListener);
@@ -29,14 +31,16 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
         for (int y = -dy / 32; y < ((-dy + screen.getHeight()) / 32 + 1) && y < gameMap.getHeight(); y++) {
             SDL_Rect dst{x * 32 + dx, y * 32 + dy, 32, 32};
             SDL_RenderCopy(renderer, grass, nullptr, &dst);
-            if (gameMap.getTile(x, y).getHouse()){
+            Tile &tile = gameMap.getTile(x, y);
+            if (tile.getLandscapeType() == LandscapeType::Forest) {
+                SDL_RenderCopy(renderer, tree, nullptr, &dst);
+            }
+            if (tile.getHouse()){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
             }
-            PartyPtr party = gameMap.getTile(x, y).getParty();
-            if (party) {
-                if (party->getSide() == Side::AI) {
-                    SDL_RenderCopy(renderer, monster, nullptr, &dst);
-                }
+            PartyPtr party = tile.getParty();
+            if (party && party->getSide() == Side::AI) {
+                SDL_RenderCopy(renderer, monster, nullptr, &dst);
             }
         }
     }

@@ -17,6 +17,7 @@ private:
     SDL_Texture* house;
     SDL_Texture* character;
     SDL_Texture* monster;
+    SDL_Texture* tree;
 
     int dx{}, dy{};
 

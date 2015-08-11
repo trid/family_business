@@ -86,6 +86,10 @@ void MainView::choseCharacter(int characterId) {
         characterImagePosY = (600 - (gameMap.getWidth() - posX) * 32 - 28);
     }
     playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
+
+    MessageParameters messageParameters;
+    messageParameters.setParameter("characterId", characterId);
+    MessageManager::getInstance().sendMessage("character_selected", messageParameters);
 }
 
 void MainView::update(int timeDelta) {

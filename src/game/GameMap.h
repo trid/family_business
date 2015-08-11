@@ -27,6 +27,7 @@ public:
     unsigned int getHeight() { return height; }
 
     Tile& getTile(int x, int y) { return mapData[x][y]; }
+    Tile& getTile(Point point) { return mapData[point.x][point.y]; }
     int getHousePosX() { return village.getCenter().x; }
     int getHousePosY() { return village.getCenter().y; }
 
