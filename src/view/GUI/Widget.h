@@ -28,6 +28,7 @@ public:
 
     void draw(SDL_Renderer *renderer, SDL_Texture *parent);
     void centrate();
+    void centrateHorizontal();
 
     int getLeft() { return x; }
     int getTop() { return y; }

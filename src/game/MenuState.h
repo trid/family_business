@@ -9,6 +9,8 @@
 
 class MenuState: public State {
 
+public:
+    MenuState();
 };
 
 

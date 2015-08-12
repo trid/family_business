@@ -6,13 +6,12 @@
 #define FAMILY_BUSINESS_MENUVIEW_H
 
 
-#include "View.h"
+#include "../../view/View.h"
 
 
 class MenuView: public View {
-
 public:
-    virtual void draw(SDL_Renderer *renderer) override;
+    MenuView();
 };
 
 

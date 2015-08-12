@@ -27,5 +27,6 @@ public:
     void setText(const std::string& text);
 };
 
+using ButtonPtr = std::shared_ptr<Button>;
 
 #endif //FAMILY_BUSINESS_BUTTON_H

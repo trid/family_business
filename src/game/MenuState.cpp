@@ -3,3 +3,8 @@
 //
 
 #include "MenuState.h"
+#include "view/MenuView.h"
+
+MenuState::MenuState() {
+    setView(std::make_shared<MenuView>());
+}

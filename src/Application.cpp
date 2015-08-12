@@ -31,6 +31,8 @@ void Application::popState() {
     states.back()->onDeactivate();
     if (!states.empty()) {
         states.pop_back();
-        states.back()->onActivate();
+        if (!states.empty()) {
+            states.back()->onActivate();
+        }
     }
 }

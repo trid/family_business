@@ -53,3 +53,9 @@ void Widget::centrate() {
     x = (parentWidth - w) / 2;
     y = (parentHeight - h) / 2;
 }
+
+void Widget::centrateHorizontal() {
+    Screen& screen = Screen::getInstance();
+    int parentWidth{parent ? parent->getWidth() : screen.getWidth()};
+    x = (parentWidth - w) / 2;
+}
