@@ -13,6 +13,7 @@
 #include "../../view/SpriteManager.h"
 #include "../../MessageManager.h"
 #include "../../view/MovementAnimation.h"
+#include "GUI/GameMenu.h"
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
@@ -40,6 +41,11 @@ MainView::MainView() {
     layout.addWidget(hireCharacterDialog);
     WidgetPtr sidePanel{new CharacterPanel(650, 0, 150, 600, nullptr)};
     layout.addWidget(sidePanel);
+
+    mainMenu = std::make_shared<GameMenu>(0, 0, 150, 180, nullptr);
+    layout.addWidget(mainMenu);
+    mainMenu->hide();
+    mainMenu->centrate();
 
     playerPartyImage = ImagePtr{new Image(SpriteManager::getInstance().getTexture("res/images/human.png"), {800, 600})};
 
@@ -98,6 +104,14 @@ void MainView::update(int timeDelta) {
 
 void MainView::onKeyUp(int key) {
     View::onKeyUp(key);
+    if (key == SDLK_ESCAPE) {
+        if (mainMenu->isVisible()) {
+            mainMenu->hide();
+        }
+        else {
+            mainMenu->show();
+        }
+    }
 }
 
 void MainView::onKeyDown(int key) {

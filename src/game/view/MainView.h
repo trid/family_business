@@ -19,6 +19,8 @@ class MainView : public View {
     ChoseCharacterDialogPtr choseCharacterDialog;
     HireCharacterDialogPtr hireCharacterDialog;
 
+    WidgetPtr mainMenu;
+
     DrawablePtr mapView{new MapPresentation};
 
     void showFamilyDialog(int familyId);

@@ -102,7 +102,6 @@ void MainState::onKeyDown(int keyCode) {
 
 void MainState::onKeyUp(int keyCode) {
     State::onKeyUp(keyCode);
-    getView()->onKeyUp(keyCode);
 }
 
 void MainState::takeMercenary() {
