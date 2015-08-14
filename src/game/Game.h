@@ -10,13 +10,14 @@
 #include "GameMap.h"
 #include "Party.h"
 #include "CreatureManager.h"
+#include "PartyManager.h"
 
 class Game {
 private:
     int playerCharacter;
     HousePtr housePtr;
     GameMap gameMap;
-    PartyPtr playerParty{new Party(Side::Player)};
+    int playerParty;
 
     Game();
 
@@ -29,12 +30,14 @@ public:
     GameMap &getMap() { return gameMap; }
 
     Character& getPlayerCharacter() const { return static_cast<Character&>(getCreatureById(playerCharacter)); }
-    PartyPtr getPlayerParty() { return playerParty; }
+    Party& getPlayerParty() { return PartyManager::getInstance().getParty(playerParty); }
 
     void setPlayerCharacter(int playerCharacter) {
         Game::playerCharacter = playerCharacter;
-        playerParty->addCreature(playerCharacter);
+        getPlayerParty().addCreature(playerCharacter);
     }
+
+    void newGame();
 };
 
 

@@ -14,13 +14,13 @@
 class Tile {
 private:
     HousePtr housePtr{nullptr};
-    PartyPtr party;
+    int party{-1};
     LandscapeType landscapeType;
 public:
     void setHouse(HousePtr housePtr) { this->housePtr = housePtr; }
     HousePtr getHouse() { return housePtr; }
-    const PartyPtr &getParty() const { return party;  }
-    void setParty(const PartyPtr &party) { Tile::party = party; }
+    const int getParty() const { return party;  }
+    void setParty(const int party) { Tile::party = party; }
     const LandscapeType &getLandscapeType() const { return landscapeType; }
     void setLandscapeType(const LandscapeType &landscapeType) { Tile::landscapeType = landscapeType; }
 };

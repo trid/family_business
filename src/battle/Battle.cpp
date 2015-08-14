@@ -92,8 +92,8 @@ void Battle::makeTurn() {
     }
 }
 
-Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
-    std::vector<int> &leftCreatures = first->getCreatures();
+Battle::Battle(Party &first, Party &second) : battleMap() {
+    std::vector<int> &leftCreatures = first.getCreatures();
     for (int i = 0; i < leftCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
         Creature& leftCreature = CreatureManager::getInstance().getCreatureById(leftCreatures[i]);
@@ -109,7 +109,7 @@ Battle::Battle(PartyPtr first, PartyPtr second) : battleMap() {
         turns.push_back(battleCreaturePtr);
     }
 
-    std::vector<int> &rightCreatures = second->getCreatures();
+    std::vector<int> &rightCreatures = second.getCreatures();
     for (int i = 0; i < rightCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
         Creature& rightCreature = CreatureManager::getInstance().getCreatureById(rightCreatures[i]);

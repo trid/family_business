@@ -38,8 +38,8 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             if (tile.getHouse()){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
             }
-            PartyPtr party = tile.getParty();
-            if (party && party->getSide() == Side::AI) {
+            int party = tile.getParty();
+            if (party != -1 && PartyManager::getInstance().getParty(party).getSide() == Side::AI) {
                 SDL_RenderCopy(renderer, monster, nullptr, &dst);
             }
         }

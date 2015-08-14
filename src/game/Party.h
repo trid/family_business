@@ -15,13 +15,17 @@
 
 class Party {
 private:
+    int id;
     std::vector<int> creatureIds;
     Side side;
     int x, y;
 
     bool moving{false};
 public:
-    Party(Side side): side(side) {}
+    Party(Side side, int id) : side(side), id(id) {}
+    Party(Party&) = delete;
+    Party& operator=(Party&) = delete;
+    int getId() { return id; }
     bool addCreature(int creaturePtr);
 
     int getX() const { return x; }
@@ -36,6 +40,5 @@ public:
     void setMoving(bool moving) { Party::moving = moving; }
 };
 
-using PartyPtr = std::shared_ptr<Party>;
 
 #endif //FAMILY_BUSINESS_PARTY_H

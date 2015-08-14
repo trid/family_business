@@ -25,19 +25,20 @@ GameMap::GameMap() {
     village.setCenter({housePosX, housePosY});
 
     //Set monster five tiles on north or five tiles on south of house
-    PartyPtr monsterParty{new Party(Side::AI)};
-    monsterParty->addCreature(CreatureManager::getInstance().createMonster());
+    int monsterPartyId = PartyManager::getInstance().createParty(Side::AI);
+    Party& monsterParty = PartyManager::getInstance().getParty(monsterPartyId);
+    monsterParty.addCreature(CreatureManager::getInstance().createMonster());
     HousePtr housePtr{new House(housePosX, 0, Side::AI)};
-    monsterParty->setX(housePosX);
+    monsterParty.setX(housePosX);
     if (housePosY - 5 >= 0) {
-        monsterParty->setY(housePosY - 5);
+        monsterParty.setY(housePosY - 5);
         housePtr->setY(housePosY - 4);
-        mapData[housePosX][housePosY - 5].setParty(monsterParty);
+        mapData[housePosX][housePosY - 5].setParty(monsterParty.getId());
     }
     else {
-        monsterParty->setY(housePosY + 5);
+        monsterParty.setY(housePosY + 5);
         housePtr->setY(housePosY + 4);
-        mapData[housePosX][housePosY + 5].setParty(monsterParty);
+        mapData[housePosX][housePosY + 5].setParty(monsterParty.getId());
     }
     mapData[housePtr->getX()][housePtr->getY()].setHouse(housePtr);
 }

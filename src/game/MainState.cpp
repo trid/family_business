@@ -53,12 +53,11 @@ void MainState::onKeyDown(int keyCode) {
         return;
     }
 
-    PartyPtr playerParty = Game::getInstance().getPlayerParty();
+    Party& playerParty = Game::getInstance().getPlayerParty();
     GameMap& gameMap = Game::getInstance().getMap();
     if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
-        if (!playerParty) return;
-        int posX = playerParty->getX();
-        int posY = playerParty->getY();
+        int posX = playerParty.getX();
+        int posY = playerParty.getY();
 
         switch (keyCode) {
             case SDLK_UP:
@@ -77,18 +76,18 @@ void MainState::onKeyDown(int keyCode) {
                 break;
         }
 
-        if (!playerParty->isMoving()) {
+        if (!playerParty.isMoving()) {
             MessageParameters parameters;
-            parameters.setParameter("dx", posX - playerParty->getX());
-            parameters.setParameter("dy", posY - playerParty->getY());
+            parameters.setParameter("dx", posX - playerParty.getX());
+            parameters.setParameter("dy", posY - playerParty.getY());
             MessageManager::getInstance().sendMessage("party_moving", parameters);
             MovementPtr movementPtr{new Movement{playerParty, {posX, posY}}};
             movement.push_back(movementPtr);
-            playerParty->setMoving(true);
+            playerParty.setMoving(true);
         }
     }
     if (keyCode == SDLK_SPACE) {
-        const HousePtr &house = gameMap.getTile(playerParty->getX(), playerParty->getY()).getHouse();
+        const HousePtr &house = gameMap.getTile(playerParty.getX(), playerParty.getY()).getHouse();
         if (house) {
             if (house->getSide() == Side::Player) {
                 takeMercenary();
@@ -106,29 +105,30 @@ void MainState::onKeyUp(int keyCode) {
 
 void MainState::takeMercenary() {
     Game &game = Game::getInstance();
-    PartyPtr playerParty = game.getPlayerParty();
-    HousePtr housePtr = game.getMap().getTile(playerParty->getX(), playerParty->getY()).getHouse();
+    Party& playerParty = game.getPlayerParty();
+    HousePtr housePtr = game.getMap().getTile(playerParty.getX(), playerParty.getY()).getHouse();
     if (housePtr) {
         static_cast<MainView*>(getView().get())->showHireDialog(housePtr);
     }
 }
 
 void MainState::battleMonsters() {
-    PartyPtr partyPtr = std::make_shared<Party>(Side::AI);
+    int partyId = PartyManager::getInstance().createParty(Side::AI);
+    Party& party = PartyManager::getInstance().getParty(partyId);
     // Yes, it's not so beautiful, but as is for now
     /*partyPtr->addCreature(std::make_shared<Monster>());
     partyPtr->addCreature(std::make_shared<Monster>());
     partyPtr->addCreature(std::make_shared<Monster>());*/
-    partyPtr->addCreature(CreatureManager::getInstance().createMonster());
+    party.addCreature(CreatureManager::getInstance().createMonster());
 
-    Application::getInstance().pushState(std::make_shared<BattleState>(Game::getInstance().getPlayerParty(), partyPtr));
+    Application::getInstance().pushState(std::make_shared<BattleState>(Game::getInstance().getPlayerParty(), party));
 }
 
 void MainState::CharacterWinListener::onMessage(const MessageParameters &messageParameters) {
     Game& game = Game::getInstance();
-    PartyPtr partyPtr = game.getPlayerParty();
+    Party& party = game.getPlayerParty();
     GameMap& gameMap = game.getMap();
-    HousePtr housePtr = gameMap.getTile(partyPtr->getX(), partyPtr->getY()).getHouse();
+    HousePtr housePtr = gameMap.getTile(party.getX(), party.getY()).getHouse();
 
     if (housePtr && housePtr->getSide() == Side::AI) {
         Character& character = game.getPlayerCharacter();
@@ -139,19 +139,20 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
 void MainState::CharacterMovedListener::onMessage(const MessageParameters &messageParameters) {
     Game& game = Game::getInstance();
     GameMap &gameMap = game.getMap();
-    PartyPtr playerParty = game.getPlayerParty();
+    Party& playerParty = game.getPlayerParty();
 
-    gameMap.getTile(playerParty->getX(), playerParty->getY()).setParty(nullptr);
+    gameMap.getTile(playerParty.getX(), playerParty.getY()).setParty(-1);
     int posX = messageParameters.getParameter("x").getInt();
-    playerParty->setX(posX);
+    playerParty.setX(posX);
     int posY = messageParameters.getParameter("y").getInt();
-    playerParty->setY(posY);
+    playerParty.setY(posY);
 
-    PartyPtr party = gameMap.getTile(posX, posY).getParty();
-    if (party && party->getSide() == Side::AI) {
-        Application::getInstance().pushState(StatePtr{new BattleState(playerParty, party)});
+    int partyId = gameMap.getTile(posX, posY).getParty();
+    PartyManager &partyManager = PartyManager::getInstance();
+    if (partyId != -1 && partyManager.getParty(partyId).getSide() == Side::AI) {
+        Application::getInstance().pushState(StatePtr{new BattleState(playerParty, partyManager.getParty(partyId))});
         return;
     }
 
-    gameMap.getTile(posX, posY).setParty(playerParty);
+    gameMap.getTile(posX, posY).setParty(playerParty.getId());
 }

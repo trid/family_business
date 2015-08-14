@@ -9,7 +9,7 @@ void Movement::update(int delta) {
     time += delta;
 
     if (time >= 500) {
-        party->setMoving(false);
+        party.setMoving(false);
         MessageParameters parameters;
         parameters.setParameter("x", target.x);
         parameters.setParameter("y", target.y);

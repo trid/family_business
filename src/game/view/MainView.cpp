@@ -70,10 +70,10 @@ void MainView::choseCharacter(int characterId) {
     GameMap &gameMap = game.getMap();
     int posX = gameMap.getHousePosX();
     int posY = gameMap.getHousePosY();
-    const PartyPtr party = game.getPlayerParty();
-    gameMap.getTile(posX, posY).setParty(party);
-    party->setX(posX);
-    party->setY(posY);
+    Party& party = game.getPlayerParty();
+    gameMap.getTile(posX, posY).setParty(party.getId());
+    party.setX(posX);
+    party.setY(posY);
     centerOnCharacter();
     
     Point characterPositionWorld{posX * 32, posY * 32};
@@ -119,11 +119,11 @@ void MainView::onKeyDown(int key) {
 }
 
 void MainView::centerOnCharacter() {
-    PartyPtr party = Game::getInstance().getPlayerParty();
-    if (party->getCreatures().size()) {
+    Party& party = Game::getInstance().getPlayerParty();
+    if (party.getCreatures().size()) {
         GameMap &gameMap = Game::getInstance().getMap();
-        dx = -party->getX() * 32 - 16 + (Screen::getInstance().getWidth() - 150) / 2;
-        dy = -party->getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
+        dx = -party.getX() * 32 - 16 + (Screen::getInstance().getWidth() - 150) / 2;
+        dy = -party.getY() * 32 - 16 + Screen::getInstance().getHeight() / 2;
         static_cast<MapPresentation *>(mapView.get())->setDeltas(dx, dy);
     }
 }
@@ -138,7 +138,7 @@ void MainView::showHireDialog(HousePtr housePtr) {
 }
 
 void MainView::addCharacterToParty(int characterPtr, HousePtr housePtr) {
-    if (Game::getInstance().getPlayerParty()->addCreature(characterPtr)) {
+    if (Game::getInstance().getPlayerParty().addCreature(characterPtr)) {
         std::vector<int>& characters = housePtr->getCharacters();
         auto iter = std::remove(characters.begin(), characters.end(), characterPtr);
         characters.erase(iter, characters.end());
@@ -172,7 +172,7 @@ void MainView::CharacterMovedListener::onMessage(const MessageParameters &messag
 }
 
 void MainView::CharacterMovingListener::onMessage(const MessageParameters &messageParameters) {
-    PartyPtr partyPtr = Game::getInstance().getPlayerParty();
+    Party& party = Game::getInstance().getPlayerParty();
     int dx = messageParameters.getParameter("dx").getInt();
     int dy = messageParameters.getParameter("dy").getInt();
     int x = view.playerPartyImage->getPosition().x + dx * 32;

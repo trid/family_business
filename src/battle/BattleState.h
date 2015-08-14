@@ -17,7 +17,7 @@ private:
     Battle battle;
     unsigned int lastTime{SDL_GetTicks()};
 public:
-    BattleState(PartyPtr first, PartyPtr second) : battle(first, second) {
+    BattleState(Party &first, Party &second) : battle(first, second) {
         setView(ViewPtr(new BattleView(battle)));
     }
 

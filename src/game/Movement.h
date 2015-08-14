@@ -11,11 +11,11 @@
 
 class Movement {
 private:
-    PartyPtr party;
+    Party& party;
     Point target;
     int time{0};
 public:
-    Movement(PartyPtr party, Point target): party(party), target(target) {}
+    Movement(Party &party, Point target): party(party), target(target) {}
     void update(int delta);
     bool isFinished() { return time >= 500; }
 };

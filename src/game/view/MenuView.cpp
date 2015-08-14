@@ -6,10 +6,12 @@
 #include "../../view/GUI/Button.h"
 #include "../../Application.h"
 #include "../MainState.h"
+#include "../Game.h"
 
 MenuView::MenuView() {
     auto newGameCallback = [](){
         Application &application = Application::getInstance();
+        Game::getInstance().newGame();
         application.popState();
         application.pushState(std::make_shared<MainState>());
     };

@@ -23,6 +23,8 @@ public:
 
     const Families& getFamilies() { return families; }
     Family& getFamilyById(int id) { return *families[id]; }
+    int generateFamily();
+    void clear() { families.clear(); }
 };
 
 inline Family& getFamilyById(int id) {

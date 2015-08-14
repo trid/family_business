@@ -28,6 +28,7 @@ public:
     int registerCreature(CreaturePtr& creaturePtr);
     int createMonster();
     Creature& getCreatureById(int id) { return *creatures[id]; }
+    void clear() { creatures.clear(); }
 };
 
 // Helper function to get creature by id. Shortcut for CreatureManager::getInstance().getCreatureById(id);
