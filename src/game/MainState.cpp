@@ -11,6 +11,7 @@
 #include "../battle/BattleState.h"
 #include "Monster.h"
 #include "../MessageManager.h"
+#include "FamilyManager.h"
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -155,4 +156,12 @@ void MainState::CharacterMovedListener::onMessage(const MessageParameters &messa
     }
 
     gameMap.getTile(posX, posY).setParty(playerParty.getId());
+}
+
+void MainState::onPop() {
+    State::onPop();
+
+    FamilyManager::getInstance().clear();
+    CreatureManager::getInstance().clear();
+    PartyManager::getInstance().clear();
 }

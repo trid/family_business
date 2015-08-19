@@ -31,6 +31,7 @@ public:
     virtual void onKeyDown(int keyCode) override;
     virtual void onKeyUp(int keyCode) override;
     virtual void onActivate() override;
+    virtual void onPop() override;
 
     virtual void run() override;
 
