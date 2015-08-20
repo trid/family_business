@@ -3,3 +3,7 @@
 //
 
 #include "Tile.h"
+
+void Tile::save(std::ofstream &out) {
+
+}

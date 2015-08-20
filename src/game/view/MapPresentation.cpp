@@ -35,7 +35,7 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             if (tile.getLandscapeType() == LandscapeType::Forest) {
                 SDL_RenderCopy(renderer, tree, nullptr, &dst);
             }
-            if (tile.getHouse()){
+            if (tile.getHouse() != -1){
                 SDL_RenderCopy(renderer, house, nullptr, &dst);
             }
             int party = tile.getParty();

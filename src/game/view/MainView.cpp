@@ -14,6 +14,8 @@
 #include "../../MessageManager.h"
 #include "../../view/MovementAnimation.h"
 #include "GUI/GameMenu.h"
+#include "../HouseManager.h"
+#include "../FamilyManager.h"
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
@@ -33,7 +35,7 @@ MainView::MainView() {
     layout.addWidget(choseCharacterDialog);
 
     auto addCharacterToParty = [this](int characterId) {
-        this->addCharacterToParty(characterId, {});
+        this->addCharacterToParty(characterId);
     };
 
     hireCharacterDialog = std::make_shared<HireCharacterDialog>((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
@@ -128,19 +130,22 @@ void MainView::centerOnCharacter() {
     }
 }
 
-void MainView::showHireDialog(HousePtr housePtr) {
-    auto addCharacterToParty = [this, housePtr](int character) {
-        this->addCharacterToParty(character, housePtr);
+void MainView::showHireDialog(House &house) {
+    auto addCharacterToParty = [this, house](int character) {
+        this->addCharacterToParty(character);
     };
     hireCharacterDialog->setCallback(addCharacterToParty);
-    hireCharacterDialog->setUp(housePtr);
+    hireCharacterDialog->setUp(house);
     hireCharacterDialog->show();
 }
 
-void MainView::addCharacterToParty(int characterPtr, HousePtr housePtr) {
-    if (Game::getInstance().getPlayerParty().addCreature(characterPtr)) {
-        std::vector<int>& characters = housePtr->getCharacters();
-        auto iter = std::remove(characters.begin(), characters.end(), characterPtr);
+void MainView::addCharacterToParty(int characterId) {
+    if (Game::getInstance().getPlayerParty().addCreature(characterId)) {
+        Character& character = static_cast<Character&>(getCreatureById(characterId));
+        Family& family = getFamilyById(character.getFamilyId());
+        House& house = getHouseById(family.getHome());
+        std::vector<int>& characters = house.getCharacters();
+        auto iter = std::remove(characters.begin(), characters.end(), characterId);
         characters.erase(iter, characters.end());
     }
     hireCharacterDialog->hide();

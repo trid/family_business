@@ -21,8 +21,7 @@ private:
     Side side{Side::Player};
     std::vector<int> inside;
 public:
-    House(int x, int y): x(x), y(y) { }
-    House(int x, int y, Side side): x(x), y(y), side(side) { }
+    House(int x, int y, Side side, int id): x(x), y(y), side(side), id(id) { }
 
     int getId() const { return id; }
 
@@ -36,6 +35,5 @@ public:
     Side getSide() { return side; }
 };
 
-using HousePtr = std::shared_ptr<House>;
 
 #endif //FAMILY_BUSINESS_HOME_H

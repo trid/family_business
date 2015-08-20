@@ -55,9 +55,9 @@ public:
     virtual void onKeyUp(int key) override;
     virtual void onKeyDown(int key) override;
 
-    void showHireDialog(HousePtr housePtr);
+    void showHireDialog(House &house);
 
-    void addCharacterToParty(int shared_ptr, HousePtr housePtr);
+    void addCharacterToParty(int characterId);
 };
 
 

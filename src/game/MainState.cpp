@@ -12,6 +12,7 @@
 #include "Monster.h"
 #include "../MessageManager.h"
 #include "FamilyManager.h"
+#include "HouseManager.h"
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -88,9 +89,9 @@ void MainState::onKeyDown(int keyCode) {
         }
     }
     if (keyCode == SDLK_SPACE) {
-        const HousePtr &house = gameMap.getTile(playerParty.getX(), playerParty.getY()).getHouse();
-        if (house) {
-            if (house->getSide() == Side::Player) {
+        int houseId = gameMap.getTile(playerParty.getX(), playerParty.getY()).getHouse();
+        if (houseId != -1) {
+            if (getHouseById(houseId).getSide() == Side::Player) {
                 takeMercenary();
             }
             else {
@@ -107,9 +108,9 @@ void MainState::onKeyUp(int keyCode) {
 void MainState::takeMercenary() {
     Game &game = Game::getInstance();
     Party& playerParty = game.getPlayerParty();
-    HousePtr housePtr = game.getMap().getTile(playerParty.getX(), playerParty.getY()).getHouse();
-    if (housePtr) {
-        static_cast<MainView*>(getView().get())->showHireDialog(housePtr);
+    int houseId = game.getMap().getTile(playerParty.getX(), playerParty.getY()).getHouse();
+    if (houseId) {
+        static_cast<MainView*>(getView().get())->showHireDialog(getHouseById(houseId));
     }
 }
 
@@ -129,9 +130,9 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
     Game& game = Game::getInstance();
     Party& party = game.getPlayerParty();
     GameMap& gameMap = game.getMap();
-    HousePtr housePtr = gameMap.getTile(party.getX(), party.getY()).getHouse();
+    int houseId = gameMap.getTile(party.getX(), party.getY()).getHouse();
 
-    if (housePtr && housePtr->getSide() == Side::AI) {
+    if (houseId && getHouseById(houseId).getSide() == Side::AI) {
         Character& character = game.getPlayerCharacter();
         character.addItem(ItemPtr{new Item(ItemType::Armor, 1)});
     }
@@ -164,4 +165,5 @@ void MainState::onPop() {
     FamilyManager::getInstance().clear();
     CreatureManager::getInstance().clear();
     PartyManager::getInstance().clear();
+    HouseManager::getInstance().clear();
 }

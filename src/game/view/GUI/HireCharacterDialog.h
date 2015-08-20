@@ -12,13 +12,13 @@
 
 class HireCharacterDialog : public Dialog {
     CharacterBtnCallback callback;
-    HousePtr housePtr;
+    int houseId;
     WidgetPtr label;
 public:
     HireCharacterDialog(int x, int y, int w, int h, UILayout &layout,
                                                  CharacterBtnCallback callback);
 
-    void setUp(HousePtr housePtr);
+    void setUp(House &house);
     void setCallback(CharacterBtnCallback callback) { this->callback = callback; }
 };
 

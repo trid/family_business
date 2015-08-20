@@ -15,7 +15,6 @@
 class Game {
 private:
     int playerCharacter;
-    HousePtr housePtr;
     GameMap gameMap;
     int playerParty;
 
@@ -38,6 +37,7 @@ public:
     }
 
     void newGame();
+    void saveGame();
 };
 
 

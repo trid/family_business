@@ -6,12 +6,12 @@
 #include "CharacterButton.h"
 #include "../../../view/GUI/Label.h"
 
-void HireCharacterDialog::setUp(HousePtr housePtr) {
+void HireCharacterDialog::setUp(House &housePtr) {
     clearWidgets();
 
     addWidget(label);
 
-    auto &characters = housePtr->getCharacters();
+    auto &characters = housePtr.getCharacters();
 
     int i = 0;
     for (auto characterId: characters) {

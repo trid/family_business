@@ -2,6 +2,8 @@
 // Created by TriD on 14.06.2015.
 //
 
+#include <fstream>
+
 #include "Game.h"
 #include "FamilyManager.h"
 #include "RandomMapGenerator.h"
@@ -21,4 +23,10 @@ void Game::newGame() {
     }
 
     playerParty = PartyManager::getInstance().createParty(Side::Player);
+}
+
+void Game::saveGame() {
+    std::ofstream os("save.sav");
+
+
 }

@@ -16,7 +16,6 @@
 class House;
 
 using Children = std::vector<int>;
-using HousePtr = std::shared_ptr<House>;
 
 class Family {
     int id;
@@ -25,7 +24,7 @@ class Family {
     int mother;
     Children children;
 
-    HousePtr home;
+    int home;
 
     std::string lastName;
 public:
@@ -41,9 +40,8 @@ public:
     int getMotherId() { return mother; }
     Children &getChildren() { return children; }
 
-    const HousePtr &getHome() const { return home; }
-
-    void setHome(HousePtr home) { Family::home = home; }
+    int getHome() const { return home; }
+    void setHome(int home) { Family::home = home; }
 
     int getId() const { return id; }
 };

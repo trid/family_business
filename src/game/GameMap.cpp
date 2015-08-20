@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "Monster.h"
 #include "FamilyManager.h"
+#include "HouseManager.h"
 
 #include <ctime>
 #include <random>
@@ -28,19 +29,22 @@ GameMap::GameMap() {
     int monsterPartyId = PartyManager::getInstance().createParty(Side::AI);
     Party& monsterParty = PartyManager::getInstance().getParty(monsterPartyId);
     monsterParty.addCreature(CreatureManager::getInstance().createMonster());
-    HousePtr housePtr{new House(housePosX, 0, Side::AI)};
+    //Create monsters den
+    HouseManager &houseManager = HouseManager::getInstance();
+    int houseId = houseManager.createHouse(housePosX, 0, Side::AI);
+    House& house = houseManager.getHouse(houseId);
     monsterParty.setX(housePosX);
     if (housePosY - 5 >= 0) {
         monsterParty.setY(housePosY - 5);
-        housePtr->setY(housePosY - 4);
+        house.setY(housePosY - 4);
         mapData[housePosX][housePosY - 5].setParty(monsterParty.getId());
     }
     else {
         monsterParty.setY(housePosY + 5);
-        housePtr->setY(housePosY + 4);
+        house.setY(housePosY + 4);
         mapData[housePosX][housePosY + 5].setParty(monsterParty.getId());
     }
-    mapData[housePtr->getX()][housePtr->getY()].setHouse(housePtr);
+    mapData[house.getX()][house.getY()].setHouse(houseId);
 }
 
 void GameMap::createHouse(int familyId) {
@@ -54,11 +58,12 @@ void GameMap::createHouse(int familyId) {
 
     while (!queuedTiles.empty()) {
         const Point& point = *queuedTiles.begin();
-        if (!mapData[point.x][point.y].getHouse()) {
-            const std::shared_ptr<House> &housePtr = std::make_shared<House>(point.x, point.y);
-            housePtr->setFamily(familyId);
-            mapData[point.x][point.y].setHouse(housePtr);
-            getFamilyById(familyId).setHome(housePtr);
+        if (mapData[point.x][point.y].getHouse() == -1) {
+            int houseId = HouseManager::getInstance().createHouse(point.x, point.y, Side::Player);
+            House& house = HouseManager::getInstance().getHouse(houseId);
+            house.setFamily(familyId);
+            mapData[point.x][point.y].setHouse(houseId);
+            getFamilyById(familyId).setHome(houseId);
             break;
         }
         usedTiles.insert(point);
