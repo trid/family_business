@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_MAPSTATE_H
 #define FAMILY_BUSINESS_MAPSTATE_H
 
+#include <fstream>
 
 #include "../State.h"
 #include "view/MainView.h"
@@ -38,6 +39,8 @@ public:
     void takeMercenary();
 
     void battleMonsters();
+
+    void save(std::ofstream &out);
 };
 
 

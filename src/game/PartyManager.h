@@ -5,8 +5,10 @@
 #ifndef FAMILY_BUSINESS_PARTYMANAGER_H
 #define FAMILY_BUSINESS_PARTYMANAGER_H
 
+#include <fstream>
 #include <memory>
 #include <vector>
+
 #include "Party.h"
 
 using PartyPtr = std::unique_ptr<Party>;
@@ -23,6 +25,8 @@ public:
     int createParty(Side side);
     Party& getParty(int id) { return *parties[id]; }
     void clear() { parties.clear(); }
+
+    void save(std::ofstream &out);
 };
 
 

@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_CREATURE_H
 #define FAMILY_BUSINESS_CREATURE_H
 
+#include <fstream>
 #include <random>
 
 using Generator = std::default_random_engine;
@@ -58,6 +59,8 @@ public:
     void addExperience(int experience);
 
     int getId() const { return id; }
+
+    virtual void save(std::ofstream& out);
 };
 
 

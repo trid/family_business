@@ -26,3 +26,12 @@ int FamilyManager::generateFamily() {
     families.emplace_back(new Family(familyId, fatherId, motherId, children));
     return familyId;
 }
+
+void FamilyManager::save(std::ofstream &out) {
+    int count = families.size();
+    out.write((char*)&count, sizeof(count));
+
+    for (auto& item: families) {
+        item->save(out);
+    }
+}

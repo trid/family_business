@@ -104,3 +104,16 @@ void GameMap::createHouse(int familyId) {
         }
     }
 }
+
+
+void GameMap::save(std::ofstream &out) {
+    out.write((char*)&width, sizeof(width));
+    out.write((char*)&height, sizeof(height));
+    village.save(out);
+
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            mapData[x][y].save(out);
+        }
+    }
+}

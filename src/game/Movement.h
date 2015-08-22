@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_MOVEMENT_H
 #define FAMILY_BUSINESS_MOVEMENT_H
 
+#include <fstream>
 
 #include "Party.h"
 #include "../Point.h"
@@ -18,6 +19,8 @@ public:
     Movement(Party &party, Point target): party(party), target(target) {}
     void update(int delta);
     bool isFinished() { return time >= 500; }
+
+    void save(std::ofstream& out);
 };
 
 using MovementPtr = std::shared_ptr<Movement>;

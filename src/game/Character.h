@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_CHARACTER_H
 #define FAMILY_BUSINESS_CHARACTER_H
 
+#include <fstream>
 #include <memory>
 #include <string>
 
@@ -20,8 +21,8 @@ enum class Gender{Male, Female};
 
 class Character: public Creature {
     string name;
-
     string lastName;
+
     Gender gender;
     int age;
 
@@ -46,6 +47,8 @@ public:
     virtual Type type() { return Type::Character; }
     ItemPtr getWeapon() { return weapon; }
     const Items& getItems() const { return inventory; }
+
+    void save(std::ofstream& out);
 };
 
 

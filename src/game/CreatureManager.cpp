@@ -17,3 +17,12 @@ int CreatureManager::createMonster() {
     creatures.emplace_back(monster);
     return creatures.size() - 1;
 }
+
+void CreatureManager::save(std::ofstream &out) {
+    int count = creatures.size();
+    out.write((char*)&count, sizeof(count));
+
+    for (auto& item: creatures) {
+        item->save(out);
+    }
+}

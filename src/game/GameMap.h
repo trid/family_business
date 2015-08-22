@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_GAMEMAP_H
 #define FAMILY_BUSINESS_GAMEMAP_H
 
+#include <fstream>
 #include <vector>
 
 #include "Tile.h"
@@ -32,6 +33,8 @@ public:
     int getHousePosY() { return village.getCenter().y; }
 
     void createHouse(int familyId);
+
+    void save(std::ofstream& out);
 };
 
 

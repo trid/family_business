@@ -8,6 +8,8 @@
 #include "FamilyManager.h"
 #include "RandomMapGenerator.h"
 #include "PartyManager.h"
+#include "MainState.h"
+#include "../Application.h"
 
 Game::Game() {
 
@@ -26,7 +28,13 @@ void Game::newGame() {
 }
 
 void Game::saveGame() {
-    std::ofstream os("save.sav");
+    std::ofstream os("save.sav", std::ios_base::binary);
+    gameMap.save(os);
+    CreatureManager::getInstance().save(os);
+    PartyManager::getInstance().save(os);
+    FamilyManager::getInstance().save(os);
+    MainState& mainState = static_cast<MainState&>(Application::getInstance().getCurrentState());
+    mainState.save(os);
 
-
+    os.close();
 }

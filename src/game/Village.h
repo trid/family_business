@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_VILLAGE_H
 #define FAMILY_BUSINESS_VILLAGE_H
 
+#include <fstream>
 
 #include "../Point.h"
 
@@ -16,6 +17,7 @@ public:
 
     const Point &getCenter() const { return center; }
     void setCenter(const Point &center) { Village::center = center; }
+    void save(std::ofstream& out);
 };
 
 

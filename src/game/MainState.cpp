@@ -167,3 +167,12 @@ void MainState::onPop() {
     PartyManager::getInstance().clear();
     HouseManager::getInstance().clear();
 }
+
+void MainState::save(std::ofstream &out) {
+    int size = movement.size();
+    out.write((char*)&size, sizeof(size));
+
+    for (auto& item: movement) {
+        item->save(out);
+    }
+}

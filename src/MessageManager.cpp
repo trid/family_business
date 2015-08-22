@@ -34,3 +34,15 @@ void MessageManager::update() {
     }
     messageQueue.clear();
 }
+
+void MessageManager::save(std::ofstream &out) {
+    int count = messageQueue.size();
+    out.write((char*)&count, sizeof(count));
+
+    for (auto& item: messageQueue) {
+        int size = item.first.size();
+        out.write((char*)&size, sizeof(size));
+        out.write(item.first.c_str(), size);
+        item.second.save(out);
+    }
+}

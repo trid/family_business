@@ -16,3 +16,10 @@ void Movement::update(int delta) {
         MessageManager::getInstance().sendMessage("character_moved", parameters);
     }
 }
+
+void Movement::save(std::ofstream &out) {
+    int id = party.getId();
+    out.write((char*)&id, sizeof(id));
+    out.write((char*)&target, sizeof(target));
+    out.write((char*)&time, sizeof(time));
+}

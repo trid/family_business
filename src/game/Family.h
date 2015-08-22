@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_FAMILY_H
 #define FAMILY_BUSINESS_FAMILY_H
 
+#include <fstream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -44,6 +45,8 @@ public:
     void setHome(int home) { Family::home = home; }
 
     int getId() const { return id; }
+
+    void save(std::ofstream& out);
 };
 
 #endif //FAMILY_BUSINESS_FAMILY_H

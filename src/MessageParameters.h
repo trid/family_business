@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_MESSAGEPARAMETERS_H
 #define FAMILY_BUSINESS_MESSAGEPARAMETERS_H
 
+#include <fstream>
 #include <initializer_list>
 #include <string>
 #include <unordered_map>
@@ -26,6 +27,8 @@ public:
 
     Variant getParameter(const std::string &name) const { return parameters.at(name); }
     void setParameter(const std::string& name, Variant param) { parameters[name] = param; }
+
+    void save(std::ofstream& out);
 };
 
 

@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_MESSAGEMANAGER_H
 #define FAMILY_BUSINESS_MESSAGEMANAGER_H
 
+#include <fstream>
 #include <list>
 #include <string>
 #include <unordered_map>
@@ -30,6 +31,9 @@ public:
     void sendMessage(const std::string &type, const MessageParameters &parameters);
     void enqueuMessage(const std::string &type, MessageParameters& parameters);
     void update();
+
+    //Drop message in queue into file
+    void save(std::ofstream& out);
 };
 
 

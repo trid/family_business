@@ -3,3 +3,7 @@
 //
 
 #include "Item.h"
+
+void Item::save(std::ofstream &out) {
+    out.write((char*)this, sizeof(*this));
+}

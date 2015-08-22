@@ -46,3 +46,37 @@ void Character::unequipWeapon() {
         weapon = nullptr;
     }
 }
+
+void Character::save(std::ofstream &out) {
+    Creature::save(out);
+    int nameLen = name.size();
+    out.write((char*)&nameLen, sizeof(nameLen));
+    out.write((char*)name.c_str(), nameLen);
+    nameLen = lastName.size();
+    out.write((char*)&nameLen, sizeof(nameLen));
+    out.write((char*)lastName.c_str(), nameLen);
+    out.write((char*)&gender, sizeof(gender));
+    out.write((char*)&age, sizeof(age));
+    out.write((char*)&familyId, sizeof(familyId));
+    int itemsCount = inventory.size();
+    out.write((char*)&itemsCount, sizeof(itemsCount));
+
+    for (auto item: inventory) {
+        item->save(out);
+    }
+
+    int weaponNum{-1};
+    int armorNum{-1};
+
+    for (int i = 0; i < inventory.size(); i++) {
+        if (weapon == inventory[i]) {
+            weaponNum = i;
+        }
+        if (armor == inventory[i]) {
+            armorNum = i;
+        }
+    }
+
+    out.write((char*)&weaponNum, sizeof(weaponNum));
+    out.write((char*)&armorNum, sizeof(armorNum));
+}

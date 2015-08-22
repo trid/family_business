@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_CREATUREMANAGER_H
 #define FAMILY_BUSINESS_CREATUREMANAGER_H
 
+#include <fstream>
 #include <memory>
 #include <vector>
 
@@ -29,6 +30,8 @@ public:
     int createMonster();
     Creature& getCreatureById(int id) { return *creatures[id]; }
     void clear() { creatures.clear(); }
+
+    void save(std::ofstream& out);
 };
 
 // Helper function to get creature by id. Shortcut for CreatureManager::getInstance().getCreatureById(id);

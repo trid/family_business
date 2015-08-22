@@ -5,6 +5,7 @@
 #ifndef FAMILY_BUSINESS_PARTY_H
 #define FAMILY_BUSINESS_PARTY_H
 
+#include <fstream>
 #include <memory>
 #include <vector>
 
@@ -38,6 +39,8 @@ public:
     
     bool isMoving() const { return moving; }
     void setMoving(bool moving) { Party::moving = moving; }
+
+    void save(std::ofstream &out);
 };
 
 

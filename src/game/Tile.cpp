@@ -5,5 +5,5 @@
 #include "Tile.h"
 
 void Tile::save(std::ofstream &out) {
-
+    out.write((char*)this, sizeof(*this));
 }
