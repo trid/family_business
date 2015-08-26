@@ -35,3 +35,12 @@ void FamilyManager::save(std::ofstream &out) {
         item->save(out);
     }
 }
+
+void FamilyManager::load(std::ifstream &in) {
+    int count{0};
+    in.read(reinterpret_cast<char*>(&count), sizeof(count));
+
+    for (int i = 0; i < count; i++) {
+        families.emplace_back(new Family(in));
+    }
+}

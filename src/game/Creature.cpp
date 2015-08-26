@@ -40,3 +40,16 @@ void Creature::save(std::ofstream &out) {
     out.write((char*)&experience, sizeof(experience));
     out.write((char*)&alive, sizeof(alive));
 }
+
+void Creature::load(std::ifstream &in) {
+    in.read(reinterpret_cast<char*>(&id), sizeof(id));
+    in.read(reinterpret_cast<char*>(&x), sizeof(x));
+    in.read(reinterpret_cast<char*>(&y), sizeof(y));
+    in.read(reinterpret_cast<char*>(&hitPoints), sizeof(hitPoints));
+    in.read(reinterpret_cast<char*>(&attack), sizeof(attack));
+    in.read(reinterpret_cast<char*>(&speed), sizeof(speed));
+    in.read(reinterpret_cast<char*>(&defence), sizeof(defence));
+    in.read(reinterpret_cast<char*>(&level), sizeof(level));
+    in.read(reinterpret_cast<char*>(&experience), sizeof(experience));
+    in.read(reinterpret_cast<char*>(&alive), sizeof(alive));
+}

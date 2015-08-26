@@ -24,11 +24,13 @@ public:
             this->parameters[item.first] = item.second;
         }
     }
+    MessageParameters(std::ifstream& in) { load(in); }
 
     Variant getParameter(const std::string &name) const { return parameters.at(name); }
     void setParameter(const std::string& name, Variant param) { parameters[name] = param; }
 
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 

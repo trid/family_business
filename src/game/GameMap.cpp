@@ -117,3 +117,15 @@ void GameMap::save(std::ofstream &out) {
         }
     }
 }
+
+void GameMap::load(std::ifstream &in) {
+    in.read((char*)&width, sizeof(width));
+    in.read((char*)&height, sizeof(height));
+    village.load(in);
+
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            mapData[x][y].load(in);
+        }
+    }
+}

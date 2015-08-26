@@ -13,6 +13,8 @@ class Monster: public Creature {
 
 public:
     Monster(): Creature(30, 10, 8) {}
+    Monster(std::ifstream& in): Creature(in) {}
+
     virtual Type type() { return Type::Monster; }
 };
 

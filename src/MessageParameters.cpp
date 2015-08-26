@@ -16,3 +16,23 @@ void MessageParameters::save(std::ofstream &out) {
         out.write((char*)&item.second, sizeof(item.second));
     }
 }
+
+void MessageParameters::load(std::ifstream &in) {
+    int count{0};
+    in.read(reinterpret_cast<char*>(&count), sizeof(count));
+
+    for (int i = 0; i < count; i++) {
+        int len{};
+        in.read(reinterpret_cast<char*>(&len), sizeof(len));
+        char* buff = new char[len + 1];
+        buff[len] = '\0';
+        in.read(buff, len);
+        std::string name{buff};
+        delete[] buff;
+
+        Variant variant;
+        in.read(reinterpret_cast<char*>(&variant), sizeof(variant));
+
+        setParameter(name, variant);
+    }
+}

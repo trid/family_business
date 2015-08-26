@@ -7,3 +7,7 @@
 void Item::save(std::ofstream &out) {
     out.write((char*)this, sizeof(*this));
 }
+
+void Item::load(std::ifstream &in) {
+    in.read(reinterpret_cast<char*>(this), sizeof(*this));
+}

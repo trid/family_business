@@ -46,6 +46,22 @@ class MainView : public View {
         CharacterMovingListener(MainView& view): view(view) {}
         virtual void onMessage(const MessageParameters &messageParameters);
     };
+
+    class GameLoadedListener: public MessageListener{
+    private:
+        MainView& view;
+    public:
+        GameLoadedListener(MainView &view) : view(view) { }
+        virtual void onMessage(const MessageParameters &messageParameters);
+    };
+
+    class MovementRestartedListener: public MessageListener {
+    private:
+        MainView& view;
+    public:
+        MovementRestartedListener(MainView &view) : view(view) { }
+        virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
 public:
     MainView();
 
@@ -56,6 +72,7 @@ public:
     virtual void onKeyDown(int key) override;
 
     void showHireDialog(House &house);
+    void showFamiliesDialog();
 
     void addCharacterToParty(int characterId);
 };

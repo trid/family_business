@@ -32,6 +32,7 @@ public:
     Family(int id, int father, int &mother, Children &children) : id(id), father(father),
                                                           mother(mother),
                                                           children(std::move(children)) { }
+    Family(std::ifstream& in) { load(in); }
 
     const std::string &getLastName() { return static_cast<Character&>(getCreatureById(father)).getLastName(); }
 
@@ -47,6 +48,7 @@ public:
     int getId() const { return id; }
 
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 #endif //FAMILY_BUSINESS_FAMILY_H

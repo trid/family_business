@@ -32,6 +32,7 @@ public:
     void clear() { creatures.clear(); }
 
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 // Helper function to get creature by id. Shortcut for CreatureManager::getInstance().getCreatureById(id);

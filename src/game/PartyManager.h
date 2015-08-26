@@ -27,6 +27,7 @@ public:
     void clear() { parties.clear(); }
 
     void save(std::ofstream &out);
+    void load(std::ifstream& in);
 };
 
 

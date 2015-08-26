@@ -36,6 +36,7 @@ public:
     };
 
     Creature(int hitPoints, int attack, int speed) : hitPoints(hitPoints), attack(attack), speed(speed) { }
+    Creature(std::ifstream& in) { load(in); }
     Creature(const Creature&) = delete;
     Creature& operator=(const Creature&) = delete;
 
@@ -61,6 +62,7 @@ public:
     int getId() const { return id; }
 
     virtual void save(std::ofstream& out);
+    virtual void load(std::ifstream& in);
 };
 
 

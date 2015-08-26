@@ -10,6 +10,8 @@
 #include "PartyManager.h"
 #include "MainState.h"
 #include "../Application.h"
+#include "HouseManager.h"
+#include "../MessageManager.h"
 
 Game::Game() {
 
@@ -25,16 +27,50 @@ void Game::newGame() {
     }
 
     playerParty = PartyManager::getInstance().createParty(Side::Player);
+    auto view = Application::getInstance().getCurrentState().getView();
+    std::shared_ptr<MainView> mainView = std::static_pointer_cast<MainView>(view);
+    mainView->showFamiliesDialog();
 }
 
 void Game::saveGame() {
     std::ofstream os("save.sav", std::ios_base::binary);
+
+    os.write((char*)&playerCharacter, sizeof(playerCharacter));
+    os.write((char*)&playerParty, sizeof(playerParty));
+
     gameMap.save(os);
     CreatureManager::getInstance().save(os);
     PartyManager::getInstance().save(os);
     FamilyManager::getInstance().save(os);
     MainState& mainState = static_cast<MainState&>(Application::getInstance().getCurrentState());
     mainState.save(os);
+    MessageManager::getInstance().save(os);
 
     os.close();
+}
+
+void Game::loadGame() {
+    FamilyManager::getInstance().clear();
+    CreatureManager::getInstance().clear();
+    PartyManager::getInstance().clear();
+    HouseManager::getInstance().clear();
+    MessageManager::getInstance().clear();
+
+    std::ifstream is("save.sav", std::ios_base::binary);
+
+    is.read((char*)&playerCharacter, sizeof(playerCharacter));
+    is.read((char*)&playerParty, sizeof(playerParty));
+
+    gameMap.load(is);
+    CreatureManager::getInstance().load(is);
+    PartyManager::getInstance().load(is);
+    FamilyManager::getInstance().load(is);
+    MainState& mainState = static_cast<MainState&>(Application::getInstance().getCurrentState());
+    mainState.load(is);
+    MessageManager::getInstance().load(is);
+
+    MessageParameters messageParameters = MessageParameters();
+    MessageManager::getInstance().enqueuMessage("game_loaded", messageParameters);
+
+    is.close();
 }

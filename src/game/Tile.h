@@ -26,6 +26,7 @@ public:
     void setLandscapeType(const LandscapeType &landscapeType) { Tile::landscapeType = landscapeType; }
 
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 using TilePtr = std::shared_ptr<Tile>;

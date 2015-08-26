@@ -31,9 +31,11 @@ public:
     void sendMessage(const std::string &type, const MessageParameters &parameters);
     void enqueuMessage(const std::string &type, MessageParameters& parameters);
     void update();
+    void clear() { messageQueue.clear(); }
 
     //Drop message in queue into file
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 

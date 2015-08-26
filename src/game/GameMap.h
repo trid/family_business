@@ -35,6 +35,7 @@ public:
     void createHouse(int familyId);
 
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 

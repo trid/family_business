@@ -33,6 +33,7 @@ class Character: public Creature {
     ItemPtr weapon{nullptr};
 public:
     Character(const string &name, const string &lastName, Gender gender, int family);
+    Character(std::ifstream& in): Creature(in) { load(in); }
 
     const string& getName() { return name; }
     const string& getLastName() { return lastName; }
@@ -48,7 +49,8 @@ public:
     ItemPtr getWeapon() { return weapon; }
     const Items& getItems() const { return inventory; }
 
-    void save(std::ofstream& out);
+    void save(std::ofstream& out) override;
+    void load(std::ifstream &in) override;
 };
 
 

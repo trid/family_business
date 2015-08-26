@@ -26,8 +26,7 @@ MainView::MainView() {
     ChoseFamilyDialog *dialog = new ChoseFamilyDialog((800 - 200) / 2, (600 - 60) / 2, 200, 0, layout,
                                                       [this](int familyId) { showFamilyDialog(familyId); });
     familyDialogWidget = WidgetPtr{dialog};
-    dialog->setUp();
-    dialog->show();
+
     layout.addWidget(familyDialogWidget);
     choseCharacterDialog = ChoseCharacterDialogPtr{
             new ChoseCharacterDialog((800 - 200) / 2, (600 - 60) / 2, 200, 60, layout,
@@ -57,6 +56,8 @@ MainView::MainView() {
     MessageManager &messageManager = MessageManager::getInstance();
     messageManager.addListener("character_moved", std::make_shared<CharacterMovedListener>(*this));
     messageManager.addListener("party_moving", std::make_shared<CharacterMovingListener>(*this));
+    messageManager.addListener("game_loaded", std::make_shared<GameLoadedListener>(*this));
+    messageManager.addListener("movement_restart", std::make_shared<MovementRestartedListener>(*this));
 }
 
 void MainView::showFamilyDialog(int familyId) {
@@ -183,5 +184,50 @@ void MainView::CharacterMovingListener::onMessage(const MessageParameters &messa
     int x = view.playerPartyImage->getPosition().x + dx * 32;
     int y = view.playerPartyImage->getPosition().y + dy * 32;
     AnimationPtr animationPtr{new MovementAnimation(view.playerPartyImage, {x, y}, 500)};
+    view.addAnimation(animationPtr);
+}
+
+void MainView::showFamiliesDialog() {
+    std::shared_ptr<ChoseFamilyDialog> dialog = std::static_pointer_cast<ChoseFamilyDialog>(familyDialogWidget);
+    dialog->setUp();
+    familyDialogWidget->show();
+}
+
+void MainView::GameLoadedListener::onMessage(const MessageParameters &messageParameters) {
+    view.centerOnCharacter();
+
+    Game &game = Game::getInstance();
+    GameMap& gameMap = game.getMap();
+    Party& party = game.getPlayerParty();
+
+    Point characterPositionWorld{party.getX() * 32, party.getY() * 32};
+    int characterImagePosX = (650 - 32) / 2;
+    int characterImagePosY = (600 - 32) / 2 - 28;
+
+
+    if (characterPositionWorld.x <= (650 - 32) / 2) {
+        characterImagePosX = party.getX() * 32;
+    }
+    if (characterPositionWorld.x >= gameMap.getWidth() * 32 - (650 - 32) / 2) {
+        characterImagePosX = (650 - (gameMap.getWidth() - party.getY()) * 32);
+    }
+    if (characterPositionWorld.y <= (600 - 32) / 2) {
+        characterImagePosY = party.getY() * 32 - 28;
+    }
+    if (characterPositionWorld.y >= gameMap.getHeight() * 32 - (600 - 32) / 2) {
+        characterImagePosY = (600 - (gameMap.getWidth() - party.getY()) * 32 - 28);
+    }
+    view.playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
+}
+
+void MainView::MovementRestartedListener::onMessage(const MessageParameters &messageParameters) {
+    auto partyLocation = view.playerPartyImage->getPosition();
+    int time = messageParameters.getParameter("time").getInt();
+    int dx = messageParameters.getParameter("x").getInt();
+    int dy = messageParameters.getParameter("y").getInt();
+
+    partyLocation.x = partyLocation.x + dx * time / 500;
+    partyLocation.y = partyLocation.y + dy * time / 500;
+    AnimationPtr animationPtr = std::make_shared<MovementAnimation>(view.playerPartyImage, Point{dx, dy}, 500 - time);
     view.addAnimation(animationPtr);
 }

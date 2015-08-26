@@ -166,6 +166,7 @@ void MainState::onPop() {
     CreatureManager::getInstance().clear();
     PartyManager::getInstance().clear();
     HouseManager::getInstance().clear();
+    MessageManager::getInstance().clear();
 }
 
 void MainState::save(std::ofstream &out) {
@@ -174,5 +175,14 @@ void MainState::save(std::ofstream &out) {
 
     for (auto& item: movement) {
         item->save(out);
+    }
+}
+
+void MainState::load(std::ifstream &in) {
+    int size{};
+    in.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+    for (int i = 0; i < size; i++) {
+        movement.emplace_back(new Movement(in));
     }
 }

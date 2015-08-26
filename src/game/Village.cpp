@@ -7,3 +7,7 @@
 void Village::save(std::ofstream &out) {
     out.write((char*)&center, sizeof(Point));
 }
+
+void Village::load(std::ifstream &in) {
+    in.read((char*)&center, sizeof(Point));
+}

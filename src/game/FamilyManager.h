@@ -29,6 +29,7 @@ public:
     void clear() { families.clear(); }
 
     void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 inline Family& getFamilyById(int id) {

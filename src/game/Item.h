@@ -10,7 +10,8 @@
 
 enum class ItemType {
     Armor,
-    Weapon
+    Weapon,
+    None
 };
 
 class Item {
@@ -18,8 +19,11 @@ private:
     ItemType type;
     bool equiped{false};
     int level;
+
+    void load(std::ifstream& in);
 public:
     Item(const ItemType &type, int level) : type(type), level(level) { }
+    Item(std::ifstream& in) { load(in); }
 
     bool isEquiped() const { return equiped; }
     void setEquiped(bool equiped) { Item::equiped = equiped; }

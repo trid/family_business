@@ -10,7 +10,7 @@
 
 GameMenu::GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h, parent) {
     ButtonPtr saveButton = std::make_shared<Button>(0, 0, 150, 30, "Save", [this](){ Game::getInstance().saveGame(); this->hide(); });
-    ButtonPtr loadButton = std::make_shared<Button>(0, 30, 150, 30, "Load", [](){});
+    ButtonPtr loadButton = std::make_shared<Button>(0, 30, 150, 30, "Load", [this](){ Game::getInstance().loadGame(); this->hide(); });
     ButtonPtr continueButton = std::make_shared<Button>(0, 60, 150, 30, "Continue", [this]() {this->hide();});
     auto menuButtonCallback = []() {
         Application& application = Application::getInstance();

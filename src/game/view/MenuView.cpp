@@ -11,14 +11,21 @@
 MenuView::MenuView() {
     auto newGameCallback = [](){
         Application &application = Application::getInstance();
-        Game::getInstance().newGame();
         application.popState();
         application.pushState(std::make_shared<MainState>());
+        Game::getInstance().newGame();
+    };
+
+    auto loadGameCallback = [](){
+        Application &application = Application::getInstance();
+        application.popState();
+        application.pushState(std::make_shared<MainState>());
+        Game::getInstance().loadGame();
     };
 
     ButtonPtr newGameBtn = std::make_shared<Button>(0, 100, 150, 40, "New Game", newGameCallback);
     newGameBtn->centrateHorizontal();
-    ButtonPtr loadGameBtn = std::make_shared<Button>(0, 180, 150, 40, "Load", [](){});
+    ButtonPtr loadGameBtn = std::make_shared<Button>(0, 180, 150, 40, "Load", loadGameCallback);
     loadGameBtn->centrateHorizontal();
     ButtonPtr exitBtn = std::make_shared<Button>(0, 260, 150, 40, "Exit", [](){ Application::getInstance().finish(); });
     exitBtn->centrateHorizontal();

@@ -4,6 +4,7 @@
 
 #include "CreatureManager.h"
 #include "Monster.h"
+#include "Character.h"
 
 int CreatureManager::registerCreature(CreaturePtr &creaturePtr) {
     creaturePtr->id = creatures.size();
@@ -24,5 +25,21 @@ void CreatureManager::save(std::ofstream &out) {
 
     for (auto& item: creatures) {
         item->save(out);
+    }
+}
+
+void CreatureManager::load(std::ifstream &in) {
+    int count{0};
+    in.read(reinterpret_cast<char*>(&count), sizeof(count));
+
+    for (int i = 0; i < count; i++) {
+        Creature::Type type;
+        in.read(reinterpret_cast<char*>(&type), sizeof(type));
+        if (type == Creature::Type::Character) {
+            creatures.emplace_back(new Character(in));
+        }
+        else {
+            creatures.emplace_back(new Monster(in));
+        }
     }
 }

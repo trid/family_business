@@ -24,6 +24,7 @@ private:
     bool moving{false};
 public:
     Party(Side side, int id) : side(side), id(id) {}
+    Party(std::ifstream& in) { load(in); }
     Party(Party&) = delete;
     Party& operator=(Party&) = delete;
     int getId() { return id; }
@@ -41,6 +42,7 @@ public:
     void setMoving(bool moving) { Party::moving = moving; }
 
     void save(std::ofstream &out);
+    void load(std::ifstream &in);
 };
 
 

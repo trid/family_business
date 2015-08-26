@@ -7,3 +7,7 @@
 void Tile::save(std::ofstream &out) {
     out.write((char*)this, sizeof(*this));
 }
+
+void Tile::load(std::ifstream &in) {
+    in.read((char*)this, sizeof(*this));
+}

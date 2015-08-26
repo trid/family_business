@@ -11,9 +11,18 @@ int PartyManager::createParty(Side side) {
 
 void PartyManager::save(std::ofstream &out) {
     int count = parties.size();
-    out.write((char*)count, sizeof(count));
+    out.write((char*)&count, sizeof(count));
 
     for (auto& item: parties) {
         item->save(out);
+    }
+}
+
+void PartyManager::load(std::ifstream &in) {
+    int count{0};
+    in.read(reinterpret_cast<char*>(&count), sizeof(count));
+
+    for (int i = 0; i < count; i++) {
+        parties.emplace_back(new Party(in));
     }
 }

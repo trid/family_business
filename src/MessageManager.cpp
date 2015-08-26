@@ -46,3 +46,20 @@ void MessageManager::save(std::ofstream &out) {
         item.second.save(out);
     }
 }
+
+void MessageManager::load(std::ifstream &in) {
+    int count{0};
+    in.read(reinterpret_cast<char*>(&count), sizeof(count));
+
+    for (int i = 0; i < count; i++) {
+        int size{0};
+        in.read(reinterpret_cast<char*>(&size), sizeof(size));
+        char* buff = new char[size + 1];
+        buff[size] = '\0';
+        in.read(buff, size);
+        std::string key{buff};
+        delete[] buff;
+        MessageParameters messageParameters{in};
+        enqueuMessage(key, messageParameters);
+    }
+}

@@ -41,6 +41,7 @@ public:
     void battleMonsters();
 
     void save(std::ofstream &out);
+    void load(std::ifstream& in);
 };
 
 

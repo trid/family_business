@@ -14,9 +14,9 @@
 
 class Game {
 private:
-    int playerCharacter;
+    int playerCharacter{-1};
     GameMap gameMap;
-    int playerParty;
+    int playerParty{-1};
 
     Game();
 
@@ -38,6 +38,7 @@ public:
 
     void newGame();
     void saveGame();
+    void loadGame();
 };
 
 
