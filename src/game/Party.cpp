@@ -20,8 +20,7 @@ void Party::save(std::ofstream &out) {
         out.write((char*)&item, sizeof(int));
     }
     out.write((char*)&side, sizeof(side));
-    out.write((char*)&x, sizeof(x));
-    out.write((char*)&y, sizeof(y));
+    out.write((char*)&position, sizeof(position));
     out.write((char*)&moving, sizeof(moving));
 }
 
@@ -35,7 +34,6 @@ void Party::load(std::ifstream &in) {
         creatureIds.push_back(itemId);
     }
     in.read(reinterpret_cast<char*>(&side), sizeof(side));
-    in.read(reinterpret_cast<char*>(&x), sizeof(x));
-    in.read(reinterpret_cast<char*>(&y), sizeof(y));
+    in.read(reinterpret_cast<char*>(&position), sizeof(position));
     in.read(reinterpret_cast<char*>(&moving), sizeof(moving));
 }

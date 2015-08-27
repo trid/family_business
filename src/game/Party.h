@@ -12,6 +12,7 @@
 #include "Side.h"
 
 #include "Creature.h"
+#include "../Point.h"
 
 
 class Party {
@@ -19,7 +20,7 @@ private:
     int id;
     std::vector<int> creatureIds;
     Side side;
-    int x, y;
+    Point position;
 
     bool moving{false};
 public:
@@ -30,10 +31,12 @@ public:
     int getId() { return id; }
     bool addCreature(int creaturePtr);
 
-    int getX() const { return x; }
-    void setX(int x) { Party::x = x; }
-    int getY() const { return y; }
-    void setY(int y) { Party::y = y; }
+    int getX() const { return position.x; }
+    void setX(int x) { position.x = x; }
+    int getY() const { return position.y; }
+    void setY(int y) { position.y = y; }
+    Point getPosition() const { return position; }
+    void setPosition(Point position) { this->position = position; }
 
     const Side getSide() const { return side; }
     std::vector<int>& getCreatures() { return creatureIds; }
