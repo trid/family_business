@@ -66,25 +66,38 @@ void MainState::onKeyDown(int keyCode) {
     if (keyCode == SDLK_UP || keyCode == SDLK_DOWN || keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
         int posX = playerParty.getX();
         int posY = playerParty.getY();
+        bool startedMovement{false};
 
         switch (keyCode) {
             case SDLK_UP:
-                --posY;
+                if (posY > 0) {
+                    --posY;
+                    startedMovement = true;
+                }
                 break;
             case SDLK_DOWN:
-                ++posY;
+                if (posY < 127) {
+                    ++posY;
+                    startedMovement = true;
+                }
                 break;
             case SDLK_RIGHT:
-                ++posX;
+                if (posX < 127) {
+                    ++posX;
+                    startedMovement = true;
+                }
                 break;
             case SDLK_LEFT:
-                --posX;
+                if (posX > 0) {
+                    --posX;
+                    startedMovement = true;
+                }
                 break;
             default:
                 break;
         }
 
-        if (!playerParty.isMoving()) {
+        if (startedMovement && !playerParty.isMoving()) {
             MessageParameters parameters;
             parameters.setParameter("dx", posX - playerParty.getX());
             parameters.setParameter("dy", posY - playerParty.getY());
