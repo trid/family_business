@@ -36,6 +36,8 @@ public:
         getPlayerParty().addCreature(playerCharacter);
     }
 
+    void addDay() { ++days; }
+
     void newGame();
     void saveGame();
     void loadGame();

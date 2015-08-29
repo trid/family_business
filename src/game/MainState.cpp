@@ -45,6 +45,12 @@ void MainState::run() {
     }
     auto iter = std::remove_if(movement.begin(), movement.end(), [](MovementPtr movementPtr){ return movementPtr->isFinished(); });
     movement.erase(iter, movement.end());
+
+    dateDelta += delta;
+    if (dateDelta >= 60000) {
+        dateDelta -= 60000;
+        Game::getInstance().addDay();
+    }
 }
 
 void MainState::onKeyDown(int keyCode) {
