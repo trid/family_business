@@ -29,6 +29,7 @@ public:
     int registerCreature(CreaturePtr& creaturePtr);
     int createMonster();
     Creature& getCreatureById(int id) { return *creatures[id]; }
+    void updateAge();
     void clear() { creatures.clear(); }
 
     void save(std::ofstream& out);

@@ -43,3 +43,12 @@ void CreatureManager::load(std::ifstream &in) {
         }
     }
 }
+
+void CreatureManager::updateAge() {
+    for (auto& item: creatures) {
+        if (item->type() == Creature::Type::Character) {
+            Character* character = static_cast<Character*>(item.get());
+            character->addDay();
+        }
+    }
+}

@@ -24,7 +24,7 @@ class Character: public Creature {
     string lastName;
 
     Gender gender;
-    int age;
+    int age{0};
 
     int familyId;
 
@@ -48,6 +48,7 @@ public:
     virtual Type type() { return Type::Character; }
     ItemPtr getWeapon() { return weapon; }
     const Items& getItems() const { return inventory; }
+    void addDay() { ++age; }
 
     void save(std::ofstream& out) override;
     void load(std::ifstream &in) override;

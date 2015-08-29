@@ -78,3 +78,8 @@ void Game::loadGame() {
 
     is.close();
 }
+
+void Game::addDay() {
+    ++days;
+    CreatureManager::getInstance().updateAge();
+}
