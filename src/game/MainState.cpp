@@ -21,7 +21,7 @@ MainState::MainState() {
     MessageListenerPtr movementListener{new CharacterMovedListener};
     MessageManager &messageManager = MessageManager::getInstance();
     messageManager.addListener("player_win", listenerPtr);
-    messageManager.addListener("character_moved", movementListener);
+    messageManager.addListener("movement_finished", movementListener);
 }
 
 void MainState::onClick(const Point &point, int button) {
@@ -157,6 +157,8 @@ void MainState::CharacterMovedListener::onMessage(const MessageParameters &messa
     }
 
     gameMap.getTile(posX, posY).setParty(playerParty.getId());
+
+    MessageManager::getInstance().sendMessage("character_moved", messageParameters);
 }
 
 void MainState::onPop() {

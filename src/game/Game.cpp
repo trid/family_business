@@ -30,6 +30,8 @@ void Game::newGame() {
     auto view = Application::getInstance().getCurrentState().getView();
     std::shared_ptr<MainView> mainView = std::static_pointer_cast<MainView>(view);
     mainView->showFamiliesDialog();
+    MessageParameters messageParameters{};
+    MessageManager::getInstance().sendMessage("new_game", messageParameters);
 }
 
 void Game::saveGame() {
@@ -37,6 +39,7 @@ void Game::saveGame() {
 
     os.write((char*)&playerCharacter, sizeof(playerCharacter));
     os.write((char*)&playerParty, sizeof(playerParty));
+    os.write(reinterpret_cast<char*>(&days), sizeof(days));
 
     gameMap.save(os);
     CreatureManager::getInstance().save(os);
@@ -60,6 +63,7 @@ void Game::loadGame() {
 
     is.read((char*)&playerCharacter, sizeof(playerCharacter));
     is.read((char*)&playerParty, sizeof(playerParty));
+    is.read(reinterpret_cast<char*>(&days), sizeof(days));
 
     gameMap.load(is);
     CreatureManager::getInstance().load(is);

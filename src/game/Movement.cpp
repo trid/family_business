@@ -15,7 +15,7 @@ void Movement::update(int delta) {
         MessageParameters parameters;
         parameters.setParameter("x", target.x);
         parameters.setParameter("y", target.y);
-        MessageManager::getInstance().sendMessage("character_moved", parameters);
+        MessageManager::getInstance().sendMessage("movement_finished", parameters);
     }
 }
 

@@ -24,6 +24,8 @@ public:
     }
     int createParty(Side side);
     Party& getParty(int id) { return *parties[id]; }
+    const Parties &getParties() const { return parties; }
+
     void clear() { parties.clear(); }
 
     void save(std::ofstream &out);

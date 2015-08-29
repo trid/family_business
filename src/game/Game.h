@@ -17,9 +17,9 @@ private:
     int playerCharacter{-1};
     GameMap gameMap;
     int playerParty{-1};
+    long int days{0l};
 
     Game();
-
 public:
     static Game &getInstance() {
         static Game instance;

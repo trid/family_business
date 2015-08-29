@@ -12,6 +12,7 @@
 #include "MapPresentation.h"
 #include "GUI/HireCharacterDialog.h"
 #include "../../view/Image.h"
+#include "GUI/MonsterImage.h"
 
 
 class MainView : public View {
@@ -22,14 +23,18 @@ class MainView : public View {
     WidgetPtr mainMenu;
 
     DrawablePtr mapView{new MapPresentation};
-
-    void showFamilyDialog(int familyId);
-    void choseCharacter(int characterId);
-    void centerOnCharacter();
+    std::vector<MonsterImagePtr> monsterViews;
 
     int dx{}, dy{};
 
     ImagePtr playerPartyImage;
+
+    void showFamilyDialog(int familyId);
+    void choseCharacter(int characterId);
+    void centerOnCharacter();
+    void loadMonsterViews();
+    void updateMonsterViews();
+    void clearMonsterViews();
 
     class CharacterMovedListener : public MessageListener{
     private:
@@ -61,6 +66,14 @@ class MainView : public View {
     public:
         MovementRestartedListener(MainView &view) : view(view) { }
         virtual void onMessage(const MessageParameters &messageParameters) override;
+    };
+
+    class NewGameListener: public MessageListener {
+    private:
+        MainView& view;
+    public:
+        NewGameListener(MainView &view) : view(view) { }
+        virtual void onMessage(const MessageParameters &messageParameters);
     };
 public:
     MainView();

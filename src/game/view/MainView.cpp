@@ -58,6 +58,7 @@ MainView::MainView() {
     messageManager.addListener("party_moving", std::make_shared<CharacterMovingListener>(*this));
     messageManager.addListener("game_loaded", std::make_shared<GameLoadedListener>(*this));
     messageManager.addListener("movement_restart", std::make_shared<MovementRestartedListener>(*this));
+    messageManager.addListener("new_game", std::make_shared<NewGameListener>(*this));
 }
 
 void MainView::showFamilyDialog(int familyId) {
@@ -99,6 +100,7 @@ void MainView::choseCharacter(int characterId) {
     MessageParameters messageParameters;
     messageParameters.setParameter("characterId", characterId);
     MessageManager::getInstance().sendMessage("character_selected", messageParameters);
+    updateMonsterViews();
 }
 
 void MainView::update(int timeDelta) {
@@ -175,6 +177,7 @@ void MainView::CharacterMovedListener::onMessage(const MessageParameters &messag
         characterImagePosY = (600 - (gameMap.getWidth() - y) * 32 - 28);
     }
     view.playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
+    view.updateMonsterViews();
 }
 
 void MainView::CharacterMovingListener::onMessage(const MessageParameters &messageParameters) {
@@ -218,6 +221,8 @@ void MainView::GameLoadedListener::onMessage(const MessageParameters &messagePar
         characterImagePosY = (600 - (gameMap.getWidth() - party.getY()) * 32 - 28);
     }
     view.playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
+    view.clearMonsterViews();
+    view.loadMonsterViews();
 }
 
 void MainView::MovementRestartedListener::onMessage(const MessageParameters &messageParameters) {
@@ -230,4 +235,38 @@ void MainView::MovementRestartedListener::onMessage(const MessageParameters &mes
     partyLocation.y = partyLocation.y + dy * time / 500;
     AnimationPtr animationPtr = std::make_shared<MovementAnimation>(view.playerPartyImage, Point{dx, dy}, 500 - time);
     view.addAnimation(animationPtr);
+}
+
+void MainView::loadMonsterViews() {
+    PartyManager &manager = PartyManager::getInstance();
+    SDL_Texture *texture = SpriteManager::getInstance().getTexture("res/images/monster.png");
+    for (auto& item: manager.getParties()) {
+        if (item->getSide() == Side::AI) {
+            monsterViews.emplace_back(new MonsterImage(texture, item->getId()));
+            addDrawable(monsterViews.back());
+        }
+    }
+}
+
+void MainView::updateMonsterViews() {
+    PartyManager &partyManager = PartyManager::getInstance();
+    Party& playerParty = Game::getInstance().getPlayerParty();
+    Point playerPosition = playerParty.getPosition();
+    Point imagePosition = playerPartyImage->getPosition();
+    for (auto item: monsterViews) {
+        Party& monsterParty = partyManager.getParty(item->getPartyId());
+        Point distance = monsterParty.getPosition() - playerPosition;
+        item->setPosition({imagePosition.x + distance.x * 32, imagePosition.y + distance.y * 32 + 28});
+    }
+}
+
+void MainView::clearMonsterViews() {
+    for (auto item: monsterViews) {
+        removeDrawable(item);
+    }
+    monsterViews.clear();
+}
+
+void MainView::NewGameListener::onMessage(const MessageParameters &messageParameters) {
+    view.loadMonsterViews();
 }
