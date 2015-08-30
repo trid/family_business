@@ -40,6 +40,14 @@ void Game::saveGame() {
     os.write((char*)&playerCharacter, sizeof(playerCharacter));
     os.write((char*)&playerParty, sizeof(playerParty));
     os.write(reinterpret_cast<char*>(&days), sizeof(days));
+    os.write(reinterpret_cast<char*>(&dateDelta), sizeof(dateDelta));
+
+    int size = movement.size();
+    os.write((char*)&size, sizeof(size));
+
+    for (auto& item: movement) {
+        item->save(os);
+    }
 
     gameMap.save(os);
     CreatureManager::getInstance().save(os);
@@ -64,6 +72,14 @@ void Game::loadGame() {
     is.read((char*)&playerCharacter, sizeof(playerCharacter));
     is.read((char*)&playerParty, sizeof(playerParty));
     is.read(reinterpret_cast<char*>(&days), sizeof(days));
+    is.read(reinterpret_cast<char*>(&dateDelta), sizeof(dateDelta));
+
+    int size{};
+    is.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+    for (int i = 0; i < size; i++) {
+        movement.emplace_back(new Movement(is));
+    }
 
     gameMap.load(is);
     CreatureManager::getInstance().load(is);
@@ -82,4 +98,29 @@ void Game::loadGame() {
 void Game::addDay() {
     ++days;
     CreatureManager::getInstance().updateAge();
+}
+
+void Game::update(int delta) {
+    for (auto item: movement) {
+        item->update(delta);
+    }
+    auto iter = std::remove_if(movement.begin(), movement.end(), [](MovementPtr movementPtr){ return movementPtr->isFinished(); });
+    movement.erase(iter, movement.end());
+
+    dateDelta += delta;
+    if (dateDelta >= 60000) {
+        dateDelta -= 60000;
+        Game::getInstance().addDay();
+    }
+}
+
+void Game::moveParty(int partyId, Point newPosition) {
+    MessageParameters parameters;
+    Party& party = PartyManager::getInstance().getParty(partyId);
+    parameters.setParameter("dx", newPosition.x - party.getX());
+    parameters.setParameter("dy", newPosition.y - party.getY());
+    MessageManager::getInstance().sendMessage("party_moving", parameters);
+    MovementPtr movementPtr{new Movement{party, newPosition}};
+    movement.push_back(movementPtr);
+    party.setMoving(true);
 }

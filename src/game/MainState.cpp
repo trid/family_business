@@ -40,17 +40,7 @@ void MainState::run() {
     lastTime = ticks;
     getView()->update(delta);
 
-    for (auto item: movement) {
-        item->update(delta);
-    }
-    auto iter = std::remove_if(movement.begin(), movement.end(), [](MovementPtr movementPtr){ return movementPtr->isFinished(); });
-    movement.erase(iter, movement.end());
-
-    dateDelta += delta;
-    if (dateDelta >= 60000) {
-        dateDelta -= 60000;
-        Game::getInstance().addDay();
-    }
+    Game::getInstance().update(delta);
 }
 
 void MainState::onKeyDown(int keyCode) {
@@ -98,13 +88,7 @@ void MainState::onKeyDown(int keyCode) {
         }
 
         if (startedMovement && !playerParty.isMoving()) {
-            MessageParameters parameters;
-            parameters.setParameter("dx", posX - playerParty.getX());
-            parameters.setParameter("dy", posY - playerParty.getY());
-            MessageManager::getInstance().sendMessage("party_moving", parameters);
-            MovementPtr movementPtr{new Movement{playerParty, {posX, posY}}};
-            movement.push_back(movementPtr);
-            playerParty.setMoving(true);
+            Game::getInstance().moveParty(playerParty.getId(), {posX, posY});
         }
     }
     if (keyCode == SDLK_SPACE) {
@@ -191,19 +175,9 @@ void MainState::onPop() {
 }
 
 void MainState::save(std::ofstream &out) {
-    int size = movement.size();
-    out.write((char*)&size, sizeof(size));
 
-    for (auto& item: movement) {
-        item->save(out);
-    }
 }
 
 void MainState::load(std::ifstream &in) {
-    int size{};
-    in.read(reinterpret_cast<char*>(&size), sizeof(size));
 
-    for (int i = 0; i < size; i++) {
-        movement.emplace_back(new Movement(in));
-    }
 }

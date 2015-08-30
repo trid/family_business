@@ -11,6 +11,7 @@
 #include "Party.h"
 #include "CreatureManager.h"
 #include "PartyManager.h"
+#include "Movement.h"
 
 class Game {
 private:
@@ -18,6 +19,10 @@ private:
     GameMap gameMap;
     int playerParty{-1};
     long int days{0l};
+    //TODO: change to process in future
+    int dateDelta{0};
+
+    std::vector<MovementPtr> movement;
 
     Game();
 public:
@@ -37,6 +42,9 @@ public:
     }
 
     void addDay();
+    void moveParty(int partyId, Point newPosition);
+
+    void update(int delta);
 
     void newGame();
     void saveGame();

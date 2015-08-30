@@ -14,9 +14,6 @@
 
 class MainState : public State {
     unsigned int lastTime{SDL_GetTicks()};
-    std::vector<MovementPtr> movement;
-    //TODO: change to process in future
-    int dateDelta{0};
 
     class CharacterWinListener: public MessageListener {
     public:
