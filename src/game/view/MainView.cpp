@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <sstream>
 
 #include "MainView.h"
 #include "GUI/ChoseFamilyDialog.h"
@@ -48,7 +49,12 @@ MainView::MainView() {
     mainMenu->hide();
     mainMenu->centrate();
 
+    dateLabel = std::make_shared<Label>(550, 0, 50, 20, nullptr, "");
+    layout.addWidget(dateLabel);
+
     playerPartyImage = ImagePtr{new Image(SpriteManager::getInstance().getTexture("res/images/human.png"), {800, 600})};
+
+    updateDate();
 
     addDrawable(mapView);
     addDrawable(playerPartyImage);
@@ -59,6 +65,7 @@ MainView::MainView() {
     messageManager.addListener("game_loaded", std::make_shared<GameLoadedListener>(*this));
     messageManager.addListener("movement_restart", std::make_shared<MovementRestartedListener>(*this));
     messageManager.addListener("new_game", std::make_shared<NewGameListener>(*this));
+    messageManager.addListener("new_day", std::make_shared<NewDayListener>(*this));
 }
 
 void MainView::showFamilyDialog(int familyId) {
@@ -223,6 +230,7 @@ void MainView::GameLoadedListener::onMessage(const MessageParameters &messagePar
     view.playerPartyImage->setPosition({characterImagePosX, characterImagePosY});
     view.clearMonsterViews();
     view.loadMonsterViews();
+    view.updateDate();
 }
 
 void MainView::MovementRestartedListener::onMessage(const MessageParameters &messageParameters) {
@@ -269,4 +277,20 @@ void MainView::clearMonsterViews() {
 
 void MainView::NewGameListener::onMessage(const MessageParameters &messageParameters) {
     view.loadMonsterViews();
+}
+
+void MainView::updateDate() {
+    int date = Game::getInstance().getDate();
+    int years = date / (12 * 30);
+    date = date - years * 12 * 30;
+    int month = date / 30;
+    int days = date - month * 30;
+    std::stringstream ss;
+
+    ss << days << "." << month << "." << years;
+    dateLabel->setText(ss.str());
+}
+
+void MainView::NewDayListener::onMessage(const MessageParameters &messageParameters) {
+    view.updateDate();
 }

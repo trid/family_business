@@ -13,6 +13,7 @@
 #include "GUI/HireCharacterDialog.h"
 #include "../../view/Image.h"
 #include "GUI/MonsterImage.h"
+#include "../../view/GUI/Label.h"
 
 
 class MainView : public View {
@@ -21,6 +22,7 @@ class MainView : public View {
     HireCharacterDialogPtr hireCharacterDialog;
 
     WidgetPtr mainMenu;
+    LabelPtr dateLabel;
 
     DrawablePtr mapView{new MapPresentation};
     std::vector<MonsterImagePtr> monsterViews;
@@ -35,6 +37,7 @@ class MainView : public View {
     void loadMonsterViews();
     void updateMonsterViews();
     void clearMonsterViews();
+    void updateDate();
 
     class CharacterMovedListener : public MessageListener{
     private:
@@ -73,6 +76,14 @@ class MainView : public View {
         MainView& view;
     public:
         NewGameListener(MainView &view) : view(view) { }
+        virtual void onMessage(const MessageParameters &messageParameters);
+    };
+
+    class NewDayListener: public MessageListener {
+    private:
+        MainView& view;
+    public:
+        NewDayListener(MainView &view) : view(view) { }
         virtual void onMessage(const MessageParameters &messageParameters);
     };
 public:

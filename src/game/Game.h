@@ -42,6 +42,7 @@ public:
     }
 
     void addDay();
+    int getDate() { return days; }
     void moveParty(int partyId, Point newPosition);
 
     void update(int delta);

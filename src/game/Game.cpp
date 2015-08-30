@@ -98,6 +98,9 @@ void Game::loadGame() {
 void Game::addDay() {
     ++days;
     CreatureManager::getInstance().updateAge();
+
+    MessageParameters messageParameters;
+    MessageManager::getInstance().sendMessage("new_day", messageParameters);
 }
 
 void Game::update(int delta) {
