@@ -31,6 +31,9 @@ class Character: public Creature {
     Items inventory;
     ItemPtr armor{nullptr};
     ItemPtr weapon{nullptr};
+
+    Generator generator;
+    Distributor deathDistr{0, 100};
 public:
     Character(const string &name, const string &lastName, Gender gender, int family);
     Character(std::ifstream& in): Creature(in) { load(in); }
@@ -48,7 +51,7 @@ public:
     virtual Type type() { return Type::Character; }
     ItemPtr getWeapon() { return weapon; }
     const Items& getItems() const { return inventory; }
-    void addDay() { ++age; }
+    void addDay();
 
     void save(std::ofstream& out) override;
     void load(std::ifstream &in) override;

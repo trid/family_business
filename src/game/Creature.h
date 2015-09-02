@@ -57,6 +57,7 @@ public:
     void setDefence(int defence) { Creature::defence = defence; }
 
     bool isAlive() { return alive; }
+    void setAlive(bool alive) { this->alive = alive; }
     void addExperience(int experience);
 
     int getId() const { return id; }

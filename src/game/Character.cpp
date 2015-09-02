@@ -124,3 +124,14 @@ void Character::load(std::ifstream &in) {
     weapon = weaponNum != -1 ? inventory[weaponNum] : nullptr;
     armor = armorNum != -1 ? inventory[armorNum] : nullptr;
 }
+
+void Character::addDay() {
+    ++age;
+    int years = age / (30 * 12);
+    if (years > 50) {
+        int chance = deathDistr(generator);
+        if (chance < 10 + 50 - years) {
+            setAlive(false);
+        }
+    }
+}
