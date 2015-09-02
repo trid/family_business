@@ -13,6 +13,7 @@
 #include "../MessageManager.h"
 #include "FamilyManager.h"
 #include "HouseManager.h"
+#include "AIManager.h"
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -41,6 +42,7 @@ void MainState::run() {
     getView()->update(delta);
 
     Game::getInstance().update(delta);
+    AIManager::getInstance().update(delta);
 }
 
 void MainState::onKeyDown(int keyCode) {
@@ -144,22 +146,23 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
 void MainState::CharacterMovedListener::onMessage(const MessageParameters &messageParameters) {
     Game& game = Game::getInstance();
     GameMap &gameMap = game.getMap();
-    Party& playerParty = game.getPlayerParty();
+    int partyId = messageParameters.getParameter("partyId").getInt();
+    Party& party = PartyManager::getInstance().getParty(partyId);
 
-    gameMap.getTile(playerParty.getX(), playerParty.getY()).setParty(-1);
+    gameMap.getTile(party.getX(), party.getY()).setParty(-1);
     int posX = messageParameters.getParameter("x").getInt();
-    playerParty.setX(posX);
+    party.setX(posX);
     int posY = messageParameters.getParameter("y").getInt();
-    playerParty.setY(posY);
+    party.setY(posY);
 
-    int partyId = gameMap.getTile(posX, posY).getParty();
+    int anotherPartyId = gameMap.getTile(posX, posY).getParty();
     PartyManager &partyManager = PartyManager::getInstance();
-    if (partyId != -1 && partyManager.getParty(partyId).getSide() == Side::AI) {
-        Application::getInstance().pushState(StatePtr{new BattleState(playerParty, partyManager.getParty(partyId))});
+    if (anotherPartyId != -1 && partyManager.getParty(anotherPartyId).getSide() == Side::AI) {
+        Application::getInstance().pushState(StatePtr{new BattleState(party, partyManager.getParty(anotherPartyId))});
         return;
     }
 
-    gameMap.getTile(posX, posY).setParty(playerParty.getId());
+    gameMap.getTile(posX, posY).setParty(partyId);
 
     MessageManager::getInstance().sendMessage("character_moved", messageParameters);
 }

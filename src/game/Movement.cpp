@@ -13,6 +13,7 @@ void Movement::update(int delta) {
         Party& party = PartyManager::getInstance().getParty(partyId);
         party.setMoving(false);
         MessageParameters parameters;
+        parameters.setParameter("partyId", partyId);
         parameters.setParameter("x", target.x);
         parameters.setParameter("y", target.y);
         MessageManager::getInstance().sendMessage("movement_finished", parameters);

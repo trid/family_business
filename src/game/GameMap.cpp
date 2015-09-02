@@ -7,6 +7,8 @@
 #include "Monster.h"
 #include "FamilyManager.h"
 #include "HouseManager.h"
+#include "MonsterAI.h"
+#include "AIManager.h"
 
 #include <ctime>
 #include <random>
@@ -27,6 +29,8 @@ GameMap::GameMap() {
 
     //Set monster five tiles on north or five tiles on south of house
     int monsterPartyId = PartyManager::getInstance().createParty(Side::AI);
+    MonsterAIPtr monsterAI = std::make_shared<MonsterAI>(monsterPartyId);
+    AIManager::getInstance().addAi(monsterAI);
     Party& monsterParty = PartyManager::getInstance().getParty(monsterPartyId);
     monsterParty.addCreature(CreatureManager::getInstance().createMonster());
     //Create monsters den

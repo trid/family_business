@@ -122,6 +122,7 @@ void Game::moveParty(int partyId, Point newPosition) {
     Party& party = PartyManager::getInstance().getParty(partyId);
     parameters.setParameter("dx", newPosition.x - party.getX());
     parameters.setParameter("dy", newPosition.y - party.getY());
+    parameters.setParameter("partyId", partyId);
     MessageManager::getInstance().sendMessage("party_moving", parameters);
     MovementPtr movementPtr{new Movement{party, newPosition}};
     movement.push_back(movementPtr);

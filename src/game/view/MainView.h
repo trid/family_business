@@ -47,11 +47,11 @@ class MainView : public View {
         virtual void onMessage(const MessageParameters &messageParameters);
     };
 
-    class CharacterMovingListener : public MessageListener{
+    class PartyMovingListener : public MessageListener{
     private:
         MainView& view;
     public:
-        CharacterMovingListener(MainView& view): view(view) {}
+        PartyMovingListener(MainView& view): view(view) {}
         virtual void onMessage(const MessageParameters &messageParameters);
     };
 

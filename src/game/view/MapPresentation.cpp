@@ -51,13 +51,17 @@ void MapPresentation::update(int timeDelta) {
 }
 
 void MapPresentation::CharacterMoveListener::onMessage(const MessageParameters &messageParameters) {
-    int x = messageParameters.getParameter("x").getInt();
-    int y = messageParameters.getParameter("y").getInt();
+    int partyId = messageParameters.getParameter("partyId").getInt();
 
-    int dx = -x * 32 - 16 + (Screen::getInstance().getWidth() - 150) / 2;
-    int dy = -y * 32 - 16 + Screen::getInstance().getHeight() / 2;
+    if (partyId == Game::getInstance().getPlayerParty().getId()) {
+        int x = messageParameters.getParameter("x").getInt();
+        int y = messageParameters.getParameter("y").getInt();
 
-    mapPresentation.setDeltas(dx, dy);
+        int dx = -x * 32 - 16 + (Screen::getInstance().getWidth() - 150) / 2;
+        int dy = -y * 32 - 16 + Screen::getInstance().getHeight() / 2;
+
+        mapPresentation.setDeltas(dx, dy);
+    }
 }
 
 void MapPresentation::setDeltas(int dx, int dy) {
