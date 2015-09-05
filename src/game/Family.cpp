@@ -3,6 +3,7 @@
 //
 
 #include "Family.h"
+#include "CharacterManager.h"
 
 void Family::save(std::ofstream &out) {
     out.write((char*)&id, sizeof(id));
@@ -42,4 +43,18 @@ void Family::load(std::ifstream &in) {
     in.read(buff, lastNameSize);
     lastName = buff;
     delete[] buff;
+}
+
+void Family::updateDaily() {
+    CreatureManager& creatureManager = CreatureManager::getInstance();
+    Character& father = static_cast<Character&>(creatureManager.getCreatureById(this->father));
+    Character& mother = static_cast<Character&>(creatureManager.getCreatureById(this->mother));
+
+    if (father.getAge() <= 35 && mother.getAge() <= 35) {
+        int chance = distributor(generator);
+        if (chance < 3) {
+            int child = CharacterManager::getInstance().addCharacter(this->mother, this->father);
+            addChild(child);
+        }
+    }
 }

@@ -99,6 +99,7 @@ void Game::loadGame() {
 void Game::addDay() {
     ++days;
     CreatureManager::getInstance().updateAge();
+    FamilyManager::getInstance().updateDaily();
 
     MessageParameters messageParameters;
     MessageManager::getInstance().sendMessage("new_day", messageParameters);
@@ -146,5 +147,6 @@ void Game::marry(int character1, int character2) {
     charRef2.setMarried(true);
     charRef1.setPartnerId(character2);
     charRef2.setPartnerId(character1);
-    FamilyManager::getInstance().createFamily(character1, character2);
+    int familyId = FamilyManager::getInstance().createFamily(character1, character2);
+    gameMap.createHouse(familyId);
 }

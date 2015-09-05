@@ -30,6 +30,8 @@ public:
 
     int createFamily(int fatherId, int motherId);
 
+    void updateDaily();
+
     void save(std::ofstream& out);
     void load(std::ifstream& in);
 };

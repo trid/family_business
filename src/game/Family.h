@@ -28,6 +28,9 @@ class Family {
     int home;
 
     std::string lastName;
+
+    Generator generator;
+    Distributor distributor{0, 100};
 public:
     Family(int id, int father, int &mother, Children &children) : id(id), father(father),
                                                           mother(mother),
@@ -42,11 +45,14 @@ public:
     Character& getMother() { return static_cast<Character&>(getCreatureById(mother)); }
     int getMotherId() { return mother; }
     Children &getChildren() { return children; }
+    void addChild(int childId) { children.push_back(childId); }
 
     int getHome() const { return home; }
     void setHome(int home) { Family::home = home; }
 
     int getId() const { return id; }
+
+    void updateDaily();
 
     void save(std::ofstream& out);
     void load(std::ifstream& in);

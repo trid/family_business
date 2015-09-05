@@ -55,3 +55,9 @@ int FamilyManager::createFamily(int fatherId, int motherId) {
     families.emplace_back(new Family(families.size(), fatherId, motherId, childFree));
     return families.size() - 1;
 }
+
+void FamilyManager::updateDaily() {
+    for (auto& item: families) {
+        item->updateDaily();
+    }
+}
