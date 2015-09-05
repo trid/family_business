@@ -18,6 +18,11 @@ int FamilyManager::generateFamily() {
     Character& father = static_cast<Character&>(getCreatureById(fatherId));
     father.addExperience(100);
     int motherId = characterManager.addCharacter(father.getLastName(), Gender::Female, familyId);
+    Character& mother = static_cast<Character&>(getCreatureById(motherId));
+    father.setPartnerId(motherId);
+    father.setMarried(true);
+    mother.setPartnerId(fatherId);
+    mother.setMarried(true);
     getCreatureById(motherId).addExperience(100);
     Children children;
     for (int j = 0; j < 3; j++) {
@@ -43,4 +48,10 @@ void FamilyManager::load(std::ifstream &in) {
     for (int i = 0; i < count; i++) {
         families.emplace_back(new Family(in));
     }
+}
+
+int FamilyManager::createFamily(int fatherId, int motherId) {
+    std::vector<int> childFree = std::vector<int>();
+    families.emplace_back(new Family(families.size(), fatherId, motherId, childFree));
+    return families.size() - 1;
 }

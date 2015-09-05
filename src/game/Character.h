@@ -25,6 +25,8 @@ class Character: public Creature {
 
     Gender gender;
     int age{0};
+    bool married{false};
+    int partnerId{-1};
 
     int familyId;
 
@@ -52,6 +54,12 @@ public:
     ItemPtr getWeapon() { return weapon; }
     const Items& getItems() const { return inventory; }
     void addDay();
+    int getAge() { return age; }
+
+    bool isMarried() const { return married; }
+    void setMarried(bool married) { Character::married = married; }
+    int getPartnerId() const { return partnerId; }
+    void setPartnerId(int partnerId) { Character::partnerId = partnerId; }
 
     void save(std::ofstream& out) override;
     void load(std::ifstream &in) override;

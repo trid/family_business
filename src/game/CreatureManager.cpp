@@ -5,6 +5,7 @@
 #include "CreatureManager.h"
 #include "Monster.h"
 #include "Character.h"
+#include "Side.h"
 
 int CreatureManager::registerCreature(CreaturePtr &creaturePtr) {
     creaturePtr->id = creatures.size();
@@ -51,4 +52,16 @@ void CreatureManager::updateAge() {
             character->addDay();
         }
     }
+}
+
+std::vector<int> CreatureManager::getCharactersByGender(Gender gender) {
+    std::vector<int> characters;
+
+    for (auto& creature: creatures) {
+        if (creature->type() == Creature::Type::Character && static_cast<Character*>(creature.get())->getGender() == gender) {
+            characters.push_back(creature->getId());
+        }
+    }
+
+    return characters;
 }

@@ -13,6 +13,7 @@
 #include "HouseManager.h"
 #include "../MessageManager.h"
 
+
 Game::Game() {
 
 }
@@ -119,7 +120,15 @@ void Game::update(int delta) {
 
 void Game::moveParty(int partyId, Point newPosition) {
     MessageParameters parameters;
-    Party& party = PartyManager::getInstance().getParty(partyId);
+    PartyManager &partyManager = PartyManager::getInstance();
+    Party& party = partyManager.getParty(partyId);
+    int tilePartyId = gameMap.getTile(newPosition).getParty();
+    if (tilePartyId != -1) {
+        Party& targetParty = partyManager.getParty(tilePartyId);
+        if (party.getSide() == targetParty.getSide()) {
+            return;
+        }
+    }
     parameters.setParameter("dx", newPosition.x - party.getX());
     parameters.setParameter("dy", newPosition.y - party.getY());
     parameters.setParameter("partyId", partyId);
@@ -127,4 +136,15 @@ void Game::moveParty(int partyId, Point newPosition) {
     MovementPtr movementPtr{new Movement{party, newPosition}};
     movement.push_back(movementPtr);
     party.setMoving(true);
+}
+
+void Game::marry(int character1, int character2) {
+    CreatureManager &manager = CreatureManager::getInstance();
+    Character& charRef1 = static_cast<Character&>(manager.getCreatureById(character1));
+    Character& charRef2 = static_cast<Character&>(manager.getCreatureById(character2));
+    charRef1.setMarried(true);
+    charRef2.setMarried(true);
+    charRef1.setPartnerId(character2);
+    charRef2.setPartnerId(character1);
+    FamilyManager::getInstance().createFamily(character1, character2);
 }

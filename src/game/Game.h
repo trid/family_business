@@ -44,6 +44,7 @@ public:
     void addDay();
     int getDate() { return days; }
     void moveParty(int partyId, Point newPosition);
+    void marry(int character1, int character2);
 
     void update(int delta);
 

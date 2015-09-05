@@ -5,6 +5,8 @@
 #include "CharacterManager.h"
 #include "Character.h"
 #include "CreatureManager.h"
+#include "AbstractAI.h"
+#include "CharacterAI.h"
 
 #include <fstream>
 #include <ctime>
@@ -15,7 +17,9 @@ int CharacterManager::addCharacter(Gender gender, int familyId) {
     std::unique_ptr<Creature> character = std::unique_ptr<Character>(
             new Character(name, lastNames[lastNamesRNG(generator)], gender,
                           familyId));
-    return CreatureManager::getInstance().registerCreature(character);
+    int characterId = CreatureManager::getInstance().registerCreature(character);
+    AbstractAIPtr abstractAIPtr{new CharacterAI(characterId)};
+    return characterId;
 }
 
 int CharacterManager::addCharacter(const string &lastName, int familyId) {
@@ -23,7 +27,9 @@ int CharacterManager::addCharacter(const string &lastName, int familyId) {
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
     std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, familyId));
-    return CreatureManager::getInstance().registerCreature(character);
+    int characterId = CreatureManager::getInstance().registerCreature(character);
+    AbstractAIPtr abstractAIPtr{new CharacterAI(characterId)};
+    return characterId;
 }
 
 int CharacterManager::addCharacter(int motherId, int fatherId) {
@@ -33,14 +39,18 @@ int CharacterManager::addCharacter(int motherId, int fatherId) {
     Character& father = static_cast<Character&>(getCreatureById(fatherId));
     std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, father.getLastName(), gender,
                                                                                    father.getFamilyId()));
-    return CreatureManager::getInstance().registerCreature(character);
+    int characterId = CreatureManager::getInstance().registerCreature(character);
+    AbstractAIPtr abstractAIPtr{new CharacterAI(characterId)};
+    return characterId;
 }
 
 int CharacterManager::addCharacter(const string &lastName, Gender gender, int family) {
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];
     std::unique_ptr<Creature> character = std::unique_ptr<Character>(new Character(name, lastName, gender, family));
-    return CreatureManager::getInstance().registerCreature(character);
+    int characterId = CreatureManager::getInstance().registerCreature(character);
+    AbstractAIPtr abstractAIPtr{new CharacterAI(characterId)};
+    return characterId;
 }
 
 CharacterManager::CharacterManager() {

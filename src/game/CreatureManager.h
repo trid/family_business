@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Creature.h"
+#include "Character.h"
 
 using CreaturePtr = std::unique_ptr<Creature>;
 using Creatures = std::vector<CreaturePtr>;
@@ -29,6 +30,7 @@ public:
     int registerCreature(CreaturePtr& creaturePtr);
     int createMonster();
     Creature& getCreatureById(int id) { return *creatures[id]; }
+    std::vector<int> getCharactersByGender(Gender gender);
     void updateAge();
     void clear() { creatures.clear(); }
 

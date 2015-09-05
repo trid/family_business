@@ -28,6 +28,8 @@ public:
     int generateFamily();
     void clear() { families.clear(); }
 
+    int createFamily(int fatherId, int motherId);
+
     void save(std::ofstream& out);
     void load(std::ifstream& in);
 };

@@ -62,6 +62,7 @@ void Character::save(std::ofstream &out) {
     out.write((char*)&gender, sizeof(gender));
     out.write((char*)&age, sizeof(age));
     out.write((char*)&familyId, sizeof(familyId));
+    out.write(reinterpret_cast<char*>(&partnerId), sizeof(partnerId));
     int itemsCount = inventory.size();
     out.write((char*)&itemsCount, sizeof(itemsCount));
 
@@ -109,6 +110,8 @@ void Character::load(std::ifstream &in) {
     in.read(reinterpret_cast<char*>(&gender), sizeof(gender));
     in.read(reinterpret_cast<char*>(&age), sizeof(age));
     in.read(reinterpret_cast<char*>(&familyId), sizeof(familyId));
+    in.read(reinterpret_cast<char*>(&partnerId), sizeof(partnerId));
+    married = partnerId != -1;
     int itemsCount{0};
     in.read(reinterpret_cast<char*>(&itemsCount), sizeof(itemsCount));
 
