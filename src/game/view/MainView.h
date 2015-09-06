@@ -95,7 +95,7 @@ public:
     virtual void onKeyUp(int key) override;
     virtual void onKeyDown(int key) override;
 
-    void showHireDialog(House &house);
+    void showHireDialog(Building &house);
     void showFamiliesDialog();
 
     void addCharacterToParty(int characterId);

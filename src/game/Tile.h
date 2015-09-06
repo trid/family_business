@@ -8,7 +8,7 @@
 #include <fstream>
 #include <memory>
 
-#include "House.h"
+#include "Building.h"
 #include "Party.h"
 #include "LandscapeType.h"
 

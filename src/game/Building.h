@@ -5,34 +5,44 @@
 #ifndef FAMILY_BUSINESS_HOME_H
 #define FAMILY_BUSINESS_HOME_H
 
+#include <fstream>
 #include <memory>
 #include <vector>
 
 #include "Side.h"
 #include "Family.h"
 
-class Character;
+enum class BuildingType {
+    Home,
+    Road,
+    MonsterLair,
+    Warehouse
+};
 
-class House {
+class Building {
 private:
     int id;
     int x, y;
     int familyId;
-    Side side{Side::Player};
+    BuildingType type;
     std::vector<int> inside;
 public:
-    House(int x, int y, Side side, int id): x(x), y(y), side(side), id(id) { }
+    Building(int x, int y, BuildingType type, int id): x(x), y(y), type(type), id(id) { }
+    Building(std::ifstream& in) { load(in); }
 
     int getId() const { return id; }
 
     int getX() const { return x; }
-    void setX(int x) { House::x = x; }
+    void setX(int x) { Building::x = x; }
     int getY() const { return y; }
-    void setY(int y) { House::y = y; }
+    void setY(int y) { Building::y = y; }
     const int getFamily() const { return familyId; }
     void setFamily(int familyId);
     std::vector<int>& getCharacters() { return inside; }
-    Side getSide() { return side; }
+    BuildingType getType() { return type; }
+
+    void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 

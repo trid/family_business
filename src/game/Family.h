@@ -14,7 +14,7 @@
 #include "CreatureManager.h"
 
 
-class House;
+class Building;
 
 using Children = std::vector<int>;
 

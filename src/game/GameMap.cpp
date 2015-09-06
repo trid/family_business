@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Monster.h"
 #include "FamilyManager.h"
-#include "HouseManager.h"
+#include "BuildingManager.h"
 #include "MonsterAI.h"
 #include "AIManager.h"
 
@@ -34,9 +34,9 @@ GameMap::GameMap() {
     Party& monsterParty = PartyManager::getInstance().getParty(monsterPartyId);
     monsterParty.addCreature(CreatureManager::getInstance().createMonster());
     //Create monsters den
-    HouseManager &houseManager = HouseManager::getInstance();
-    int houseId = houseManager.createHouse(housePosX, 0, Side::AI);
-    House& house = houseManager.getHouse(houseId);
+    BuildingManager &houseManager = BuildingManager::getInstance();
+    int houseId = houseManager.createHouse(housePosX, 0, BuildingType::MonsterLair);
+    Building & house = houseManager.getHouse(houseId);
     monsterParty.setX(housePosX);
     if (housePosY - 5 >= 0) {
         monsterParty.setY(housePosY - 5);
@@ -63,8 +63,8 @@ void GameMap::createHouse(int familyId) {
     while (!queuedTiles.empty()) {
         const Point& point = *queuedTiles.begin();
         if (mapData[point.x][point.y].getHouse() == -1) {
-            int houseId = HouseManager::getInstance().createHouse(point.x, point.y, Side::Player);
-            House& house = HouseManager::getInstance().getHouse(houseId);
+            int houseId = BuildingManager::getInstance().createHouse(point.x, point.y, BuildingType::Home);
+            Building & house = BuildingManager::getInstance().getHouse(houseId);
             house.setFamily(familyId);
             mapData[point.x][point.y].setHouse(houseId);
             getFamilyById(familyId).setHome(houseId);

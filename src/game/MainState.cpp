@@ -12,7 +12,7 @@
 #include "Monster.h"
 #include "../MessageManager.h"
 #include "FamilyManager.h"
-#include "HouseManager.h"
+#include "BuildingManager.h"
 #include "AIManager.h"
 
 using namespace MEng;
@@ -99,7 +99,7 @@ void MainState::onKeyDown(int keyCode) {
     if (keyCode == SDLK_SPACE) {
         int houseId = gameMap.getTile(playerParty.getX(), playerParty.getY()).getHouse();
         if (houseId != -1) {
-            if (getHouseById(houseId).getSide() == Side::Player) {
+            if (getHouseById(houseId).getType() == BuildingType::Home) {
                 takeMercenary();
             }
             else {
@@ -140,7 +140,7 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
     GameMap& gameMap = game.getMap();
     int houseId = gameMap.getTile(party.getX(), party.getY()).getHouse();
 
-    if (houseId && getHouseById(houseId).getSide() == Side::AI) {
+    if (houseId && getHouseById(houseId).getType() == BuildingType::MonsterLair) {
         Character& character = game.getPlayerCharacter();
         character.addItem(ItemPtr{new Item(ItemType::Armor, 1)});
     }
@@ -176,7 +176,7 @@ void MainState::onPop() {
     FamilyManager::getInstance().clear();
     CreatureManager::getInstance().clear();
     PartyManager::getInstance().clear();
-    HouseManager::getInstance().clear();
+    BuildingManager::getInstance().clear();
     MessageManager::getInstance().clear();
 }
 

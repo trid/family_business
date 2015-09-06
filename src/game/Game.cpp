@@ -10,7 +10,7 @@
 #include "PartyManager.h"
 #include "MainState.h"
 #include "../Application.h"
-#include "HouseManager.h"
+#include "BuildingManager.h"
 #include "../MessageManager.h"
 
 using namespace MEng;
@@ -55,6 +55,7 @@ void Game::saveGame() {
     CreatureManager::getInstance().save(os);
     PartyManager::getInstance().save(os);
     FamilyManager::getInstance().save(os);
+    BuildingManager::getInstance().save(os);
     MainState& mainState = static_cast<MainState&>(Application::getInstance().getCurrentState());
     mainState.save(os);
     MessageManager::getInstance().save(os);
@@ -66,7 +67,7 @@ void Game::loadGame() {
     FamilyManager::getInstance().clear();
     CreatureManager::getInstance().clear();
     PartyManager::getInstance().clear();
-    HouseManager::getInstance().clear();
+    BuildingManager::getInstance().clear();
     MessageManager::getInstance().clear();
 
     std::ifstream is("save.sav", std::ios_base::binary);
@@ -87,6 +88,7 @@ void Game::loadGame() {
     CreatureManager::getInstance().load(is);
     PartyManager::getInstance().load(is);
     FamilyManager::getInstance().load(is);
+    BuildingManager::getInstance().load(is);
     MainState& mainState = static_cast<MainState&>(Application::getInstance().getCurrentState());
     mainState.load(is);
     MessageManager::getInstance().load(is);

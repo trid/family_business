@@ -8,7 +8,7 @@
 
 using namespace MEng::View::GUI;
 
-void HireCharacterDialog::setUp(House &housePtr) {
+void HireCharacterDialog::setUp(Building &housePtr) {
     clearWidgets();
 
     addWidget(label);

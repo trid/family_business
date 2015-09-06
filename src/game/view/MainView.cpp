@@ -8,14 +8,14 @@
 #include "MainView.h"
 #include "GUI/ChoseFamilyDialog.h"
 #include "GUI/ChoseCharacterDialog.h"
-#include "../House.h"
+#include "../Building.h"
 #include "../Game.h"
 #include "GUI/CharacterPanel.h"
 #include "../../view/SpriteManager.h"
 #include "../../MessageManager.h"
 #include "../../view/MovementAnimation.h"
 #include "GUI/GameMenu.h"
-#include "../HouseManager.h"
+#include "../BuildingManager.h"
 #include "../FamilyManager.h"
 
 using namespace MEng;
@@ -144,7 +144,7 @@ void MainView::centerOnCharacter() {
     }
 }
 
-void MainView::showHireDialog(House &house) {
+void MainView::showHireDialog(Building &house) {
     auto addCharacterToParty = [this, house](int character) {
         this->addCharacterToParty(character);
     };
@@ -157,7 +157,7 @@ void MainView::addCharacterToParty(int characterId) {
     if (Game::getInstance().getPlayerParty().addCreature(characterId)) {
         Character& character = static_cast<Character&>(getCreatureById(characterId));
         Family& family = getFamilyById(character.getFamilyId());
-        House& house = getHouseById(family.getHome());
+        Building & house = getHouseById(family.getHome());
         std::vector<int>& characters = house.getCharacters();
         auto iter = std::remove(characters.begin(), characters.end(), characterId);
         characters.erase(iter, characters.end());

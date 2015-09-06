@@ -7,7 +7,7 @@
 
 
 #include "../../../view/GUI/Dialog.h"
-#include "../../House.h"
+#include "../../Building.h"
 #include "CharacterButton.h"
 
 class HireCharacterDialog : public MEng::View::GUI::Dialog {
@@ -18,7 +18,7 @@ public:
     HireCharacterDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
                                                  CharacterBtnCallback callback);
 
-    void setUp(House &house);
+    void setUp(Building &house);
     void setCallback(CharacterBtnCallback callback) { this->callback = callback; }
 };
 
