@@ -17,6 +17,9 @@ private:
     FamilyManager();
 
     Families families;
+
+    Generator generator;
+    Distributor parentAgeDistributor{16 * 12 * 30, 50 * 12 * 30};
 public:
     static FamilyManager& getInstance() {
         static FamilyManager instance;

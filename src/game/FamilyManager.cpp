@@ -17,16 +17,24 @@ int FamilyManager::generateFamily() {
     int fatherId = characterManager.addCharacter(Gender::Male, familyId);
     Character& father = static_cast<Character&>(getCreatureById(fatherId));
     father.addExperience(100);
+    father.setAge(parentAgeDistributor(generator));
     int motherId = characterManager.addCharacter(father.getLastName(), Gender::Female, familyId);
     Character& mother = static_cast<Character&>(getCreatureById(motherId));
+    mother.setAge(parentAgeDistributor(generator));
     father.setPartnerId(motherId);
     father.setMarried(true);
     mother.setPartnerId(fatherId);
     mother.setMarried(true);
     getCreatureById(motherId).addExperience(100);
     Children children;
+    int minAge = father.getAge() > mother.getAge() ? mother.getAge() : father.getAge();
+    Distributor childrenAgeDistr{0, minAge - 16
+    };
     for (int j = 0; j < 3; j++) {
-        children.push_back(characterManager.addCharacter(father.getLastName(), 1));
+        int childId = characterManager.addCharacter(father.getLastName(), 1);
+        Character& child = static_cast<Character&>(getCreatureById(childId));
+        child.setAge(childrenAgeDistr(generator));
+        children.push_back(childId);
     }
     families.emplace_back(new Family(familyId, fatherId, motherId, children));
     return familyId;

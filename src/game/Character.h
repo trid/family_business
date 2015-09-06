@@ -55,6 +55,7 @@ public:
     const Items& getItems() const { return inventory; }
     void addDay();
     int getAge() { return age; }
+    void setAge(int age) { this->age = age; }
 
     bool isMarried() const { return married; }
     void setMarried(bool married) { Character::married = married; }
