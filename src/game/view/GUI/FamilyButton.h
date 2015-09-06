@@ -12,10 +12,11 @@
 
 #include "../../../view/GUI/Widget.h"
 
+using MEng::Point;
 
 using Callback = std::function<void(int)>;
 
-class FamilyButton: public Widget {
+class FamilyButton: public MEng::View::GUI::Widget {
 private:
     int familyId;
     Callback callback;

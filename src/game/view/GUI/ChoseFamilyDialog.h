@@ -10,13 +10,13 @@
 #include "FamilyButton.h"
 
 
-class ChoseFamilyDialog: public Dialog {
+class ChoseFamilyDialog: public MEng::View::GUI::Dialog {
 private:
     static constexpr int buttonHeight = 30;
     Callback callback;
-    WidgetPtr label;
+    MEng::View::GUI::WidgetPtr label;
 public:
-    ChoseFamilyDialog(int x, int y, int w, int h, UILayout &layout, Callback callback);
+    ChoseFamilyDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout, Callback callback);
 
     void setUp();
 };

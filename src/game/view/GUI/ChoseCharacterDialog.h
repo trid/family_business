@@ -10,12 +10,12 @@
 #include "CharacterButton.h"
 
 
-class ChoseCharacterDialog : public Dialog {
+class ChoseCharacterDialog : public MEng::View::GUI::Dialog {
 private:
     CharacterBtnCallback callback;
-    WidgetPtr label;
+    MEng::View::GUI::WidgetPtr label;
 public:
-    ChoseCharacterDialog(int x, int y, int w, int h, UILayout &layout,
+    ChoseCharacterDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
                                                    CharacterBtnCallback callback);
 
     void setUp(int familyId);

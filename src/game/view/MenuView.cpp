@@ -9,6 +9,8 @@
 #include "../Game.h"
 
 using namespace MEng;
+using MEng::View::GUI::Button;
+using MEng::View::GUI::ButtonPtr;
 
 MenuView::MenuView() {
     auto newGameCallback = [](){
@@ -31,7 +33,7 @@ MenuView::MenuView() {
     loadGameBtn->centrateHorizontal();
     ButtonPtr exitBtn = std::make_shared<Button>(0, 260, 150, 40, "Exit", [](){ Application::getInstance().finish(); });
     exitBtn->centrateHorizontal();
-    UILayout& layout = getLayout();
+    MEng::View::GUI::UILayout& layout = getLayout();
     layout.addWidget(newGameBtn);
     layout.addWidget(loadGameBtn);
     layout.addWidget(exitBtn);

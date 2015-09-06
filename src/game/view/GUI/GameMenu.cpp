@@ -9,6 +9,8 @@
 #include "../../Game.h"
 
 using namespace MEng;
+using MEng::View::GUI::Button;
+using MEng::View::GUI::ButtonPtr;
 
 GameMenu::GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h, parent) {
     ButtonPtr saveButton = std::make_shared<Button>(0, 0, 150, 30, "Save", [this](){ Game::getInstance().saveGame(); this->hide(); });

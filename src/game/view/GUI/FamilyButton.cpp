@@ -9,6 +9,8 @@
 #include "../../../view/GUI/FontsCache.h"
 #include "../../FamilyManager.h"
 
+using namespace MEng::View::GUI;
+
 FamilyButton::FamilyButton(int x, int y, int w, int h, int familyId, Callback callback) : Widget(x, y, w, h),
                                                                                                      familyId(familyId),
                                                                                                      callback(

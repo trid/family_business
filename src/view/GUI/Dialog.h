@@ -11,31 +11,48 @@
 #include <memory>
 #include <vector>
 
+namespace MEng {
+    namespace View {
+        namespace GUI {
 
-using Widgets = std::vector<WidgetPtr>;
+            using Widgets = std::vector<WidgetPtr>;
 
-class Dialog : public Widget {
-private:
-    Widgets widgets;
-    SDL_Color backgroundColor{0, 0, 0, 0};
-    UILayout& layout;
-protected:
-    virtual void onRedraw(SDL_Renderer *renderer) override;
-public:
-    Dialog(int x, int y, int w, int h, UILayout& layout) : Widget(x, y, w, h), layout(layout) { Widget::hide(); }
+            class Dialog : public Widget {
+            private:
+                Widgets widgets;
+                SDL_Color backgroundColor{0, 0, 0, 0};
+                UILayout &layout;
+            protected:
+                virtual void onRedraw(SDL_Renderer *renderer) override;
 
-    void addWidget(WidgetPtr widget);
-    void removeWidget(WidgetPtr widget);
-    void clearWidgets();
+            public:
+                Dialog(int x, int y, int w, int h, UILayout &layout) : Widget(x, y, w, h),
+                                                                       layout(layout) { Widget::hide(); }
 
-    SDL_Color getBgColor() const { return backgroundColor; }
-    void setBgColor(SDL_Color color) { Dialog::backgroundColor = color; }
+                void addWidget(WidgetPtr widget);
 
-    virtual bool onClick(Point point, int button) override;
+                void removeWidget(WidgetPtr widget);
 
-    virtual void show() override { Widget::show(); layout.setDialogActive(true); }
-    virtual void hide() override { Widget::hide(); layout.setDialogActive(false); }
-};
+                void clearWidgets();
 
+                SDL_Color getBgColor() const { return backgroundColor; }
 
+                void setBgColor(SDL_Color color) { Dialog::backgroundColor = color; }
+
+                virtual bool onClick(Point point, int button) override;
+
+                virtual void show() override {
+                    Widget::show();
+                    layout.setDialogActive(true);
+                }
+
+                virtual void hide() override {
+                    Widget::hide();
+                    layout.setDialogActive(false);
+                }
+            };
+
+        }
+    }
+}
 #endif //FAMILY_BUSINESS_MENU_H

@@ -10,27 +10,37 @@
 #include <vector>
 #include "../../Point.h"
 
-class Widget;
+namespace MEng {
+    namespace View {
+        namespace GUI {
 
-using WidgetPtr = std::shared_ptr<Widget>;
-using Widgets = std::vector<WidgetPtr>;
+            class Widget;
 
-class UILayout {
-private:
-    Widgets widgets;
-    bool dialogActive;
-public:
-    void draw(SDL_Renderer *renderer);
+            using WidgetPtr = std::shared_ptr<Widget>;
+            using Widgets = std::vector<WidgetPtr>;
 
-    void addWidget(WidgetPtr widget);
-    void removeWidget(WidgetPtr widget);
-    void clearWidgets();
+            class UILayout {
+            private:
+                Widgets widgets;
+                bool dialogActive;
+            public:
+                void draw(SDL_Renderer *renderer);
 
-    bool onClick(const MEng::Point &point, int button);
+                void addWidget(WidgetPtr widget);
 
-    bool isDialogActive() const { return dialogActive; }
-    void setDialogActive(bool dialogActive) { UILayout::dialogActive = dialogActive; }
-};
+                void removeWidget(WidgetPtr widget);
 
+                void clearWidgets();
+
+                bool onClick(const MEng::Point &point, int button);
+
+                bool isDialogActive() const { return dialogActive; }
+
+                void setDialogActive(bool dialogActive) { UILayout::dialogActive = dialogActive; }
+            };
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_UILAYOUT_H

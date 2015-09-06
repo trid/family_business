@@ -5,7 +5,7 @@
 #include "Widget.h"
 #include "../Screen.h"
 
-using namespace MEng::View;
+using namespace MEng::View::GUI;
 
 bool Widget::onClick(Point point, int button) {
     if (!visible) return false;

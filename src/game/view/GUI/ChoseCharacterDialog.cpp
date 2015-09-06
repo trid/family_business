@@ -8,6 +8,8 @@
 #include "../../../view/GUI/Label.h"
 #include "../../FamilyManager.h"
 
+using namespace MEng::View::GUI;
+
 void ChoseCharacterDialog::setUp(int familyId) {
     clearWidgets();
 

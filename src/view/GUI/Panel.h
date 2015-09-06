@@ -10,26 +10,38 @@
 #include "Widget.h"
 #include "UILayout.h"
 
-using Widgets = std::vector<WidgetPtr>;
+namespace MEng {
+    namespace View {
+        namespace GUI {
 
-class Panel: public Widget {
-private:
-    Widgets widgets;
-    SDL_Color backgroundColor{0, 0, 0, 0};
-protected:
-    virtual void onRedraw(SDL_Renderer *renderer) override;
-public:
-    Panel(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Widget(x, y, w, h, parent) { }
+            using Widgets = std::vector<WidgetPtr>;
 
-    void addWidget(WidgetPtr widget);
-    void removeWidget(WidgetPtr widget);
-    void clearWidgets();
+            class Panel : public Widget {
+            private:
+                Widgets widgets;
+                SDL_Color backgroundColor{0, 0, 0, 0};
+            protected:
+                virtual void onRedraw(SDL_Renderer *renderer) override;
 
-    SDL_Color getBgColor() const { return backgroundColor; }
-    void setBgColor(SDL_Color color) { this->backgroundColor = color; }
+            public:
+                Panel(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Widget(x, y, w, h,
+                                                                                                  parent) { }
 
-    virtual bool onClick(Point point, int button) override;
-};
+                void addWidget(WidgetPtr widget);
 
+                void removeWidget(WidgetPtr widget);
+
+                void clearWidgets();
+
+                SDL_Color getBgColor() const { return backgroundColor; }
+
+                void setBgColor(SDL_Color color) { this->backgroundColor = color; }
+
+                virtual bool onClick(Point point, int button) override;
+            };
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_PANEL_H

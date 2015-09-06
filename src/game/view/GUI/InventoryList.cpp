@@ -9,6 +9,8 @@
 #include "../../Game.h"
 #include "../../../view/GUI/Button.h"
 
+using MEng::View::GUI::Button;
+
 void InventoryList::update() {
     Character& playerCharacter = Game::getInstance().getPlayerCharacter();
     Items items = playerCharacter.getItems();
@@ -37,7 +39,7 @@ void InventoryList::update() {
                 this->update();
             }
         };
-        WidgetPtr button{new Button{0, i * 30, 150, 30, ss.str(), callback}};
+        MEng::View::GUI::WidgetPtr button{new Button{0, i * 30, 150, 30, ss.str(), callback}};
         addWidget(button);
     }
     setHeight(items.size() * 30);

@@ -10,7 +10,7 @@
 
 #include "../../../view/GUI/Panel.h"
 
-class InventoryList: public Panel {
+class InventoryList: public MEng::View::GUI::Panel {
 
 public:
     InventoryList(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h, parent) { }

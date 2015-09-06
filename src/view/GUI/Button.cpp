@@ -7,6 +7,7 @@
 #include "FontsCache.h"
 
 using namespace MEng::View;
+using namespace MEng::View::GUI;
 
 bool Button::onClick(Point point, int button) {
     if (Widget::onClick(point, button)) {

@@ -8,6 +8,8 @@
 
 #include "Widget.h"
 
+using namespace MEng::View::GUI;
+
 void UILayout::draw(SDL_Renderer *renderer) {
     for (auto widget: widgets) {
         if (widget->isVisible()) {

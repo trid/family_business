@@ -10,12 +10,12 @@
 #include "../../House.h"
 #include "CharacterButton.h"
 
-class HireCharacterDialog : public Dialog {
+class HireCharacterDialog : public MEng::View::GUI::Dialog {
     CharacterBtnCallback callback;
     int houseId;
-    WidgetPtr label;
+    MEng::View::GUI::WidgetPtr label;
 public:
-    HireCharacterDialog(int x, int y, int w, int h, UILayout &layout,
+    HireCharacterDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
                                                  CharacterBtnCallback callback);
 
     void setUp(House &house);

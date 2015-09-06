@@ -8,11 +8,17 @@
 
 #include "Widget.h"
 
-class List: public Widget {
+namespace MEng {
+    namespace View {
+        namespace GUI {
 
-public:
-    List(int x, int y, int w, int h) : Widget(x, y, w, h) { }
-};
+            class List : public Widget {
 
+            public:
+                List(int x, int y, int w, int h) : Widget(x, y, w, h) { }
+            };
 
+        }
+    }
+}
 #endif //FAMILY_BUSINESS_LIST_H

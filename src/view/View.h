@@ -19,7 +19,7 @@ namespace MEng {
 
         class View {
         private:
-            UILayout layout;
+            GUI::UILayout layout;
             std::vector<MEng::View::DrawablePtr> drawables;
             std::vector<MEng::View::AnimationPtr> animations;
         public:
@@ -35,7 +35,7 @@ namespace MEng {
 
             virtual void update(int timeDelta);
 
-            UILayout &getLayout() { return layout; }
+            GUI::UILayout &getLayout() { return layout; }
 
             void addDrawable(MEng::View::DrawablePtr drawable) { drawables.push_back(drawable); }
 

@@ -6,6 +6,8 @@
 
 #include <algorithm>
 
+using namespace MEng::View::GUI;
+
 void Dialog::addWidget(WidgetPtr widget) {
     widgets.push_back(widget);
 }

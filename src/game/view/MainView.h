@@ -17,12 +17,12 @@
 
 
 class MainView : public MEng::View::View {
-    WidgetPtr familyDialogWidget;
+    MEng::View::GUI::WidgetPtr familyDialogWidget;
     ChoseCharacterDialogPtr choseCharacterDialog;
     HireCharacterDialogPtr hireCharacterDialog;
 
-    WidgetPtr mainMenu;
-    LabelPtr dateLabel;
+    MEng::View::GUI::WidgetPtr mainMenu;
+    MEng::View::GUI::LabelPtr dateLabel;
 
     MEng::View::DrawablePtr mapView{new MapPresentation};
     std::vector<MonsterImagePtr> monsterViews;

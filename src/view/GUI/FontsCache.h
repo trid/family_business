@@ -10,30 +10,36 @@
 #include <unordered_map>
 #include <SDL2/SDL_ttf.h>
 
-using FontsMap = std::unordered_map<std::string, TTF_Font*>;
+namespace MEng {
+    namespace View {
+        namespace GUI {
 
-class FontsCache {
-private:
-    FontsCache() {}
+            using FontsMap = std::unordered_map<std::string, TTF_Font *>;
 
-    FontsMap fontsMap;
-public:
-    static FontsCache& getInstance() {
-        static FontsCache fontsCache;
-        return fontsCache;
-    }
+            class FontsCache {
+            private:
+                FontsCache() { }
 
-    TTF_Font* getFont(std::string name, int size) {
-        std::stringstream ss;
-        ss << name << "," << size;
+                FontsMap fontsMap;
+            public:
+                static FontsCache &getInstance() {
+                    static FontsCache fontsCache;
+                    return fontsCache;
+                }
 
-        const std::string &fontName = ss.str();
-        if (fontsMap.find(fontName) == fontsMap.end()) {
-            fontsMap[fontName] = TTF_OpenFont(name.c_str(), size);
+                TTF_Font *getFont(std::string name, int size) {
+                    std::stringstream ss;
+                    ss << name << "," << size;
+
+                    const std::string &fontName = ss.str();
+                    if (fontsMap.find(fontName) == fontsMap.end()) {
+                        fontsMap[fontName] = TTF_OpenFont(name.c_str(), size);
+                    }
+                    return fontsMap[fontName];
+                }
+            };
+
         }
-        return fontsMap[fontName];
     }
-};
-
-
+}
 #endif //FAMILY_BUSINESS_FONTSCACHE_H

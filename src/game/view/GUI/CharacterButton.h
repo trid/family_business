@@ -11,9 +11,11 @@
 #include "../../../view/GUI/Widget.h"
 #include "../../CharacterManager.h"
 
+using MEng::Point;
+
 using CharacterBtnCallback = std::function<void(int)>;
 
-class CharacterButton: public Widget {
+class CharacterButton: public MEng::View::GUI::Widget {
 private:
     SDL_Texture* label;
     TTF_Font* font;

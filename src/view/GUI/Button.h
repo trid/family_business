@@ -9,24 +9,34 @@
 #include <SDL2/SDL_ttf.h>
 #include "Widget.h"
 
-using Callback = std::function<void()>;
+namespace MEng {
+    namespace View {
+        namespace GUI {
 
-class Button : public Widget {
-private:
-    Callback callback;
-    std::string text;
-    TTF_Font* font;
-    SDL_Texture* label{nullptr};
-protected:
-    virtual void onRedraw(SDL_Renderer *renderer);
-public:
-    Button(int x, int y, int w, int h, const std::string &text, Callback callback);
 
-    virtual bool onClick(Point point, int button) override;
+            using Callback = std::function<void()>;
 
-    void setText(const std::string& text);
-};
+            class Button : public Widget {
+            private:
+                Callback callback;
+                std::string text;
+                TTF_Font *font;
+                SDL_Texture *label{nullptr};
+            protected:
+                virtual void onRedraw(SDL_Renderer *renderer);
 
-using ButtonPtr = std::shared_ptr<Button>;
+            public:
+                Button(int x, int y, int w, int h, const std::string &text, Callback callback);
+
+                virtual bool onClick(Point point, int button) override;
+
+                void setText(const std::string &text);
+            };
+
+            using ButtonPtr = std::shared_ptr<Button>;
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_BUTTON_H

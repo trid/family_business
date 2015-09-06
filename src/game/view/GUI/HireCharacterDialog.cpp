@@ -6,6 +6,8 @@
 #include "CharacterButton.h"
 #include "../../../view/GUI/Label.h"
 
+using namespace MEng::View::GUI;
+
 void HireCharacterDialog::setUp(House &housePtr) {
     clearWidgets();
 

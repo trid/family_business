@@ -6,6 +6,8 @@
 
 #include "Panel.h"
 
+using namespace MEng::View::GUI;
+
 void Panel::onRedraw(SDL_Renderer *renderer) {
     SDL_Rect rect{0, 0, getWidth(), getHeight()};
     SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
