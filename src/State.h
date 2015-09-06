@@ -13,41 +13,49 @@
 #include "MouseEventListener.h"
 #include "KeyboardEventListener.h"
 
+namespace MEng {
+    class State {
+    private:
+        ViewPtr view;
+        std::vector<MEng::MouseEventListenerPtr> mouseEventListeners;
+        std::vector<MEng::KeyboardEventListenerPtr> keyboardEventListeners;
+    protected:
+        void setView(ViewPtr viewPtr) { view = viewPtr; }
 
-class State {
-private:
-    ViewPtr view;
-    std::vector<MEng::MouseEventListenerPtr> mouseEventListeners;
-    std::vector<MEng::KeyboardEventListenerPtr> keyboardEventListeners;
-protected:
-    void setView(ViewPtr viewPtr) { view = viewPtr; }
+    public:
+        ViewPtr getView() { return view; }
 
-public:
-    ViewPtr getView() { return view; }
+        virtual void onPush() { };
 
-    virtual void onPush(){};
-    virtual void onPop(){};
-    virtual void onActivate(){};
-    virtual void onDeactivate(){};
+        virtual void onPop() { };
 
-    // System messages
-    virtual void onClick(const MEng::Point &point, int button){ view->onClick(point, button); }
-    virtual void onKeyDown(int keyCode) { view->onKeyDown(keyCode); }
-    virtual void onKeyUp(int keyCode) { view->onKeyUp(keyCode); }
+        virtual void onActivate() { };
 
-    virtual void run(){};
+        virtual void onDeactivate() { };
 
-    void addMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
-    void addKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
+        // System messages
+        virtual void onClick(const MEng::Point &point, int button) { view->onClick(point, button); }
 
-    void removeMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
-    void removeKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
+        virtual void onKeyDown(int keyCode) { view->onKeyDown(keyCode); }
 
-    void clearListeners();
+        virtual void onKeyUp(int keyCode) { view->onKeyUp(keyCode); }
 
-    virtual ~State() {};
-};
+        virtual void run() { };
 
-using StatePtr = std::shared_ptr<State>;
+        void addMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
 
+        void addKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
+
+        void removeMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
+
+        void removeKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
+
+        void clearListeners();
+
+        virtual ~State() { };
+    };
+
+    using StatePtr = std::shared_ptr<State>;
+
+}
 #endif //FAMILY_BUSINESS_STATE_H
