@@ -14,7 +14,7 @@ CharacterButton::CharacterButton(int x, int y, int w, int h, int characterId, Ch
     Character& character = static_cast<Character&>(getCreatureById(characterId));
     SDL_Surface *surface = TTF_RenderText_Solid(font, (character.getName() + " " + character.getLastName()).c_str(),
                                                 SDL_Color{0, 0, 0, 255});
-    label = SDL_CreateTextureFromSurface(Screen::getInstance().getRenderer(), surface);
+    label = SDL_CreateTextureFromSurface(MEng::View::Screen::getInstance().getRenderer(), surface);
     SDL_FreeSurface(surface);
 }
 

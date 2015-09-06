@@ -12,7 +12,7 @@
 #include "view/GUI/CharacterPanel.h"
 #include "Movement.h"
 
-class MainState : public State {
+class MainState : public MEng::State {
     unsigned int lastTime{SDL_GetTicks()};
 
     class CharacterWinListener: public MEng::MessageListener {

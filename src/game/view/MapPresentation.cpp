@@ -12,6 +12,7 @@
 #include "../../view/SpriteManager.h"
 
 using namespace MEng;
+using namespace MEng::View;
 
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();

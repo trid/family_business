@@ -8,7 +8,7 @@
 
 #include "../../../view/Image.h"
 
-class MonsterImage: public Image {
+class MonsterImage: public MEng::View::Image {
 private:
     int partyId;
 public:

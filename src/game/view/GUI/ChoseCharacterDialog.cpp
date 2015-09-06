@@ -39,7 +39,7 @@ void ChoseCharacterDialog::setUp(int familyId) {
 
     unsigned int height = (children.size() + 2) * 30 + 14;
     setHeight(height);
-    int y = (Screen::getInstance().getHeight() - height) / 2;
+    int y = (MEng::View::Screen::getInstance().getHeight() - height) / 2;
     setTop(y);
 }
 

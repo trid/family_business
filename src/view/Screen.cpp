@@ -13,7 +13,7 @@
 using std::cout;
 using std::endl;
 
-using namespace MEng;
+using namespace MEng::View;
 
 Screen::Screen() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {

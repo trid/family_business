@@ -10,20 +10,26 @@
 #include "Drawable.h"
 #include "../Point.h"
 
-using MEng::Point;
+namespace MEng {
+    namespace View {
 
-class Image: public Drawable {
-private:
-    SDL_Texture* texture;
-    Point position;
-public:
-    Image(SDL_Texture* texture, Point position = {0, 0}): texture(texture), position(position) { }
-    void draw(SDL_Renderer *renderer) override;
+        class Image : public MEng::View::Drawable {
+        private:
+            SDL_Texture *texture;
+            Point position;
+        public:
+            Image(SDL_Texture *texture, Point position = {0, 0}) : texture(texture), position(position) { }
 
-    Point getPosition() { return position; }
-    void setPosition(Point point) { this->position = point; }
-};
+            void draw(SDL_Renderer *renderer) override;
 
-using ImagePtr = std::shared_ptr<Image>;
+            Point getPosition() { return position; }
+
+            void setPosition(Point point) { this->position = point; }
+        };
+
+        using ImagePtr = std::shared_ptr<Image>;
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_IMAGE_H

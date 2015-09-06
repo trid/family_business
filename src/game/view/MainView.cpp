@@ -19,6 +19,7 @@
 #include "../FamilyManager.h"
 
 using namespace MEng;
+using namespace MEng::View;
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);

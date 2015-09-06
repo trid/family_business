@@ -13,6 +13,7 @@
 #include "SpriteAnimation.h"
 
 using namespace MEng;
+using namespace MEng::View;
 
 void BattleView::draw(SDL_Renderer *renderer) {
     const BattleMap& gameMap = battle.getBattleMap();

@@ -16,6 +16,7 @@
 #include "AIManager.h"
 
 using namespace MEng;
+using namespace MEng::View;
 
 MainState::MainState() {
     ViewPtr view{new MainView()};

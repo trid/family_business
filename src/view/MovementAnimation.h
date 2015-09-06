@@ -9,24 +9,32 @@
 #include "Animation.h"
 #include "Image.h"
 
-class MovementAnimation : public Animation {
-    ImagePtr image;
-    Point begin;
-    Point target;
-    Point distance;
+namespace MEng {
+    namespace View {
 
-    int time;
-    int passed{0};
-public:
-    MovementAnimation(const ImagePtr &image, const Point &target, int time) : image(image), begin(image->getPosition()),
-                                                                              target(target),
-                                                                              distance(target - begin),
-                                                                              time(time) { }
+        class MovementAnimation : public MEng::View::Animation {
+            MEng::View::ImagePtr image;
+            Point begin;
+            Point target;
+            Point distance;
 
-    virtual void update(int delta);
-    virtual bool isFinished();
-    virtual void finalize();
-};
+            int time;
+            int passed{0};
+        public:
+            MovementAnimation(const MEng::View::ImagePtr &image, const Point &target, int time) : image(image),
+                                                                                                  begin(image->getPosition()),
+                                                                                                  target(target),
+                                                                                                  distance(target -
+                                                                                                           begin),
+                                                                                                  time(time) { }
 
+            virtual void update(int delta);
+
+            virtual bool isFinished();
+
+            virtual void finalize();
+        };
+    }
+}
 
 #endif //FAMILY_BUSINESS_MOVEMENTANIMATION_H

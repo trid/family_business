@@ -9,34 +9,37 @@
 #include <SDL2/SDL.h>
 #include <memory>
 
+namespace MEng {
+    namespace View {
+        class View;
 
-class View;
+        using ViewPtr = std::shared_ptr<View>;
 
+        class Screen {
+        private:
+            int width = 800;
+            int height = 600;
 
-using ViewPtr = std::shared_ptr<View>;
+            SDL_Window *window;
+            SDL_Renderer *renderer;
 
+            Screen();
 
-class Screen {
-private:
-    int width = 800;
-    int height = 600;
+        public:
+            static Screen &getInstance() {
+                static Screen instance;
+                return instance;
+            }
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+            void draw();
 
-    Screen();
-public:
-    static Screen& getInstance() {
-        static Screen instance;
-        return instance;
+            SDL_Renderer *getRenderer() { return renderer; }
+
+            int getWidth() { return width; }
+
+            int getHeight() { return height; }
+        };
     }
-
-    void draw();
-    SDL_Renderer* getRenderer() { return renderer; }
-
-    int getWidth() { return width; }
-    int getHeight() { return height; }
-};
-
+}
 
 #endif //FAMILY_BUSINESS_SCREEN_H

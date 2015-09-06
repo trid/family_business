@@ -6,12 +6,14 @@
 #include "../MessageParameters.h"
 #include "../MessageManager.h"
 
+using MEng::View::Screen;
+
 void BattleState::onActivate() {
-    State::onActivate();
+    MEng::State::onActivate();
 }
 
 void BattleState::run() {
-    State::run();
+    MEng::State::run();
     battle.makeTurn();
 
     unsigned int ticks = SDL_GetTicks();
@@ -21,7 +23,7 @@ void BattleState::run() {
 }
 
 void BattleState::onClick(const Point &point, int button) {
-    State::onClick(point, button);
+    MEng::State::onClick(point, button);
 
     if (battle.isBlockInput()) {
         return;

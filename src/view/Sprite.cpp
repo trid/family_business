@@ -4,6 +4,8 @@
 
 #include "Sprite.h"
 
+using namespace MEng::View;
+
 void Sprite::draw(SDL_Renderer *renderer) {
     if (!texture) {
         return;

@@ -5,6 +5,8 @@
 #include "Widget.h"
 #include "../Screen.h"
 
+using namespace MEng::View;
+
 bool Widget::onClick(Point point, int button) {
     if (!visible) return false;
     if (this->x > point.x || this->x + w < point.x) return false;

@@ -11,24 +11,29 @@
 #include <SDL2/SDL_image.h>
 #include "Screen.h"
 
-using SpriteCache = std::unordered_map<std::string, SDL_Texture*>;
+namespace MEng {
+    namespace View {
 
-class SpriteManager {
-private:
-    SpriteCache spriteCache;
-public:
-    static SpriteManager& getInstance() {
-        static SpriteManager instance;
-        return instance;
+        using SpriteCache = std::unordered_map<std::string, SDL_Texture *>;
+
+        class SpriteManager {
+        private:
+            SpriteCache spriteCache;
+        public:
+            static SpriteManager &getInstance() {
+                static SpriteManager instance;
+                return instance;
+            }
+
+            SDL_Texture *getTexture(std::string name) {
+                if (spriteCache.find(name) == spriteCache.end()) {
+                    spriteCache[name] = IMG_LoadTexture(Screen::getInstance().getRenderer(), name.c_str());
+                }
+                return spriteCache[name];
+            }
+        };
+
     }
-
-    SDL_Texture* getTexture(std::string name) {
-        if (spriteCache.find(name) == spriteCache.end()) {
-            spriteCache[name] = IMG_LoadTexture(Screen::getInstance().getRenderer(), name.c_str());
-        }
-        return spriteCache[name];
-    }
-};
-
+}
 
 #endif //FAMILY_BUSINESS_SPRITEMANAGER_H

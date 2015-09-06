@@ -8,6 +8,7 @@
 #include "MessageManager.h"
 
 using namespace MEng;
+using namespace MEng::View;
 
 void Application::run() {
     while (running) {

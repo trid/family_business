@@ -11,7 +11,7 @@
 #include "../../MessageListener.h"
 #include "../../Point.h"
 
-class MapPresentation: public Drawable {
+class MapPresentation: public MEng::View::Drawable {
 private:
     SDL_Texture* grass;
     SDL_Texture* house;

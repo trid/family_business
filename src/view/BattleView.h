@@ -14,9 +14,9 @@
 #include "../MessageListener.h"
 #include "Sprite.h"
 
-using BattleCreaturesView = std::vector<ImagePtr>;
+using BattleCreaturesView = std::vector<MEng::View::ImagePtr>;
 
-class BattleView: public View {
+class BattleView: public MEng::View::View {
     Battle& battle;
 
     SDL_Texture* grass;
@@ -27,8 +27,8 @@ class BattleView: public View {
     bool showingAnimation{false};
 
     BattleCreaturesView battleCreaturesView;
-    ImagePtr arrowImage;
-    SpritePtr attackSprite;
+    MEng::View::ImagePtr arrowImage;
+    MEng::View::SpritePtr attackSprite;
 
     std::queue<std::pair<int, Point>> movements;
 

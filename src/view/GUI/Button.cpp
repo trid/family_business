@@ -6,6 +6,8 @@
 #include "../Screen.h"
 #include "FontsCache.h"
 
+using namespace MEng::View;
+
 bool Button::onClick(Point point, int button) {
     if (Widget::onClick(point, button)) {
         callback();

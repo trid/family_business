@@ -8,6 +8,7 @@
 #include "Screen.h"
 
 using MEng::Point;
+using namespace MEng::View;
 
 void View::draw(SDL_Renderer *renderer) {
     for (auto item: drawables) {

@@ -9,7 +9,7 @@
 #include "../../view/View.h"
 
 
-class MenuView: public View {
+class MenuView: public MEng::View::View {
 public:
     MenuView();
 };

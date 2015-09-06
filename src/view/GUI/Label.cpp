@@ -6,6 +6,8 @@
 #include "../Screen.h"
 #include "FontsCache.h"
 
+using namespace MEng::View;
+
 Label::Label(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent, const std::string &text) : Widget(x, y, w,
                                                                                                                   h,
                                                                                                                   parent),

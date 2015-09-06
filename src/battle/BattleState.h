@@ -12,13 +12,13 @@
 #include "Battle.h"
 
 
-class BattleState : public State {
+class BattleState : public MEng::State {
 private:
     Battle battle;
     unsigned int lastTime{SDL_GetTicks()};
 public:
     BattleState(Party &first, Party &second) : battle(first, second) {
-        setView(ViewPtr(new BattleView(battle)));
+        setView(MEng::View::ViewPtr(new BattleView(battle)));
     }
 
     virtual void onActivate() override;

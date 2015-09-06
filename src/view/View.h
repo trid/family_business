@@ -14,28 +14,41 @@
 #include "Drawable.h"
 #include "Animation.h"
 
-class View {
-private:
-    UILayout layout;
-    std::vector<DrawablePtr> drawables;
-    std::vector<AnimationPtr> animations;
-public:
-    virtual ~View() {}
+namespace MEng {
+    namespace View {
 
-    virtual void draw(SDL_Renderer *renderer);
-    virtual void onClick(const MEng::Point& point, int button);
-    virtual void onKeyUp(int key) {};
-    virtual void onKeyDown(int key) {};
-    virtual void update(int timeDelta);
+        class View {
+        private:
+            UILayout layout;
+            std::vector<MEng::View::DrawablePtr> drawables;
+            std::vector<MEng::View::AnimationPtr> animations;
+        public:
+            virtual ~View() { }
 
-    UILayout& getLayout() { return layout; }
+            virtual void draw(SDL_Renderer *renderer);
 
-    void addDrawable(DrawablePtr drawable) { drawables.push_back(drawable); }
-    void removeDrawable(DrawablePtr drawablePtr) { drawables.erase(std::remove(drawables.begin(), drawables.end(), drawablePtr), drawables.end()); }
+            virtual void onClick(const MEng::Point &point, int button);
 
-    void addAnimation(AnimationPtr animation) { animations.push_back(animation); }
-};
+            virtual void onKeyUp(int key) { };
 
-using ViewPtr = std::shared_ptr<View>;
+            virtual void onKeyDown(int key) { };
+
+            virtual void update(int timeDelta);
+
+            UILayout &getLayout() { return layout; }
+
+            void addDrawable(MEng::View::DrawablePtr drawable) { drawables.push_back(drawable); }
+
+            void removeDrawable(MEng::View::DrawablePtr drawablePtr) {
+                drawables.erase(std::remove(drawables.begin(), drawables.end(), drawablePtr), drawables.end());
+            }
+
+            void addAnimation(MEng::View::AnimationPtr animation) { animations.push_back(animation); }
+        };
+
+        using ViewPtr = std::shared_ptr<View>;
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_VIEW_H

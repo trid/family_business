@@ -8,7 +8,7 @@
 
 #include "../../view/Animation.h"
 
-class MoveMapAnimation: public Animation {
+class MoveMapAnimation: public MEng::View::Animation {
 
 public:
     virtual void update(int delta);

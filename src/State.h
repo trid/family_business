@@ -14,16 +14,17 @@
 #include "KeyboardEventListener.h"
 
 namespace MEng {
+
     class State {
     private:
-        ViewPtr view;
+        View::ViewPtr view;
         std::vector<MEng::MouseEventListenerPtr> mouseEventListeners;
         std::vector<MEng::KeyboardEventListenerPtr> keyboardEventListeners;
     protected:
-        void setView(ViewPtr viewPtr) { view = viewPtr; }
+        void setView(View::ViewPtr viewPtr) { view = viewPtr; }
 
     public:
-        ViewPtr getView() { return view; }
+        View::ViewPtr getView() { return view; }
 
         virtual void onPush() { };
 

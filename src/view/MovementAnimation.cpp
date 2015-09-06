@@ -5,6 +5,8 @@
 #include "MovementAnimation.h"
 #include "../MessageManager.h"
 
+using namespace MEng::View;
+
 void MovementAnimation::update(int delta) {
     passed += delta;
     if (passed < time) {

@@ -5,6 +5,8 @@
 #include "SpriteAnimation.h"
 #include "../MessageManager.h"
 
+using namespace MEng::View;
+
 void SpriteAnimation::update(int delta) {
     passed += delta;
     if (passed >= time) {

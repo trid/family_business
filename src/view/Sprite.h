@@ -10,27 +10,33 @@
 #include "Drawable.h"
 #include "../Point.h"
 
-using MEng::Point;
+namespace MEng {
+    namespace View {
 
-class Sprite : public Drawable {
-private:
-    Point frameSize;
-    int currentFrame{0};
+        class Sprite : public MEng::View::Drawable {
+        private:
+            Point frameSize;
+            int currentFrame{0};
 
-    Point position;
+            Point position;
 
-    SDL_Texture *texture;
-public:
-    Sprite(const Point &frameSize, const Point &position, SDL_Texture *texture) : frameSize(frameSize),
-                                                                                  position(position),
-                                                                                  texture(texture) { }
-    void nextFrame() { ++currentFrame; }
-    void resetFrame() { currentFrame = 0; }
-    virtual void draw(SDL_Renderer *renderer) override;
+            SDL_Texture *texture;
+        public:
+            Sprite(const Point &frameSize, const Point &position, SDL_Texture *texture) : frameSize(frameSize),
+                                                                                          position(position),
+                                                                                          texture(texture) { }
 
-    void setPosition(Point position) { this->position = position; }
-};
+            void nextFrame() { ++currentFrame; }
 
-using SpritePtr = std::shared_ptr<Sprite>;
+            void resetFrame() { currentFrame = 0; }
 
+            virtual void draw(SDL_Renderer *renderer) override;
+
+            void setPosition(Point position) { this->position = position; }
+        };
+
+        using SpritePtr = std::shared_ptr<Sprite>;
+
+    }
+}
 #endif //FAMILY_BUSINESS_SPRITE_H

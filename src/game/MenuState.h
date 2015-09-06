@@ -7,7 +7,7 @@
 
 #include "../State.h"
 
-class MenuState: public State {
+class MenuState: public MEng::State {
 
 public:
     MenuState();

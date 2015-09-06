@@ -19,7 +19,7 @@ void ChoseFamilyDialog::setUp() {
     //Prepare dialog
     int height = families.size() * buttonHeight + 14;
     setHeight(height);
-    int y = (Screen::getInstance().getHeight() - height) / 2;
+    int y = (MEng::View::Screen::getInstance().getHeight() - height) / 2;
 
     for (int i = 0; i < families.size(); i++) {
         WidgetPtr button{new FamilyButton(0, i * buttonHeight + 14, getWidth(), buttonHeight, families[i]->getId(), callback)};

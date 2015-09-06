@@ -15,7 +15,7 @@ FamilyButton::FamilyButton(int x, int y, int w, int h, int familyId, Callback ca
                                                                                                              callback) {
     font = FontsCache::getInstance().getFont("res/fonts/FreeMono.ttf", 16);
     SDL_Surface *surface = TTF_RenderText_Solid(font, getFamilyById(familyId).getLastName().c_str(), SDL_Color{0, 0, 0, 255});
-    label = SDL_CreateTextureFromSurface(Screen::getInstance().getRenderer(), surface);
+    label = SDL_CreateTextureFromSurface(MEng::View::Screen::getInstance().getRenderer(), surface);
     SDL_FreeSurface(surface);
 }
 

@@ -16,7 +16,7 @@
 #include "../../view/GUI/Label.h"
 
 
-class MainView : public View {
+class MainView : public MEng::View::View {
     WidgetPtr familyDialogWidget;
     ChoseCharacterDialogPtr choseCharacterDialog;
     HireCharacterDialogPtr hireCharacterDialog;
@@ -24,12 +24,12 @@ class MainView : public View {
     WidgetPtr mainMenu;
     LabelPtr dateLabel;
 
-    DrawablePtr mapView{new MapPresentation};
+    MEng::View::DrawablePtr mapView{new MapPresentation};
     std::vector<MonsterImagePtr> monsterViews;
 
     int dx{}, dy{};
 
-    ImagePtr playerPartyImage;
+    MEng::View::ImagePtr playerPartyImage;
 
     void showFamilyDialog(int familyId);
     void choseCharacter(int characterId);

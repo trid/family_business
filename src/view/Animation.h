@@ -7,14 +7,23 @@
 
 #include <memory>
 
-class Animation {
-public:
-    virtual ~Animation() {}
-    virtual void update(int delta) = 0;
-    virtual bool isFinished() = 0;
-    virtual void finalize() = 0;
-};
+namespace MEng {
+    namespace View {
 
-using AnimationPtr = std::shared_ptr<Animation>;
+        class Animation {
+        public:
+            virtual ~Animation() { }
+
+            virtual void update(int delta) = 0;
+
+            virtual bool isFinished() = 0;
+
+            virtual void finalize() = 0;
+        };
+
+        using AnimationPtr = std::shared_ptr<Animation>;
+    }
+}
+
 
 #endif //FAMILY_BUSINESS_ANIMATION_H

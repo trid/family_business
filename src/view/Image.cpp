@@ -4,6 +4,8 @@
 
 #include "Image.h"
 
+using namespace MEng::View;
+
 void Image::draw(SDL_Renderer *renderer) {
     if (!texture) {
         return;

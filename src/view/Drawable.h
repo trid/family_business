@@ -8,11 +8,17 @@
 #include <memory>
 #include <SDL2/SDL.h>
 
-class Drawable {
-public:
-    virtual void draw(SDL_Renderer* renderer) = 0;
-};
+namespace MEng {
+    namespace View {
 
-using DrawablePtr = std::shared_ptr<Drawable>;
+        class Drawable {
+        public:
+            virtual void draw(SDL_Renderer *renderer) = 0;
+        };
+
+        using DrawablePtr = std::shared_ptr<Drawable>;
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_DRAWABLE_H
