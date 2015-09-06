@@ -39,52 +39,52 @@ class MainView : public View {
     void clearMonsterViews();
     void updateDate();
 
-    class CharacterMovedListener : public MessageListener{
+    class CharacterMovedListener : public MEng::MessageListener{
     private:
         MainView& view;
     public:
         CharacterMovedListener(MainView& view): view(view) {}
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 
-    class PartyMovingListener : public MessageListener{
+    class PartyMovingListener : public MEng::MessageListener{
     private:
         MainView& view;
     public:
         PartyMovingListener(MainView& view): view(view) {}
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 
-    class GameLoadedListener: public MessageListener{
+    class GameLoadedListener: public MEng::MessageListener{
     private:
         MainView& view;
     public:
         GameLoadedListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 
-    class MovementRestartedListener: public MessageListener {
+    class MovementRestartedListener: public MEng::MessageListener {
     private:
         MainView& view;
     public:
         MovementRestartedListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 
-    class NewGameListener: public MessageListener {
+    class NewGameListener: public MEng::MessageListener {
     private:
         MainView& view;
     public:
         NewGameListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 
-    class NewDayListener: public MessageListener {
+    class NewDayListener: public MEng::MessageListener {
     private:
         MainView& view;
     public:
         NewDayListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 public:
     MainView();

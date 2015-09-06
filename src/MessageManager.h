@@ -12,31 +12,40 @@
 #include <bits/stl_bvector.h>
 #include "MessageListener.h"
 
-using Listeners = std::vector<MessageListenerPtr>;
-using Mapping = std::unordered_map<std::string, Listeners>;
-using MessageQueue = std::vector<std::pair<std::string, MessageParameters>>;
+namespace MEng {
 
-class MessageManager {
-private:
-    Mapping mapping;
-    MessageQueue messageQueue;
-public:
-    static MessageManager& getInstance() {
-        static MessageManager messageManager;
-        return messageManager;
-    }
+    using Listeners = std::vector<MessageListenerPtr>;
+    using Mapping = std::unordered_map<std::string, Listeners>;
+    using MessageQueue = std::vector<std::pair<std::string, MessageParameters>>;
 
-    void addListener(const std::string &type, MessageListenerPtr listener);
-    void removeListener(const std::string &type, MessageListenerPtr listener);
-    void sendMessage(const std::string &type, const MessageParameters &parameters);
-    void enqueuMessage(const std::string &type, MessageParameters& parameters);
-    void update();
-    void clear() { messageQueue.clear(); }
+    class MessageManager {
+    private:
+        Mapping mapping;
+        MessageQueue messageQueue;
+    public:
+        static MessageManager &getInstance() {
+            static MessageManager messageManager;
+            return messageManager;
+        }
 
-    //Drop message in queue into file
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+        void addListener(const std::string &type, MessageListenerPtr listener);
 
+        void removeListener(const std::string &type, MessageListenerPtr listener);
+
+        void sendMessage(const std::string &type, const MessageParameters &parameters);
+
+        void enqueuMessage(const std::string &type, MessageParameters &parameters);
+
+        void update();
+
+        void clear() { messageQueue.clear(); }
+
+        //Drop message in queue into file
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_MESSAGEMANAGER_H

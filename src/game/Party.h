@@ -14,6 +14,7 @@
 #include "Creature.h"
 #include "../Point.h"
 
+using MEng::Point;
 
 class Party {
 private:

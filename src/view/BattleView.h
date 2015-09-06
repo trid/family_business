@@ -34,44 +34,44 @@ class BattleView: public View {
 
     void startMovementAnimation();
 
-    class CreatureMovingListener: public MessageListener {
+    class CreatureMovingListener: public MEng::MessageListener {
     private:
         BattleView& battleView;
     public:
         CreatureMovingListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 
-    class AnimationFinishedListener: public MessageListener {
+    class AnimationFinishedListener: public MEng::MessageListener {
     private:
         BattleView& battleView;
     public:
         AnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 
-    class CreatureShotListener: public MessageListener {
+    class CreatureShotListener: public MEng::MessageListener {
     private:
         BattleView& battleView;
     public:
         CreatureShotListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 
-    class CreatureAttackListener: public MessageListener {
+    class CreatureAttackListener: public MEng::MessageListener {
     private:
         BattleView& battleView;
     public:
         CreatureAttackListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 
-    class SpriteAnimationFinishedListener: public MessageListener {
+    class SpriteAnimationFinishedListener: public MEng::MessageListener {
     private:
         BattleView& battleView;
     public:
         SpriteAnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 public:
     BattleView(Battle& battle);

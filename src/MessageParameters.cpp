@@ -4,6 +4,8 @@
 
 #include "MessageParameters.h"
 
+using namespace MEng;
+
 void MessageParameters::save(std::ofstream &out) {
     int count = parameters.size();
     out.write((char*)&count, sizeof(count));

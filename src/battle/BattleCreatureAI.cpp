@@ -7,7 +7,7 @@
 
 void BattleCreatureAI::updateTarget() {
     BattleCreaturePtr closest = enemyParty[0];
-    Point diff = closest->getPosition() - getPosition();
+    MEng::Point diff = closest->getPosition() - getPosition();
     int minDist = std::abs(diff.x + diff.y);
 
     for (auto creature: enemyParty) {

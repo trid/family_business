@@ -15,6 +15,8 @@
 #include "HouseManager.h"
 #include "AIManager.h"
 
+using namespace MEng;
+
 MainState::MainState() {
     ViewPtr view{new MainView()};
     setView(view);

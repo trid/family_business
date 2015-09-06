@@ -1,9 +1,7 @@
-#include <iostream>
 #include "Application.h"
-#include "game/MainState.h"
 #include "game/MenuState.h"
 
-using namespace std;
+using namespace MEng;
 
 int main(int argc, char* argv[]) {
     StatePtr statePtr(new MenuState);

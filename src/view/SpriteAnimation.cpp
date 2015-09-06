@@ -19,6 +19,6 @@ bool SpriteAnimation::isFinished() {
 }
 
 void SpriteAnimation::finalize() {
-    MessageParameters parameters = MessageParameters();
-    MessageManager::getInstance().enqueuMessage("sprite_animation_finished", parameters);
+    MEng::MessageParameters parameters = MEng::MessageParameters();
+    MEng::MessageManager::getInstance().enqueuMessage("sprite_animation_finished", parameters);
 }

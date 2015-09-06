@@ -26,7 +26,7 @@ public:
     void removeWidget(WidgetPtr widget);
     void clearWidgets();
 
-    bool onClick(const Point &point, int button);
+    bool onClick(const MEng::Point &point, int button);
 
     bool isDialogActive() const { return dialogActive; }
     void setDialogActive(bool dialogActive) { UILayout::dialogActive = dialogActive; }

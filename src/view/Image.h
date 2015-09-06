@@ -10,6 +10,8 @@
 #include "Drawable.h"
 #include "../Point.h"
 
+using MEng::Point;
+
 class Image: public Drawable {
 private:
     SDL_Texture* texture;

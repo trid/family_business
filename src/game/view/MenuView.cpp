@@ -8,6 +8,8 @@
 #include "../MainState.h"
 #include "../Game.h"
 
+using namespace MEng;
+
 MenuView::MenuView() {
     auto newGameCallback = [](){
         Application &application = Application::getInstance();

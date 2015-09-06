@@ -23,7 +23,7 @@ public:
     virtual ~View() {}
 
     virtual void draw(SDL_Renderer *renderer);
-    virtual void onClick(const Point& point, int button);
+    virtual void onClick(const MEng::Point& point, int button);
     virtual void onKeyUp(int key) {};
     virtual void onKeyDown(int key) {};
     virtual void update(int timeDelta);

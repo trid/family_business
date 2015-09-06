@@ -11,6 +11,8 @@
 #include "../../MessageManager.h"
 #include "../../view/SpriteManager.h"
 
+using namespace MEng;
+
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();
     grass = IMG_LoadTexture(renderer, "res/images/grass.png");

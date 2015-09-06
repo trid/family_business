@@ -9,6 +9,8 @@
 
 #include "../Point.h"
 
+using MEng::Point;
+
 class Village {
     Point center;
 

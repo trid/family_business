@@ -21,12 +21,12 @@ private:
 
     int dx{}, dy{};
 
-    class CharacterMoveListener: public MessageListener {
+    class CharacterMoveListener: public MEng::MessageListener {
     private:
         MapPresentation& mapPresentation;
     public:
         CharacterMoveListener(MapPresentation &mapPresentation) : mapPresentation(mapPresentation) { }
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 public:
     MapPresentation();

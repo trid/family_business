@@ -13,6 +13,7 @@
 #include "HouseManager.h"
 #include "../MessageManager.h"
 
+using namespace MEng;
 
 Game::Game() {
 

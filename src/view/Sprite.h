@@ -10,6 +10,8 @@
 #include "Drawable.h"
 #include "../Point.h"
 
+using MEng::Point;
+
 class Sprite : public Drawable {
 private:
     Point frameSize;

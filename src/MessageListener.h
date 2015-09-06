@@ -9,11 +9,14 @@
 #include <memory>
 #include "MessageParameters.h"
 
-class MessageListener {
-public:
-    virtual void onMessage(const MessageParameters &messageParameters) = 0;
-};
+namespace MEng {
 
-using MessageListenerPtr = std::shared_ptr<MessageListener>;
+    class MessageListener {
+    public:
+        virtual void onMessage(const MessageParameters &messageParameters) = 0;
+    };
+
+    using MessageListenerPtr = std::shared_ptr<MessageListener>;
+}
 
 #endif //FAMILY_BUSINESS_MESSAGELISTENER_H

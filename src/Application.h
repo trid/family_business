@@ -10,28 +10,31 @@
 
 #include <vector>
 
-using States = std::vector<StatePtr>;
+namespace MEng {
+    using States = std::vector<StatePtr>;
 
-class Application {
-private:
-    Application(){};
-    bool running = true;
-    States states;
-public:
-    static Application& getInstance() {
-        static Application instance;
-        return instance;
-    }
+    class Application {
+    private:
+        Application() { };
+        bool running = true;
+        States states;
+    public:
+        static Application &getInstance() {
+            static Application instance;
+            return instance;
+        }
 
-    void run();
-    void finish() { running = false; }
-    void pushState(StatePtr state);
-    void popState();
+        void run();
 
-    State& getCurrentState() { return *states.back(); }
+        void finish() { running = false; }
 
-    bool hasState() { return !states.empty(); }
-};
+        void pushState(StatePtr state);
 
+        void popState();
 
+        State &getCurrentState() { return *states.back(); }
+
+        bool hasState() { return !states.empty(); }
+    };
+}
 #endif //FAMILY_BUSINESS_APPLICATION_H

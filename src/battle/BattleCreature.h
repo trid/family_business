@@ -15,7 +15,7 @@ class BattleCreature {
 private:
     int id;
     int currentHp;
-    Point position;
+    MEng::Point position;
     int steps{0};
     int creatureId;
 public:
@@ -25,8 +25,8 @@ public:
     int getAttack() { return getCreature().getAttack(); }
 
     Creature::Type getType() { return getCreature().type(); }
-    const Point &getPosition() const { return position; }
-    void setPosition(const Point &position) { BattleCreature::position = position; }
+    const MEng::Point &getPosition() const { return position; }
+    void setPosition(const MEng::Point &position) { BattleCreature::position = position; }
     int getSteps() const { return steps; }
     void setSteps(int steps) { BattleCreature::steps = steps; }
     void resetSteps() { steps = getSpeed(); }

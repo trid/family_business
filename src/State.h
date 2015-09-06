@@ -17,8 +17,8 @@
 class State {
 private:
     ViewPtr view;
-    std::vector<MouseEventListenerPtr> mouseEventListeners;
-    std::vector<KeyboardEventListenerPtr> keyboardEventListeners;
+    std::vector<MEng::MouseEventListenerPtr> mouseEventListeners;
+    std::vector<MEng::KeyboardEventListenerPtr> keyboardEventListeners;
 protected:
     void setView(ViewPtr viewPtr) { view = viewPtr; }
 
@@ -31,17 +31,17 @@ public:
     virtual void onDeactivate(){};
 
     // System messages
-    virtual void onClick(const Point &point, int button){ view->onClick(point, button); }
+    virtual void onClick(const MEng::Point &point, int button){ view->onClick(point, button); }
     virtual void onKeyDown(int keyCode) { view->onKeyDown(keyCode); }
     virtual void onKeyUp(int keyCode) { view->onKeyUp(keyCode); }
 
     virtual void run(){};
 
-    void addMouseEventListener(MouseEventListenerPtr mouseEventListener);
-    void addKeyboardEventListener(KeyboardEventListenerPtr keyboardEventListener);
+    void addMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
+    void addKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
 
-    void removeMouseEventListener(MouseEventListenerPtr mouseEventListener);
-    void removeKeyboardEventListener(KeyboardEventListenerPtr keyboardEventListener);
+    void removeMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
+    void removeKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
 
     void clearListeners();
 

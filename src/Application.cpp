@@ -7,6 +7,8 @@
 #include "EventManager.h"
 #include "MessageManager.h"
 
+using namespace MEng;
+
 void Application::run() {
     while (running) {
         Screen::getInstance().draw();

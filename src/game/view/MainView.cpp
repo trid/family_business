@@ -18,6 +18,8 @@
 #include "../HouseManager.h"
 #include "../FamilyManager.h"
 
+using namespace MEng;
+
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
 }

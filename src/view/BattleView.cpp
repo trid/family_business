@@ -12,6 +12,8 @@
 #include "MovementAnimation.h"
 #include "SpriteAnimation.h"
 
+using namespace MEng;
+
 void BattleView::draw(SDL_Renderer *renderer) {
     const BattleMap& gameMap = battle.getBattleMap();
 

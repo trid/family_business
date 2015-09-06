@@ -6,6 +6,8 @@
 #include "../MessageManager.h"
 #include "PartyManager.h"
 
+using namespace MEng;
+
 void Movement::update(int delta) {
     time += delta;
 
@@ -16,7 +18,7 @@ void Movement::update(int delta) {
         parameters.setParameter("partyId", partyId);
         parameters.setParameter("x", target.x);
         parameters.setParameter("y", target.y);
-        MessageManager::getInstance().sendMessage("movement_finished", parameters);
+        MEng::MessageManager::getInstance().sendMessage("movement_finished", parameters);
     }
 }
 
@@ -36,5 +38,5 @@ void Movement::load(std::ifstream &in) {
     messageParameters.setParameter("x", target.x);
     messageParameters.setParameter("y", target.y);
     messageParameters.setParameter("time", time);
-    MessageManager::getInstance().enqueuMessage("movement_restart", messageParameters);
+    MEng::MessageManager::getInstance().enqueuMessage("movement_restart", messageParameters);
 }

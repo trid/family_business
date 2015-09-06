@@ -6,6 +6,8 @@
 
 #include "State.h"
 
+using namespace MEng;
+
 void State::addMouseEventListener(MouseEventListenerPtr mouseEventListener) {
     mouseEventListeners.push_back(mouseEventListener);
 }

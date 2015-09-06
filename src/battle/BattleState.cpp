@@ -61,10 +61,10 @@ void BattleState::onClick(const Point &point, int button) {
             tile.setCreature(current);
             current->setPosition({posX, posY});
             battle.getBattleMap().calculateMoveable(current);
-            MessageParameters messageParameters;
+            MEng::MessageParameters messageParameters;
             messageParameters.setParameter("dx", diff.x);
             messageParameters.setParameter("dy", diff.y);
-            MessageManager::getInstance().sendMessage("creature_moving", messageParameters);
+            MEng::MessageManager::getInstance().sendMessage("creature_moving", messageParameters);
         }
     }
 }

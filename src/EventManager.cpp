@@ -7,6 +7,7 @@
 #include "EventManager.h"
 #include "Application.h"
 
+using namespace MEng;
 
 void EventManager::process() {
     SDL_Event event;

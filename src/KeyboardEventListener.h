@@ -7,10 +7,13 @@
 
 #include <memory>
 
-class KeyboardEventListener {
+namespace MEng {
 
-};
+    class KeyboardEventListener {
 
-using KeyboardEventListenerPtr = std::shared_ptr<KeyboardEventListener>;
+    };
+
+    using KeyboardEventListenerPtr = std::shared_ptr<KeyboardEventListener>;
+}
 
 #endif //FAMILY_BUSINESS_KEYBOARDEVENTLISTENER_H

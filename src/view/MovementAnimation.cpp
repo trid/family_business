@@ -21,6 +21,6 @@ bool MovementAnimation::isFinished() {
 
 void MovementAnimation::finalize() {
     image->setPosition(target);
-    MessageParameters parameters = MessageParameters();
-    MessageManager::getInstance().enqueuMessage("movement_animation_finished", parameters);
+    MEng::MessageParameters parameters;
+    MEng::MessageManager::getInstance().enqueuMessage("movement_animation_finished", parameters);
 }

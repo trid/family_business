@@ -6,6 +6,8 @@
 
 #include "BattleMap.h"
 
+using namespace MEng;
+
 BattleMap::BattleMap() {
     mapData.resize(width);
 

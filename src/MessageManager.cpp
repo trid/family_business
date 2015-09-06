@@ -6,6 +6,8 @@
 
 #include "MessageManager.h"
 
+using namespace MEng;
+
 void MessageManager::addListener(const std::string &type, MessageListenerPtr listener) {
     mapping[type].push_back(listener);
 }

@@ -15,14 +15,14 @@
 class MainState : public State {
     unsigned int lastTime{SDL_GetTicks()};
 
-    class CharacterWinListener: public MessageListener {
+    class CharacterWinListener: public MEng::MessageListener {
     public:
-        virtual void onMessage(const MessageParameters &messageParameters) override;
+        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 
-    class CharacterMovedListener: public MessageListener {
+    class CharacterMovedListener: public MEng::MessageListener {
     public:
-        virtual void onMessage(const MessageParameters &messageParameters);
+        virtual void onMessage(const MEng::MessageParameters &messageParameters);
     };
 public:
     MainState();

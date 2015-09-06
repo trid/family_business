@@ -10,6 +10,8 @@
 #include <SDL2/SDL.h>
 #include "../../Point.h"
 
+using MEng::Point;
+
 class Widget {
 private:
     int x, y, w, h;

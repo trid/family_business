@@ -8,6 +8,8 @@
 #include "../../MenuState.h"
 #include "../../Game.h"
 
+using namespace MEng;
+
 GameMenu::GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h, parent) {
     ButtonPtr saveButton = std::make_shared<Button>(0, 0, 150, 30, "Save", [this](){ Game::getInstance().saveGame(); this->hide(); });
     ButtonPtr loadButton = std::make_shared<Button>(0, 30, 150, 30, "Load", [this](){ Game::getInstance().loadGame(); this->hide(); });
