@@ -8,11 +8,11 @@
 #include <queue>
 #include <vector>
 
-#include "View.h"
-#include "../battle/Battle.h"
-#include "Image.h"
-#include "../MessageListener.h"
-#include "Sprite.h"
+#include "../../view/View.h"
+#include "../Battle.h"
+#include "../../view/Image.h"
+#include "../../MessageListener.h"
+#include "../../view/Sprite.h"
 
 using BattleCreaturesView = std::vector<MEng::View::ImagePtr>;
 

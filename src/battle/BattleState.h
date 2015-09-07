@@ -7,7 +7,7 @@
 
 
 #include "../State.h"
-#include "../view/BattleView.h"
+#include "view/BattleView.h"
 #include "../game/Game.h"
 #include "Battle.h"
 

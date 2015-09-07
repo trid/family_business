@@ -6,11 +6,11 @@
 #include <SDL2/SDL_image.h>
 
 #include "BattleView.h"
-#include "../game/Creature.h"
-#include "SpriteManager.h"
-#include "../MessageManager.h"
-#include "MovementAnimation.h"
-#include "SpriteAnimation.h"
+#include "../../game/Creature.h"
+#include "../../view/SpriteManager.h"
+#include "../../MessageManager.h"
+#include "../../view/MovementAnimation.h"
+#include "../../view/SpriteAnimation.h"
 
 using namespace MEng;
 using namespace MEng::View;
