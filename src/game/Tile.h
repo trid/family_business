@@ -18,8 +18,8 @@ private:
     int party{-1};
     LandscapeType landscapeType;
 public:
-    void setHouse(int houseId) { this->house = houseId; }
-    int getHouse() { return house; }
+    void setBuilding(int houseId) { this->house = houseId; }
+    int getBuilding() { return house; }
     const int getParty() const { return party;  }
     void setParty(const int party) { Tile::party = party; }
     const LandscapeType &getLandscapeType() const { return landscapeType; }

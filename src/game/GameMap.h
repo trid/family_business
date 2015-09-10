@@ -21,6 +21,12 @@ private:
     unsigned int height{128};
 
     Village village;
+
+    BuildingType getBuildingType(Point p);
+    void placeRoad();
+
+    Generator generator;
+    Distributor distributor{1, 3};
 public:
     GameMap();
 
@@ -33,6 +39,7 @@ public:
     int getHousePosY() { return village.getCenter().y; }
 
     void createHouse(int familyId);
+    bool checkNeedRoad();
 
     void save(std::ofstream& out);
     void load(std::ifstream& in);

@@ -97,7 +97,7 @@ void MainState::onKeyDown(int keyCode) {
         }
     }
     if (keyCode == SDLK_SPACE) {
-        int houseId = gameMap.getTile(playerParty.getX(), playerParty.getY()).getHouse();
+        int houseId = gameMap.getTile(playerParty.getX(), playerParty.getY()).getBuilding();
         if (houseId != -1) {
             if (getHouseById(houseId).getType() == BuildingType::Home) {
                 takeMercenary();
@@ -116,7 +116,7 @@ void MainState::onKeyUp(int keyCode) {
 void MainState::takeMercenary() {
     Game &game = Game::getInstance();
     Party& playerParty = game.getPlayerParty();
-    int houseId = game.getMap().getTile(playerParty.getX(), playerParty.getY()).getHouse();
+    int houseId = game.getMap().getTile(playerParty.getX(), playerParty.getY()).getBuilding();
     if (houseId) {
         static_cast<MainView*>(getView().get())->showHireDialog(getHouseById(houseId));
     }
@@ -138,7 +138,7 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
     Game& game = Game::getInstance();
     Party& party = game.getPlayerParty();
     GameMap& gameMap = game.getMap();
-    int houseId = gameMap.getTile(party.getX(), party.getY()).getHouse();
+    int houseId = gameMap.getTile(party.getX(), party.getY()).getBuilding();
 
     if (houseId && getHouseById(houseId).getType() == BuildingType::MonsterLair) {
         Character& character = game.getPlayerCharacter();

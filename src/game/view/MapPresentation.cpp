@@ -10,6 +10,7 @@
 #include "../Game.h"
 #include "../../MessageManager.h"
 #include "../../view/SpriteManager.h"
+#include "../BuildingManager.h"
 
 using namespace MEng;
 using namespace MEng::View;
@@ -21,6 +22,7 @@ MapPresentation::MapPresentation() {
     character = IMG_LoadTexture(renderer, "res/images/human.png");
     monster = IMG_LoadTexture(renderer, "res/images/monster.png");
     tree = SpriteManager::getInstance().getTexture("res/images/tree.png");
+    road = SpriteManager::getInstance().getTexture("res/images/road.png");
 
     MessageListenerPtr moveListener = std::make_shared<CharacterMoveListener>(*this);
     MessageManager::getInstance().addListener("character_moved", moveListener);
@@ -29,6 +31,7 @@ MapPresentation::MapPresentation() {
 void MapPresentation::draw(SDL_Renderer *renderer) {
     GameMap& gameMap = Game::getInstance().getMap();
     Screen& screen = Screen::getInstance();
+    BuildingManager &manager = BuildingManager::getInstance();
 
     for (int x = -dx / 32; x < (-dx + screen.getWidth() - 150) / 32 + 1 && x < gameMap.getWidth(); x++) {
         for (int y = -dy / 32; y < ((-dy + screen.getHeight()) / 32 + 1) && y < gameMap.getHeight(); y++) {
@@ -38,8 +41,15 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             if (tile.getLandscapeType() == LandscapeType::Forest) {
                 SDL_RenderCopy(renderer, tree, nullptr, &dst);
             }
-            if (tile.getHouse() != -1){
-                SDL_RenderCopy(renderer, house, nullptr, &dst);
+            int buildingId = tile.getBuilding();
+            if (buildingId != -1){
+                Building& building = manager.getBuilding(buildingId);
+                if (building.getType() != BuildingType::Road) {
+                    SDL_RenderCopy(renderer, house, nullptr, &dst);
+                }
+                else {
+                    SDL_RenderCopy(renderer, road, nullptr, &dst);
+                }
             }
             /*int party = tile.getParty();
             if (party != -1 && PartyManager::getInstance().getParty(party).getSide() == Side::AI) {

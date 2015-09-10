@@ -23,8 +23,8 @@ public:
         return buidingManager;
     }
 
-    Building & getHouse(int id) { return *buildings[id]; }
-    int createHouse(int x, int y, BuildingType type) { buildings.emplace_back(new Building(x, y, type, buildings.size()));
+    Building &getBuilding(int id) { return *buildings[id]; }
+    int createBuilding(int x, int y, BuildingType type) { buildings.emplace_back(new Building(x, y, type, buildings.size()));
         return buildings.size() - 1; }
     void clear() { buildings.clear(); }
 
@@ -33,7 +33,7 @@ public:
 };
 
 inline Building & getHouseById(int id) {
-    return BuildingManager::getInstance().getHouse(id);
+    return BuildingManager::getInstance().getBuilding(id);
 }
 
 #endif //FAMILY_BUSINESS_HOUSEMANAGER_H

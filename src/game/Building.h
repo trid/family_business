@@ -13,6 +13,7 @@
 #include "Family.h"
 
 enum class BuildingType {
+    None,
     Home,
     Road,
     MonsterLair,
