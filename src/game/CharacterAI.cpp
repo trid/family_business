@@ -7,6 +7,8 @@
 #include "CreatureManager.h"
 #include "Game.h"
 
+using namespace Main;
+
 void CharacterAI::update(int delta) {
     if (characterId == Game::getInstance().getPlayerCharacter().getId()) {
         return;

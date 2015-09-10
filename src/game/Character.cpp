@@ -4,6 +4,8 @@
 
 #include "Character.h"
 
+using namespace Main;
+
 Character::Character(const string &name, const string &lastName, Gender gender, int familyId) :
     Creature(15, 5, 6),
     name(name), lastName(lastName), gender(gender), familyId(familyId)

@@ -8,21 +8,26 @@
 #include <random>
 #include "AbstractAI.h"
 
-using Generator = std::default_random_engine;
-using Distributor = std::uniform_int_distribution<int>;
+namespace Main {
 
-class MonsterAI: public AbstractAI {
-private:
-    int monsterPartyId;
-    int time{0};
+    using Generator = std::default_random_engine;
+    using Distributor = std::uniform_int_distribution<int>;
 
-    Generator generator;
-    Distributor distributor{0, 3};
-public:
-    MonsterAI(int monsterId) : monsterPartyId(monsterId) { }
-    virtual void update(int delta) override;
-};
+    class MonsterAI : public Main::AbstractAI {
+    private:
+        int monsterPartyId;
+        int time{0};
 
-using MonsterAIPtr = std::shared_ptr<MonsterAI>;
+        Generator generator;
+        Distributor distributor{0, 3};
+    public:
+        MonsterAI(int monsterId) : monsterPartyId(monsterId) { }
+
+        virtual void update(int delta) override;
+    };
+
+    using MonsterAIPtr = std::shared_ptr<MonsterAI>;
+
+}
 
 #endif //FAMILY_BUSINESS_MONSTERAI_H

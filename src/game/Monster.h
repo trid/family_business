@@ -8,15 +8,18 @@
 
 #include "Creature.h"
 
+namespace Main {
 
-class Monster: public Creature {
+    class Monster : public Main::Creature {
 
-public:
-    Monster(): Creature(30, 10, 8) {}
-    Monster(std::ifstream& in): Creature(in) {}
+    public:
+        Monster() : Creature(30, 10, 8) { }
 
-    virtual Type type() { return Type::Monster; }
-};
+        Monster(std::ifstream &in) : Creature(in) { }
 
+        virtual Type type() { return Type::Monster; }
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_MONSTER_H

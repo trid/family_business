@@ -5,9 +5,13 @@
 #ifndef FAMILY_BUSINESS_SIDE_H
 #define FAMILY_BUSINESS_SIDE_H
 
-enum class Side {
-    Player,
-    AI
-};
+namespace Main {
+
+    enum class Side {
+        Player,
+        AI
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_SIDE_H

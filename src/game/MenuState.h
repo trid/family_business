@@ -7,11 +7,14 @@
 
 #include "../State.h"
 
-class MenuState: public MEng::State {
+namespace Main {
 
-public:
-    MenuState();
-};
+    class MenuState : public MEng::State {
 
+    public:
+        MenuState();
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_MENUSTATE_H

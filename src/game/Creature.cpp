@@ -4,6 +4,8 @@
 
 #include "Creature.h"
 
+using namespace Main;
+
 void Creature::addExperience(int experience) {
     this->experience += experience;
     if (this->experience >= level * 100) {

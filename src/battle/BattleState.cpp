@@ -30,7 +30,7 @@ void BattleState::onClick(const Point &point, int button) {
     }
 
     BattleCreaturePtr current = *battle.getCurrent();
-    if (current->getType() != Creature::Type::Character) {
+    if (current->getType() != Main::Creature::Type::Character) {
         return;
     }
 

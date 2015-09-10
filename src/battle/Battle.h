@@ -25,7 +25,7 @@ private:
 
     bool blockInput;
 public:
-    Battle(Party &first, Party &second);
+    Battle(Main::Party &first, Main::Party &second);
 
     BattleMap &getBattleMap() { return battleMap; }
     void makeTurn();

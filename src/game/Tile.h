@@ -8,27 +8,36 @@
 #include <fstream>
 #include <memory>
 
-#include "Building.h"
 #include "Party.h"
 #include "LandscapeType.h"
 
-class Tile {
-private:
-    int house{-1};
-    int party{-1};
-    LandscapeType landscapeType;
-public:
-    void setBuilding(int houseId) { this->house = houseId; }
-    int getBuilding() { return house; }
-    const int getParty() const { return party;  }
-    void setParty(const int party) { Tile::party = party; }
-    const LandscapeType &getLandscapeType() const { return landscapeType; }
-    void setLandscapeType(const LandscapeType &landscapeType) { Tile::landscapeType = landscapeType; }
+namespace Main {
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+    class Tile {
+    private:
+        int house{-1};
+        int party{-1};
+        LandscapeType landscapeType;
+    public:
+        void setBuilding(int houseId) { this->house = houseId; }
 
-using TilePtr = std::shared_ptr<Tile>;
+        int getBuilding() { return house; }
+
+        const int getParty() const { return party; }
+
+        void setParty(const int party) { Tile::party = party; }
+
+        const LandscapeType &getLandscapeType() const { return landscapeType; }
+
+        void setLandscapeType(const LandscapeType &landscapeType) { Tile::landscapeType = landscapeType; }
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+    using TilePtr = std::shared_ptr<Tile>;
+
+}
 
 #endif //FAMILY_BUSINESS_TILE_H

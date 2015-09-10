@@ -10,30 +10,40 @@
 #include <vector>
 #include "Building.h"
 
-using BuildingPtr = std::unique_ptr<Building>;
-using Buildings = std::vector<BuildingPtr>;
+namespace Main {
 
-class BuildingManager {
-private:
-    Buildings buildings;
-    BuildingManager(){}
-public:
-    static BuildingManager & getInstance() {
-        static BuildingManager buidingManager;
-        return buidingManager;
+    using BuildingPtr = std::unique_ptr<Building>;
+    using Buildings = std::vector<BuildingPtr>;
+
+    class BuildingManager {
+    private:
+        Buildings buildings;
+
+        BuildingManager() { }
+
+    public:
+        static BuildingManager &getInstance() {
+            static BuildingManager buildingManager;
+            return buildingManager;
+        }
+
+        Building &getBuilding(int id) { return *buildings[id]; }
+
+        int createBuilding(int x, int y, BuildingType type) {
+            buildings.emplace_back(new Building(x, y, type, buildings.size()));
+            return buildings.size() - 1;
+        }
+
+        void clear() { buildings.clear(); }
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+    inline Building &getBuildingById(int id) {
+        return BuildingManager::getInstance().getBuilding(id);
     }
 
-    Building &getBuilding(int id) { return *buildings[id]; }
-    int createBuilding(int x, int y, BuildingType type) { buildings.emplace_back(new Building(x, y, type, buildings.size()));
-        return buildings.size() - 1; }
-    void clear() { buildings.clear(); }
-
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
-
-inline Building & getHouseById(int id) {
-    return BuildingManager::getInstance().getBuilding(id);
 }
-
 #endif //FAMILY_BUSINESS_HOUSEMANAGER_H

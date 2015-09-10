@@ -8,6 +8,7 @@
 #include "../../CreatureManager.h"
 
 using namespace MEng::View::GUI;
+using namespace Main;
 
 CharacterButton::CharacterButton(int x, int y, int w, int h, int characterId, CharacterBtnCallback callback)
         : Widget(x, y, w, h), callback(callback), characterId(characterId) {

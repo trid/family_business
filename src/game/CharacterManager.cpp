@@ -11,6 +11,8 @@
 #include <fstream>
 #include <ctime>
 
+using namespace Main;
+
 int CharacterManager::addCharacter(Gender gender, int familyId) {
     std::string &name =
             gender == Gender::Male ? maleNames[maleNamesRNG(generator)] : femaleNames[femaleNamesRNG(generator)];

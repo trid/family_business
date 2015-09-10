@@ -4,6 +4,8 @@
 
 #include "Tile.h"
 
+using namespace Main;
+
 void Tile::save(std::ofstream &out) {
     out.write((char*)this, sizeof(*this));
 }

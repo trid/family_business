@@ -11,26 +11,33 @@
 
 #include "Party.h"
 
-using PartyPtr = std::unique_ptr<Party>;
-using Parties = std::vector<PartyPtr>;
+namespace Main {
 
-class PartyManager {
-private:
-    Parties parties;
-public:
-    static PartyManager& getInstance() {
-        static PartyManager partyManager;
-        return partyManager;
-    }
-    int createParty(Side side);
-    Party& getParty(int id) { return *parties[id]; }
-    const Parties &getParties() const { return parties; }
+    using PartyPtr = std::unique_ptr<Main::Party>;
+    using Parties = std::vector<PartyPtr>;
 
-    void clear() { parties.clear(); }
+    class PartyManager {
+    private:
+        Parties parties;
+    public:
+        static PartyManager &getInstance() {
+            static PartyManager partyManager;
+            return partyManager;
+        }
 
-    void save(std::ofstream &out);
-    void load(std::ifstream& in);
-};
+        int createParty(Side side);
 
+        Main::Party &getParty(int id) { return *parties[id]; }
+
+        const Parties &getParties() const { return parties; }
+
+        void clear() { parties.clear(); }
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_PARTYMANAGER_H

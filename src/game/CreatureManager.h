@@ -12,35 +12,45 @@
 #include "Creature.h"
 #include "Character.h"
 
-using CreaturePtr = std::unique_ptr<Creature>;
-using Creatures = std::vector<CreaturePtr>;
+namespace Main {
 
-class CreatureManager {
-private:
-    CreatureManager() {}
+    using CreaturePtr = std::unique_ptr<Main::Creature>;
+    using Creatures = std::vector<CreaturePtr>;
 
-    Creatures creatures;
-public:
-    static CreatureManager& getInstance() {
-        static CreatureManager creatureManager;
-        return creatureManager;
-    }
+    class CreatureManager {
+    private:
+        CreatureManager() { }
 
-    // Using unique_ptr, be careful, original creaturePtr will be nullptr
-    int registerCreature(CreaturePtr& creaturePtr);
-    int createMonster();
-    Creature& getCreatureById(int id) { return *creatures[id]; }
-    std::vector<int> getCharactersByGender(Gender gender);
-    void updateAge();
-    void clear() { creatures.clear(); }
+        Creatures creatures;
+    public:
+        static CreatureManager &getInstance() {
+            static CreatureManager creatureManager;
+            return creatureManager;
+        }
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+        // Using unique_ptr, be careful, original creaturePtr will be nullptr
+        int registerCreature(CreaturePtr &creaturePtr);
+
+        int createMonster();
+
+        Main::Creature &getCreatureById(int id) { return *creatures[id]; }
+
+        std::vector<int> getCharactersByGender(Main::Gender gender);
+
+        void updateAge();
+
+        void clear() { creatures.clear(); }
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
 
 // Helper function to get creature by id. Shortcut for CreatureManager::getInstance().getCreatureById(id);
-inline Creature& getCreatureById(int id) {
-    return CreatureManager::getInstance().getCreatureById(id);
+    inline Main::Creature &getCreatureById(int id) {
+        return CreatureManager::getInstance().getCreatureById(id);
+    }
+
 }
 
 #endif //FAMILY_BUSINESS_CREATUREMANAGER_H

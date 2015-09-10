@@ -14,28 +14,33 @@
 #include "LandscapeType.h"
 #include "GameMap.h"
 
-using Generator = std::default_random_engine;
-using Distributor = std::uniform_int_distribution<int>;
+namespace Main {
 
-class RandomMapGenerator {
-private:
-    std::vector<std::pair<Point, LandscapeType>> higher;
-    std::vector<std::pair<Point, LandscapeType>> lower;
+    using Generator = std::default_random_engine;
+    using Distributor = std::uniform_int_distribution<int>;
 
-    static constexpr int higherCount = 8;
-    static constexpr int lowerCount = 64;
+    class RandomMapGenerator {
+    private:
+        std::vector<std::pair<Point, Main::LandscapeType>> higher;
+        std::vector<std::pair<Point, Main::LandscapeType>> lower;
 
-    Generator generator;
-    Distributor binaryDistributor{0, 1};
-    Distributor pointsPositionsDistributorX;
-    Distributor pointsPositionsDistributorY;
+        static constexpr int higherCount = 8;
+        static constexpr int lowerCount = 64;
 
-    std::pair<Point, LandscapeType> closestPoint(Point point,
-                                                 const std::vector<std::pair<Point, LandscapeType>> &items);
-public:
-    RandomMapGenerator(GameMap& gameMap);
-    void createMap(GameMap& gameMap);
-};
+        Generator generator;
+        Distributor binaryDistributor{0, 1};
+        Distributor pointsPositionsDistributorX;
+        Distributor pointsPositionsDistributorY;
 
+        std::pair<Point, Main::LandscapeType> closestPoint(Point point,
+                                                           const std::vector<std::pair<Point, Main::LandscapeType>> &items);
+
+    public:
+        RandomMapGenerator(Main::GameMap &gameMap);
+
+        void createMap(Main::GameMap &gameMap);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_RANDOMMAPGENERATOR_H

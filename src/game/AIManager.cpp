@@ -6,6 +6,8 @@
 
 #include "AIManager.h"
 
+using namespace Main;
+
 void AIManager::update(int delta) {
     for (auto item: aiItems) {
         item->update(delta);

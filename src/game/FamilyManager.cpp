@@ -6,6 +6,8 @@
 #include "CharacterManager.h"
 #include "Game.h"
 
+using namespace Main;
+
 FamilyManager::FamilyManager() {
 
 }

@@ -4,6 +4,8 @@
 
 #include "Party.h"
 
+using namespace Main;
+
 bool Party::addCreature(int creaturePtr) {
     if (creatureIds.size() >= 10) {
         return false;

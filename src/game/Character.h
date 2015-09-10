@@ -12,59 +12,79 @@
 #include "Creature.h"
 #include "Item.h"
 
+namespace Main {
 
-using std::string;
-using Items = std::vector<ItemPtr>;
+    using std::string;
+    using Items = std::vector<ItemPtr>;
 
-enum class Gender{Male, Female};
+    enum class Gender {
+        Male, Female
+    };
 
 
-class Character: public Creature {
-    string name;
-    string lastName;
+    class Character : public Creature {
+        string name;
+        string lastName;
 
-    Gender gender;
-    int age{0};
-    bool married{false};
-    int partnerId{-1};
+        Gender gender;
+        int age{0};
+        bool married{false};
+        int partnerId{-1};
 
-    int familyId;
+        int familyId;
 
-    Items inventory;
-    ItemPtr armor{nullptr};
-    ItemPtr weapon{nullptr};
+        Items inventory;
+        ItemPtr armor{nullptr};
+        ItemPtr weapon{nullptr};
 
-    Generator generator;
-    Distributor deathDistr{0, 100};
-public:
-    Character(const string &name, const string &lastName, Gender gender, int family);
-    Character(std::ifstream& in): Creature(in) { load(in); }
+        Generator generator;
+        Distributor deathDistr{0, 100};
+    public:
+        Character(const string &name, const string &lastName, Gender gender, int family);
 
-    const string& getName() { return name; }
-    const string& getLastName() { return lastName; }
-    Gender getGender() { return gender; }
-    int getFamilyId() { return familyId; }
-    void addItem(ItemPtr item) { inventory.push_back(item); }
+        Character(std::ifstream &in) : Creature(in) { load(in); }
 
-    void equip(ItemPtr item);
-    void unequipArmor();
-    void unequipWeapon();
+        const string &getName() { return name; }
 
-    virtual Type type() { return Type::Character; }
-    ItemPtr getWeapon() { return weapon; }
-    const Items& getItems() const { return inventory; }
-    void addDay();
-    int getAge() { return age; }
-    void setAge(int age) { this->age = age; }
+        const string &getLastName() { return lastName; }
 
-    bool isMarried() const { return married; }
-    void setMarried(bool married) { Character::married = married; }
-    int getPartnerId() const { return partnerId; }
-    void setPartnerId(int partnerId) { Character::partnerId = partnerId; }
+        Gender getGender() { return gender; }
 
-    void save(std::ofstream& out) override;
-    void load(std::ifstream &in) override;
-};
+        int getFamilyId() { return familyId; }
 
+        void addItem(ItemPtr item) { inventory.push_back(item); }
+
+        void equip(ItemPtr item);
+
+        void unequipArmor();
+
+        void unequipWeapon();
+
+        virtual Type type() { return Type::Character; }
+
+        ItemPtr getWeapon() { return weapon; }
+
+        const Items &getItems() const { return inventory; }
+
+        void addDay();
+
+        int getAge() { return age; }
+
+        void setAge(int age) { this->age = age; }
+
+        bool isMarried() const { return married; }
+
+        void setMarried(bool married) { Character::married = married; }
+
+        int getPartnerId() const { return partnerId; }
+
+        void setPartnerId(int partnerId) { Character::partnerId = partnerId; }
+
+        void save(std::ofstream &out) override;
+
+        void load(std::ifstream &in) override;
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_CHARACTER_H

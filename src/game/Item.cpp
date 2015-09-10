@@ -4,6 +4,8 @@
 
 #include "Item.h"
 
+using namespace Main;
+
 void Item::save(std::ofstream &out) {
     out.write((char*)this, sizeof(*this));
 }

@@ -14,6 +14,8 @@
 #include <random>
 #include <unordered_set>
 
+using namespace Main;
+
 GameMap::GameMap() {
     mapData.resize(width);
     for (auto& item: mapData) {

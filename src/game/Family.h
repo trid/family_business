@@ -13,49 +13,61 @@
 #include "Character.h"
 #include "CreatureManager.h"
 
+namespace Main {
 
-class Building;
+    using Children = std::vector<int>;
 
-using Children = std::vector<int>;
+    class Family {
+        int id;
 
-class Family {
-    int id;
+        int father;
+        int mother;
+        Children children;
 
-    int father;
-    int mother;
-    Children children;
+        int home;
 
-    int home;
+        std::string lastName;
 
-    std::string lastName;
+        Main::Generator generator;
+        Main::Distributor distributor{0, 100};
+    public:
+        Family(int id, int father, int &mother, Children &children) : id(id), father(father),
+                                                                      mother(mother),
+                                                                      children(std::move(children)) { }
 
-    Generator generator;
-    Distributor distributor{0, 100};
-public:
-    Family(int id, int father, int &mother, Children &children) : id(id), father(father),
-                                                          mother(mother),
-                                                          children(std::move(children)) { }
-    Family(int id) : id(id) {}
-    Family(std::ifstream& in) { load(in); }
+        Family(int id) : id(id) { }
 
-    const std::string &getLastName() { return static_cast<Character&>(getCreatureById(father)).getLastName(); }
+        Family(std::ifstream &in) { load(in); }
 
-    Character& getFather() { return static_cast<Character&>(getCreatureById(father)); }
-    int getFatherId() { return father; }
-    Character& getMother() { return static_cast<Character&>(getCreatureById(mother)); }
-    int getMotherId() { return mother; }
-    Children &getChildren() { return children; }
-    void addChild(int childId) { children.push_back(childId); }
+        const std::string &getLastName() {
+            return static_cast<Main::Character &>(Main::getCreatureById(father)).getLastName();
+        }
 
-    int getHome() const { return home; }
-    void setHome(int home) { Family::home = home; }
+        Main::Character &getFather() { return static_cast<Main::Character &>(Main::getCreatureById(father)); }
 
-    int getId() const { return id; }
+        int getFatherId() { return father; }
 
-    void updateDaily();
+        Main::Character &getMother() { return static_cast<Main::Character &>(Main::getCreatureById(mother)); }
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+        int getMotherId() { return mother; }
+
+        Children &getChildren() { return children; }
+
+        void addChild(int childId) { children.push_back(childId); }
+
+        int getHome() const { return home; }
+
+        void setHome(int home) { Family::home = home; }
+
+        int getId() const { return id; }
+
+        void updateDaily();
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_FAMILY_H

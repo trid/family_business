@@ -9,6 +9,7 @@
 #include "../../FamilyManager.h"
 
 using namespace MEng::View::GUI;
+using namespace Main;
 
 void ChoseCharacterDialog::setUp(int familyId) {
     clearWidgets();

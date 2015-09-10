@@ -4,7 +4,7 @@
 using namespace MEng;
 
 int main(int argc, char* argv[]) {
-    StatePtr statePtr(new MenuState);
+    StatePtr statePtr(new Main::MenuState);
     Application& application = Application::getInstance();
 
     application.pushState(statePtr);

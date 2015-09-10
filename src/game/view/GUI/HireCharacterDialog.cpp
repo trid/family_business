@@ -5,10 +5,12 @@
 #include "HireCharacterDialog.h"
 #include "CharacterButton.h"
 #include "../../../view/GUI/Label.h"
+#include "../../CreatureManager.h"
 
 using namespace MEng::View::GUI;
+using namespace Main;
 
-void HireCharacterDialog::setUp(Building &housePtr) {
+void HireCharacterDialog::setUp(Main::Building &housePtr) {
     clearWidgets();
 
     addWidget(label);

@@ -4,6 +4,8 @@
 
 #include "PartyManager.h"
 
+using namespace Main;
+
 int PartyManager::createParty(Side side) {
     parties.emplace_back(PartyPtr(new Party(side, parties.size())));
     return parties.size() - 1;

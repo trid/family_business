@@ -8,13 +8,17 @@
 
 #include "AbstractAI.h"
 
-class CharacterAI: public AbstractAI {
-private:
-    int characterId;
-public:
-    CharacterAI(int characterId) : characterId(characterId) { }
-    virtual void update(int delta) override;
-};
+namespace Main {
 
+    class CharacterAI : public Main::AbstractAI {
+    private:
+        int characterId;
+    public:
+        CharacterAI(int characterId) : characterId(characterId) { }
+
+        virtual void update(int delta) override;
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_CHARACTERAI_H

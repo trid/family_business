@@ -7,6 +7,8 @@
 #include "Character.h"
 #include "Side.h"
 
+using namespace Main;
+
 int CreatureManager::registerCreature(CreaturePtr &creaturePtr) {
     creaturePtr->id = creatures.size();
     creatures.push_back(std::move(creaturePtr));
@@ -37,7 +39,7 @@ void CreatureManager::load(std::ifstream &in) {
         Creature::Type type;
         in.read(reinterpret_cast<char*>(&type), sizeof(type));
         if (type == Creature::Type::Character) {
-            creatures.emplace_back(new Character(in));
+            creatures.emplace_back(new Main::Character(in));
         }
         else {
             creatures.emplace_back(new Monster(in));
@@ -48,17 +50,17 @@ void CreatureManager::load(std::ifstream &in) {
 void CreatureManager::updateAge() {
     for (auto& item: creatures) {
         if (item->type() == Creature::Type::Character) {
-            Character* character = static_cast<Character*>(item.get());
+            Main::Character* character = static_cast<Main::Character*>(item.get());
             character->addDay();
         }
     }
 }
 
-std::vector<int> CreatureManager::getCharactersByGender(Gender gender) {
+std::vector<int> CreatureManager::getCharactersByGender(Main::Gender gender) {
     std::vector<int> characters;
 
     for (auto& creature: creatures) {
-        if (creature->type() == Creature::Type::Character && static_cast<Character*>(creature.get())->getGender() == gender) {
+        if (creature->type() == Creature::Type::Character && static_cast<Main::Character*>(creature.get())->getGender() == gender) {
             characters.push_back(creature->getId());
         }
     }

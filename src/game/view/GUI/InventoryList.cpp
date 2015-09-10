@@ -10,6 +10,7 @@
 #include "../../../view/GUI/Button.h"
 
 using MEng::View::GUI::Button;
+using namespace Main;
 
 void InventoryList::update() {
     Character& playerCharacter = Game::getInstance().getPlayerCharacter();

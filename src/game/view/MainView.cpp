@@ -21,6 +21,7 @@
 using namespace MEng;
 using namespace MEng::View;
 using namespace MEng::View::GUI;
+using namespace Main;
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
@@ -157,7 +158,7 @@ void MainView::addCharacterToParty(int characterId) {
     if (Game::getInstance().getPlayerParty().addCreature(characterId)) {
         Character& character = static_cast<Character&>(getCreatureById(characterId));
         Family& family = getFamilyById(character.getFamilyId());
-        Building & house = getHouseById(family.getHome());
+        Building & house = getBuildingById(family.getHome());
         std::vector<int>& characters = house.getCharacters();
         auto iter = std::remove(characters.begin(), characters.end(), characterId);
         characters.erase(iter, characters.end());

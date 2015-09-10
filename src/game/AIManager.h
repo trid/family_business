@@ -8,22 +8,27 @@
 #include <vector>
 #include "AbstractAI.h"
 
-using AIItems = std::vector<AbstractAIPtr>;
+namespace Main {
 
-class AIManager {
-    AIItems aiItems;
-public:
-    static AIManager& getInstance() {
-        static AIManager instance;
-        return instance;
-    }
+    using AIItems = std::vector<AbstractAIPtr>;
 
-    void update(int delta);
+    class AIManager {
+        AIItems aiItems;
+    public:
+        static AIManager &getInstance() {
+            static AIManager instance;
+            return instance;
+        }
 
-    void addAi(AbstractAIPtr ai);
-    void removeAi(AbstractAIPtr ai);
-    void clear() { aiItems.clear(); }
-};
+        void update(int delta);
 
+        void addAi(AbstractAIPtr ai);
+
+        void removeAi(AbstractAIPtr ai);
+
+        void clear() { aiItems.clear(); }
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_AIMANAGER_H

@@ -7,6 +7,7 @@
 #include "PartyManager.h"
 
 using namespace MEng;
+using namespace Main;
 
 void Movement::update(int delta) {
     time += delta;

@@ -14,6 +14,7 @@
 #include "../MessageManager.h"
 
 using namespace MEng;
+using namespace Main;
 
 Game::Game() {
 

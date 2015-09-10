@@ -18,7 +18,7 @@ public:
     HireCharacterDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
                                                  CharacterBtnCallback callback);
 
-    void setUp(Building &house);
+    void setUp(Main::Building &house);
     void setCallback(CharacterBtnCallback callback) { this->callback = callback; }
 };
 

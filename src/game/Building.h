@@ -10,41 +10,52 @@
 #include <vector>
 
 #include "Side.h"
-#include "Family.h"
 
-enum class BuildingType {
-    None,
-    Home,
-    Road,
-    MonsterLair,
-    Warehouse
-};
+namespace Main {
 
-class Building {
-private:
-    int id;
-    int x, y;
-    int familyId;
-    BuildingType type;
-    std::vector<int> inside;
-public:
-    Building(int x, int y, BuildingType type, int id): x(x), y(y), type(type), id(id) { }
-    Building(std::ifstream& in) { load(in); }
+    enum class BuildingType {
+        None,
+        Home,
+        Road,
+        MonsterLair,
+        Warehouse
+    };
 
-    int getId() const { return id; }
+    class Building {
+    private:
+        int id;
+        int x, y;
+        int familyId;
+        BuildingType type;
+        std::vector<int> inside;
+    public:
+        Building(int x, int y, BuildingType type, int id) : x(x), y(y), type(type), id(id) { }
 
-    int getX() const { return x; }
-    void setX(int x) { Building::x = x; }
-    int getY() const { return y; }
-    void setY(int y) { Building::y = y; }
-    const int getFamily() const { return familyId; }
-    void setFamily(int familyId);
-    std::vector<int>& getCharacters() { return inside; }
-    BuildingType getType() { return type; }
+        Building(std::ifstream &in) { load(in); }
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+        int getId() const { return id; }
 
+        int getX() const { return x; }
+
+        void setX(int x) { Building::x = x; }
+
+        int getY() const { return y; }
+
+        void setY(int y) { Building::y = y; }
+
+        const int getFamily() const { return familyId; }
+
+        void setFamily(int familyId);
+
+        std::vector<int> &getCharacters() { return inside; }
+
+        BuildingType getType() { return type; }
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_HOME_H

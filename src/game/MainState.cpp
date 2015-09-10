@@ -17,6 +17,7 @@
 
 using namespace MEng;
 using namespace MEng::View;
+using namespace Main;
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -99,7 +100,7 @@ void MainState::onKeyDown(int keyCode) {
     if (keyCode == SDLK_SPACE) {
         int houseId = gameMap.getTile(playerParty.getX(), playerParty.getY()).getBuilding();
         if (houseId != -1) {
-            if (getHouseById(houseId).getType() == BuildingType::Home) {
+            if (getBuildingById(houseId).getType() == BuildingType::Home) {
                 takeMercenary();
             }
             else {
@@ -118,7 +119,7 @@ void MainState::takeMercenary() {
     Party& playerParty = game.getPlayerParty();
     int houseId = game.getMap().getTile(playerParty.getX(), playerParty.getY()).getBuilding();
     if (houseId) {
-        static_cast<MainView*>(getView().get())->showHireDialog(getHouseById(houseId));
+        static_cast<MainView*>(getView().get())->showHireDialog(getBuildingById(houseId));
     }
 }
 
@@ -140,7 +141,7 @@ void MainState::CharacterWinListener::onMessage(const MessageParameters &message
     GameMap& gameMap = game.getMap();
     int houseId = gameMap.getTile(party.getX(), party.getY()).getBuilding();
 
-    if (houseId && getHouseById(houseId).getType() == BuildingType::MonsterLair) {
+    if (houseId && getBuildingById(houseId).getType() == BuildingType::MonsterLair) {
         Character& character = game.getPlayerCharacter();
         character.addItem(ItemPtr{new Item(ItemType::Armor, 1)});
     }

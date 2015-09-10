@@ -10,6 +10,7 @@
 #include "../../../view/GUI/Label.h"
 
 using namespace MEng::View::GUI;
+using namespace Main;
 
 void ChoseFamilyDialog::setUp() {
     clearWidgets();

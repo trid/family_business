@@ -14,6 +14,7 @@
 
 using namespace MEng;
 using namespace MEng::View;
+using namespace Main;
 
 void BattleView::draw(SDL_Renderer *renderer) {
     const BattleMap& gameMap = battle.getBattleMap();

@@ -36,7 +36,7 @@ void Battle::nextCreature() {
         updateTurns();
     }
 
-    if ((*current)->getType() == Creature::Type::Character) {
+    if ((*current)->getType() == Main::Creature::Type::Character) {
         battleMap.calculateMoveable(*current);
     }
 
@@ -44,13 +44,13 @@ void Battle::nextCreature() {
         nextCreature();
     }
 
-    if ((*current)->getType() == Creature::Type::Monster) {
+    if ((*current)->getType() == Main::Creature::Type::Monster) {
         static_cast<BattleCreatureAI*>(current->get())->updateTarget();
     }
 }
 
 void Battle::makeTurn() {
-    if ((*current)->getType() == Creature::Type::Monster) {
+    if ((*current)->getType() == Main::Creature::Type::Monster) {
         BattleCreatureAI* monster = static_cast<BattleCreatureAI*>((*current).get());
         BattleCreaturePtr target = monster->getTarget();
         Point distance = target->getPosition() - (*current)->getPosition();
@@ -94,12 +94,12 @@ void Battle::makeTurn() {
     }
 }
 
-Battle::Battle(Party &first, Party &second) : battleMap() {
+Battle::Battle(Main::Party &first, Main::Party &second) : battleMap() {
     std::vector<int> &leftCreatures = first.getCreatures();
     for (int i = 0; i < leftCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
-        Creature& leftCreature = CreatureManager::getInstance().getCreatureById(leftCreatures[i]);
-        if (leftCreature.type() == Creature::Type::Character) {
+        Main::Creature& leftCreature = Main::CreatureManager::getInstance().getCreatureById(leftCreatures[i]);
+        if (leftCreature.type() == Main::Creature::Type::Character) {
             battleCreaturePtr = std::make_shared<BattleCreature>(i, leftCreatures[i]);
         }
         else {
@@ -114,8 +114,8 @@ Battle::Battle(Party &first, Party &second) : battleMap() {
     std::vector<int> &rightCreatures = second.getCreatures();
     for (int i = 0; i < rightCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
-        Creature& rightCreature = CreatureManager::getInstance().getCreatureById(rightCreatures[i]);
-        if (rightCreature.type() == Creature::Type::Character) {
+        Main::Creature& rightCreature = Main::CreatureManager::getInstance().getCreatureById(rightCreatures[i]);
+        if (rightCreature.type() == Main::Creature::Type::Character) {
             battleCreaturePtr = std::make_shared<BattleCreature>(leftCreatures.size() + i, rightCreatures[i]);
         }
         else {
@@ -135,7 +135,7 @@ void Battle::makeAttack(Point targetPosition) {
     BattleCreaturePtr targetCreature = battleMap.getTile(targetPosition.x, targetPosition.y).getCreature();
     if (targetCreature) {
         BattleCreaturePtr currentCreature = (*current);
-        Character& character = static_cast<Character&>(currentCreature->getCreature());
+        Main::Character& character = static_cast<Main::Character&>(currentCreature->getCreature());
         Point distanceVec = targetCreature->getPosition() - currentCreature->getPosition();
         int distance = abs(distanceVec.x) + abs(distanceVec.y);
         MessageManager& messageManager = MessageManager::getInstance();

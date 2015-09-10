@@ -7,11 +7,15 @@
 
 #include <memory>
 
-class AbstractAI {
-public:
-    virtual void update(int delta) = 0;
-};
+namespace Main {
 
-using AbstractAIPtr = std::shared_ptr<AbstractAI>;
+    class AbstractAI {
+    public:
+        virtual void update(int delta) = 0;
+    };
+
+    using AbstractAIPtr = std::shared_ptr<AbstractAI>;
+
+}
 
 #endif //FAMILY_BUSINESS_ABSTRACTAI_H

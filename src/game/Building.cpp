@@ -6,6 +6,8 @@
 #include "Building.h"
 #include "FamilyManager.h"
 
+using namespace Main;
+
 void Building::setFamily(int familyId) {
     Building::familyId = familyId;
     Family& family = getFamilyById(familyId);

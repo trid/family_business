@@ -4,6 +4,8 @@
 
 #include "RandomMapGenerator.h"
 
+using namespace Main;
+
 RandomMapGenerator::RandomMapGenerator(GameMap& gameMap) {
     generator.seed(std::time(0));
     pointsPositionsDistributorX = Distributor(0, gameMap.getWidth() - 1);

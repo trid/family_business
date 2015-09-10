@@ -13,45 +13,55 @@
 #include "PartyManager.h"
 #include "Movement.h"
 
-class Game {
-private:
-    int playerCharacter{-1};
-    GameMap gameMap;
-    int playerParty{-1};
-    long int days{0l};
-    //TODO: change to process in future
-    int dateDelta{0};
+namespace Main {
 
-    std::vector<MovementPtr> movement;
+    class Game {
+    private:
+        int playerCharacter{-1};
+        GameMap gameMap;
+        int playerParty{-1};
+        long int days{0l};
+        //TODO: change to process in future
+        int dateDelta{0};
 
-    Game();
-public:
-    static Game &getInstance() {
-        static Game instance;
-        return instance;
-    }
+        std::vector<MovementPtr> movement;
 
-    GameMap &getMap() { return gameMap; }
+        Game();
 
-    Character& getPlayerCharacter() const { return static_cast<Character&>(getCreatureById(playerCharacter)); }
-    Party& getPlayerParty() { return PartyManager::getInstance().getParty(playerParty); }
+    public:
+        static Game &getInstance() {
+            static Game instance;
+            return instance;
+        }
 
-    void setPlayerCharacter(int playerCharacter) {
-        Game::playerCharacter = playerCharacter;
-        getPlayerParty().addCreature(playerCharacter);
-    }
+        GameMap &getMap() { return gameMap; }
 
-    void addDay();
-    int getDate() { return days; }
-    void moveParty(int partyId, Point newPosition);
-    void marry(int character1, int character2);
+        Character &getPlayerCharacter() const { return static_cast<Character &>(getCreatureById(playerCharacter)); }
 
-    void update(int delta);
+        Party &getPlayerParty() { return PartyManager::getInstance().getParty(playerParty); }
 
-    void newGame();
-    void saveGame();
-    void loadGame();
-};
+        void setPlayerCharacter(int playerCharacter) {
+            Game::playerCharacter = playerCharacter;
+            getPlayerParty().addCreature(playerCharacter);
+        }
 
+        void addDay();
+
+        int getDate() { return days; }
+
+        void moveParty(int partyId, Point newPosition);
+
+        void marry(int character1, int character2);
+
+        void update(int delta);
+
+        void newGame();
+
+        void saveGame();
+
+        void loadGame();
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_GAME_H

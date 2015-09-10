@@ -10,40 +10,51 @@
 
 #include "Tile.h"
 #include "Village.h"
+#include "Building.h"
 
-using ColumnData = std::vector<Tile>;
-using MapData = std::vector<ColumnData>;
+namespace Main {
 
-class GameMap {
-private:
-    MapData mapData;
-    unsigned int width{128};
-    unsigned int height{128};
+    using ColumnData = std::vector<Tile>;
+    using MapData = std::vector<ColumnData>;
 
-    Village village;
+    class GameMap {
+    private:
+        MapData mapData;
+        unsigned int width{128};
+        unsigned int height{128};
 
-    BuildingType getBuildingType(Point p);
-    void placeRoad();
+        Village village;
 
-    Generator generator;
-    Distributor distributor{1, 3};
-public:
-    GameMap();
+        Main::BuildingType getBuildingType(Point p);
 
-    unsigned int getWidth() { return width; }
-    unsigned int getHeight() { return height; }
+        void placeRoad();
 
-    Tile& getTile(int x, int y) { return mapData[x][y]; }
-    Tile& getTile(Point point) { return mapData[point.x][point.y]; }
-    int getHousePosX() { return village.getCenter().x; }
-    int getHousePosY() { return village.getCenter().y; }
+        Main::Generator generator;
+        Main::Distributor distributor{1, 3};
+    public:
+        GameMap();
 
-    void createHouse(int familyId);
-    bool checkNeedRoad();
+        unsigned int getWidth() { return width; }
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+        unsigned int getHeight() { return height; }
 
+        Tile &getTile(int x, int y) { return mapData[x][y]; }
+
+        Tile &getTile(Point point) { return mapData[point.x][point.y]; }
+
+        int getHousePosX() { return village.getCenter().x; }
+
+        int getHousePosY() { return village.getCenter().y; }
+
+        void createHouse(int familyId);
+
+        bool checkNeedRoad();
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_GAMEMAP_H

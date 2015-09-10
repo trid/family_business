@@ -11,17 +11,20 @@
 
 using MEng::Point;
 
-class Village {
-    Point center;
+namespace Main {
 
-public:
-    Village() {}
+    class Village {
+        Point center;
 
-    const Point &getCenter() const { return center; }
-    void setCenter(const Point &center) { Village::center = center; }
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
+    public:
+        Village() {}
 
+        const Point &getCenter() const { return center; }
+        void setCenter(const Point &center) { Village::center = center; }
+        void save(std::ofstream& out);
+        void load(std::ifstream& in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_VILLAGE_H

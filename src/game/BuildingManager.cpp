@@ -4,6 +4,8 @@
 
 #include "BuildingManager.h"
 
+using namespace Main;
+
 void BuildingManager::save(std::ofstream &out) {
     int count = buildings.size();
     out.write(reinterpret_cast<char*>(&count), sizeof(count));

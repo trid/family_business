@@ -5,9 +5,13 @@
 #ifndef FAMILY_BUSINESS_LANDSCAPETYPE_H
 #define FAMILY_BUSINESS_LANDSCAPETYPE_H
 
-enum class LandscapeType {
-    None,
-    Forest
-};
+namespace Main {
+
+    enum class LandscapeType {
+        None,
+        Forest
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_LANDSCAPETYPE_H

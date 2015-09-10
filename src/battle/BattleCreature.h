@@ -24,7 +24,7 @@ public:
     int getSpeed() { return getCreature().getSpeed(); }
     int getAttack() { return getCreature().getAttack(); }
 
-    Creature::Type getType() { return getCreature().type(); }
+    Main::Creature::Type getType() { return getCreature().type(); }
     const MEng::Point &getPosition() const { return position; }
     void setPosition(const MEng::Point &position) { BattleCreature::position = position; }
     int getSteps() const { return steps; }
@@ -34,7 +34,7 @@ public:
 
     void takeDamage(int damage);
     bool isDead() { return currentHp == 0; }
-    Creature& getCreature() { return CreatureManager::getInstance().getCreatureById(creatureId); }
+    Main::Creature& getCreature() { return Main::CreatureManager::getInstance().getCreatureById(creatureId); }
     int getCreatureId() { return creatureId; }
     int getId() { return id; }
 };

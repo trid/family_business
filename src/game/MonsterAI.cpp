@@ -7,6 +7,8 @@
 #include "PartyManager.h"
 #include "Game.h"
 
+using namespace Main;
+
 void MonsterAI::update(int delta) {
     time += delta;
     if (time >= 1000) {

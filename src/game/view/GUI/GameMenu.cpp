@@ -11,6 +11,7 @@
 using namespace MEng;
 using MEng::View::GUI::Button;
 using MEng::View::GUI::ButtonPtr;
+using Main::Game;
 
 GameMenu::GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h, parent) {
     ButtonPtr saveButton = std::make_shared<Button>(0, 0, 150, 30, "Save", [this](){ Game::getInstance().saveGame(); this->hide(); });
@@ -19,7 +20,7 @@ GameMenu::GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &pa
     auto menuButtonCallback = []() {
         Application& application = Application::getInstance();
         application.popState();
-        application.pushState(std::make_shared<MenuState>());
+        application.pushState(std::make_shared<Main::MenuState>());
     };
     ButtonPtr menuButton = std::make_shared<Button>(0, 120, 150, 30, "Exit to Menu", menuButtonCallback);
     ButtonPtr desktopButton = std::make_shared<Button>(0, 150, 150, 30, "Exit to Desktop", []() { Application::getInstance().finish();});

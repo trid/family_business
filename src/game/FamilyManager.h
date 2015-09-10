@@ -9,38 +9,45 @@
 
 #include "Family.h"
 
-using FamilyPtr = std::unique_ptr<Family>;
-using Families = std::vector<FamilyPtr>;
+namespace Main {
 
-class FamilyManager {
-private:
-    FamilyManager();
+    using FamilyPtr = std::unique_ptr<Main::Family>;
+    using Families = std::vector<FamilyPtr>;
 
-    Families families;
+    class FamilyManager {
+    private:
+        FamilyManager();
 
-    Generator generator;
-    Distributor parentAgeDistributor{16 * 12 * 30, 50 * 12 * 30};
-public:
-    static FamilyManager& getInstance() {
-        static FamilyManager instance;
-        return instance;
+        Families families;
+
+        Main::Generator generator;
+        Main::Distributor parentAgeDistributor{16 * 12 * 30, 50 * 12 * 30};
+    public:
+        static FamilyManager &getInstance() {
+            static FamilyManager instance;
+            return instance;
+        }
+
+        const Families &getFamilies() { return families; }
+
+        Main::Family &getFamilyById(int id) { return *families[id]; }
+
+        int generateFamily();
+
+        void clear() { families.clear(); }
+
+        int createFamily(int fatherId, int motherId);
+
+        void updateDaily();
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+    inline Main::Family &getFamilyById(int id) {
+        return FamilyManager::getInstance().getFamilyById(id);
     }
 
-    const Families& getFamilies() { return families; }
-    Family& getFamilyById(int id) { return *families[id]; }
-    int generateFamily();
-    void clear() { families.clear(); }
-
-    int createFamily(int fatherId, int motherId);
-
-    void updateDaily();
-
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
-};
-
-inline Family& getFamilyById(int id) {
-    return FamilyManager::getInstance().getFamilyById(id);
 }
-
 #endif //FAMILY_BUSINESS_FAMILYMANAGER_H

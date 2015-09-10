@@ -11,6 +11,7 @@
 using namespace MEng;
 using MEng::View::GUI::Button;
 using MEng::View::GUI::ButtonPtr;
+using namespace Main;
 
 MenuView::MenuView() {
     auto newGameCallback = [](){

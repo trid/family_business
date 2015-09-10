@@ -14,6 +14,7 @@
 
 using namespace MEng;
 using namespace MEng::View;
+using namespace Main;
 
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();
@@ -43,18 +44,14 @@ void MapPresentation::draw(SDL_Renderer *renderer) {
             }
             int buildingId = tile.getBuilding();
             if (buildingId != -1){
-                Building& building = manager.getBuilding(buildingId);
-                if (building.getType() != BuildingType::Road) {
+                Main::Building& building = manager.getBuilding(buildingId);
+                if (building.getType() != Main::BuildingType::Road) {
                     SDL_RenderCopy(renderer, house, nullptr, &dst);
                 }
                 else {
                     SDL_RenderCopy(renderer, road, nullptr, &dst);
                 }
             }
-            /*int party = tile.getParty();
-            if (party != -1 && PartyManager::getInstance().getParty(party).getSide() == Side::AI) {
-                SDL_RenderCopy(renderer, monster, nullptr, &dst);
-            }*/
         }
     }
 }

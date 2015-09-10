@@ -16,38 +16,54 @@
 
 using MEng::Point;
 
-class Party {
-private:
-    int id;
-    std::vector<int> creatureIds;
-    Side side;
-    Point position;
+namespace Main {
 
-    bool moving{false};
-public:
-    Party(Side side, int id) : side(side), id(id) {}
-    Party(std::ifstream& in) { load(in); }
-    Party(Party&) = delete;
-    Party& operator=(Party&) = delete;
-    int getId() { return id; }
-    bool addCreature(int creaturePtr);
+    class Party {
+    private:
+        int id;
+        std::vector<int> creatureIds;
+        Side side;
+        Point position;
 
-    int getX() const { return position.x; }
-    void setX(int x) { position.x = x; }
-    int getY() const { return position.y; }
-    void setY(int y) { position.y = y; }
-    Point getPosition() const { return position; }
-    void setPosition(Point position) { this->position = position; }
+        bool moving{false};
+    public:
+        Party(Side side, int id) : side(side), id(id) { }
 
-    const Side getSide() const { return side; }
-    std::vector<int>& getCreatures() { return creatureIds; }
-    
-    bool isMoving() const { return moving; }
-    void setMoving(bool moving) { Party::moving = moving; }
+        Party(std::ifstream &in) { load(in); }
 
-    void save(std::ofstream &out);
-    void load(std::ifstream &in);
-};
+        Party(Party &) = delete;
 
+        Party &operator=(Party &) = delete;
+
+        int getId() { return id; }
+
+        bool addCreature(int creaturePtr);
+
+        int getX() const { return position.x; }
+
+        void setX(int x) { position.x = x; }
+
+        int getY() const { return position.y; }
+
+        void setY(int y) { position.y = y; }
+
+        Point getPosition() const { return position; }
+
+        void setPosition(Point position) { this->position = position; }
+
+        const Side getSide() const { return side; }
+
+        std::vector<int> &getCreatures() { return creatureIds; }
+
+        bool isMoving() const { return moving; }
+
+        void setMoving(bool moving) { Party::moving = moving; }
+
+        void save(std::ofstream &out);
+
+        void load(std::ifstream &in);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_PARTY_H

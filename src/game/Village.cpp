@@ -4,6 +4,8 @@
 
 #include "Village.h"
 
+using namespace Main;
+
 void Village::save(std::ofstream &out) {
     out.write((char*)&center, sizeof(Point));
 }

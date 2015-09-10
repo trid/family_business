@@ -5,6 +5,8 @@
 #include "Family.h"
 #include "CharacterManager.h"
 
+using namespace Main;
+
 void Family::save(std::ofstream &out) {
     out.write((char*)&id, sizeof(id));
     out.write((char*)&father, sizeof(father));
