@@ -8,10 +8,17 @@
 
 #include "../../../view/GUI/Panel.h"
 
-class GameMenu: public MEng::View::GUI::Panel {
-public:
-    GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent);
-};
+namespace Main {
+    namespace View {
+        namespace GUI {
 
+            class GameMenu : public MEng::View::GUI::Panel {
+            public:
+                GameMenu(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent);
+            };
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_GAMEMENU_H

@@ -12,25 +12,34 @@
 
 #include "../../../view/GUI/Widget.h"
 
-using MEng::Point;
+namespace Main {
+    namespace View {
+        namespace GUI {
 
-using Callback = std::function<void(int)>;
+            using MEng::Point;
 
-class FamilyButton: public MEng::View::GUI::Widget {
-private:
-    int familyId;
-    Callback callback;
+            using Callback = std::function<void(int)>;
 
-    SDL_Texture* label;
-    TTF_Font* font;
-protected:
-    virtual void onRedraw(SDL_Renderer *renderer) override;
-public:
-    FamilyButton(int x, int y, int w, int h, int familyId, Callback callback);
-    virtual ~FamilyButton();
+            class FamilyButton : public MEng::View::GUI::Widget {
+            private:
+                int familyId;
+                Callback callback;
 
-    virtual bool onClick(Point point, int button) override;
-};
+                SDL_Texture *label;
+                TTF_Font *font;
+            protected:
+                virtual void onRedraw(SDL_Renderer *renderer) override;
 
+            public:
+                FamilyButton(int x, int y, int w, int h, int familyId, Callback callback);
+
+                virtual ~FamilyButton();
+
+                virtual bool onClick(Point point, int button) override;
+            };
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_FAMILYBUTTON_H

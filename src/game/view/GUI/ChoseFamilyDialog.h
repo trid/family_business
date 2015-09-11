@@ -9,17 +9,23 @@
 #include "../../../view/View.h"
 #include "FamilyButton.h"
 
+namespace Main {
+    namespace View {
+        namespace GUI {
 
-class ChoseFamilyDialog: public MEng::View::GUI::Dialog {
-private:
-    static constexpr int buttonHeight = 30;
-    Callback callback;
-    MEng::View::GUI::WidgetPtr label;
-public:
-    ChoseFamilyDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout, Callback callback);
+            class ChoseFamilyDialog : public MEng::View::GUI::Dialog {
+            private:
+                static constexpr int buttonHeight = 30;
+                Callback callback;
+                MEng::View::GUI::WidgetPtr label;
+            public:
+                ChoseFamilyDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout, Callback callback);
 
-    void setUp();
-};
+                void setUp();
+            };
 
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_CHOSEFAMILYDIALOG_H

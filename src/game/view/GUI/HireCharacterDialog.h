@@ -11,15 +11,15 @@
 #include "CharacterButton.h"
 
 class HireCharacterDialog : public MEng::View::GUI::Dialog {
-    CharacterBtnCallback callback;
+    Main::View::GUI::CharacterBtnCallback callback;
     int houseId;
     MEng::View::GUI::WidgetPtr label;
 public:
     HireCharacterDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
-                                                 CharacterBtnCallback callback);
+                        Main::View::GUI::CharacterBtnCallback callback);
 
     void setUp(Main::Building &house);
-    void setCallback(CharacterBtnCallback callback) { this->callback = callback; }
+    void setCallback(Main::View::GUI::CharacterBtnCallback callback) { this->callback = callback; }
 };
 
 using HireCharacterDialogPtr = std::shared_ptr<HireCharacterDialog>;

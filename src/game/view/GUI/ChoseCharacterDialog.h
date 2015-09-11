@@ -12,11 +12,11 @@
 
 class ChoseCharacterDialog : public MEng::View::GUI::Dialog {
 private:
-    CharacterBtnCallback callback;
+    Main::View::GUI::CharacterBtnCallback callback;
     MEng::View::GUI::WidgetPtr label;
 public:
     ChoseCharacterDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
-                                                   CharacterBtnCallback callback);
+                         Main::View::GUI::CharacterBtnCallback callback);
 
     void setUp(int familyId);
 };

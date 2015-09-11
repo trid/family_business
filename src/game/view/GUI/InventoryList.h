@@ -10,13 +10,23 @@
 
 #include "../../../view/GUI/Panel.h"
 
-class InventoryList: public MEng::View::GUI::Panel {
+namespace Main {
+    namespace View {
+        namespace GUI {
 
-public:
-    InventoryList(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h, parent) { }
-    void update();
-};
+            class InventoryList : public MEng::View::GUI::Panel {
 
-using InventoryListPtr = std::shared_ptr<InventoryList>;
+            public:
+                InventoryList(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h,
+                                                                                                         parent) { }
+
+                void update();
+            };
+
+            using InventoryListPtr = std::shared_ptr<InventoryList>;
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_INVENTORYLIST_H

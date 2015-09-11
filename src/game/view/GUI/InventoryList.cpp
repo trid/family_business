@@ -11,6 +11,7 @@
 
 using MEng::View::GUI::Button;
 using namespace Main;
+using namespace Main::View::GUI;
 
 void InventoryList::update() {
     Character& playerCharacter = Game::getInstance().getPlayerCharacter();

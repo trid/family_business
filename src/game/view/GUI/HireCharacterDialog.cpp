@@ -9,6 +9,7 @@
 
 using namespace MEng::View::GUI;
 using namespace Main;
+using namespace Main::View::GUI;
 
 void HireCharacterDialog::setUp(Main::Building &housePtr) {
     clearWidgets();

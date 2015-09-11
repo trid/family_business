@@ -8,6 +8,7 @@
 #include "../../../Application.h"
 
 using MEng::View::GUI::Button;
+using namespace Main::View::GUI;
 
 CharacterPanel::CharacterPanel(int x, int y, int w, int h, const std::shared_ptr<Widget> &parent) : Panel(x, y, w, h,
                                                                                                           parent) {

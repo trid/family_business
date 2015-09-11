@@ -10,6 +10,7 @@
 
 using namespace MEng::View::GUI;
 using namespace Main;
+using namespace Main::View::GUI;
 
 void ChoseCharacterDialog::setUp(int familyId) {
     clearWidgets();

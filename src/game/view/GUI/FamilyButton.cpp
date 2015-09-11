@@ -11,6 +11,7 @@
 
 using namespace MEng::View::GUI;
 using namespace Main;
+using namespace Main::View::GUI;
 
 FamilyButton::FamilyButton(int x, int y, int w, int h, int familyId, Callback callback) : Widget(x, y, w, h),
                                                                                                      familyId(familyId),

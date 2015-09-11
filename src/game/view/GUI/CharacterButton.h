@@ -11,24 +11,33 @@
 #include "../../../view/GUI/Widget.h"
 #include "../../CharacterManager.h"
 
-using MEng::Point;
+namespace Main {
+    namespace View {
+        namespace GUI {
 
-using CharacterBtnCallback = std::function<void(int)>;
 
-class CharacterButton: public MEng::View::GUI::Widget {
-private:
-    SDL_Texture* label;
-    TTF_Font* font;
+            using MEng::Point;
 
-    int characterId;
-    CharacterBtnCallback callback;
-protected:
-    virtual void onRedraw(SDL_Renderer *renderer) override;
-public:
-    CharacterButton(int x, int y, int w, int h, int characterId, CharacterBtnCallback callback);
+            using CharacterBtnCallback = std::function<void(int)>;
 
-    virtual bool onClick(Point point, int button) override;
-};
+            class CharacterButton : public MEng::View::GUI::Widget {
+            private:
+                SDL_Texture *label;
+                TTF_Font *font;
 
+                int characterId;
+                CharacterBtnCallback callback;
+            protected:
+                virtual void onRedraw(SDL_Renderer *renderer) override;
+
+            public:
+                CharacterButton(int x, int y, int w, int h, int characterId, CharacterBtnCallback callback);
+
+                virtual bool onClick(Point point, int button) override;
+            };
+
+        }
+    }
+}
 
 #endif //FAMILY_BUSINESS_CHARACTERBUTTON_H
