@@ -4,6 +4,8 @@
 
 #include "MoveMapAnimation.h"
 
+using namespace Main::View;
+
 void MoveMapAnimation::update(int delta) {
 
 }

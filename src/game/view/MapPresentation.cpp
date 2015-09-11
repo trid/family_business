@@ -15,6 +15,7 @@
 using namespace MEng;
 using namespace MEng::View;
 using namespace Main;
+using namespace Main::View;
 
 MapPresentation::MapPresentation() {
     SDL_Renderer* renderer = Screen::getInstance().getRenderer();

@@ -15,91 +15,111 @@
 #include "GUI/MonsterImage.h"
 #include "../../view/GUI/Label.h"
 
+namespace Main {
+    namespace View {
 
-class MainView : public MEng::View::View {
-    MEng::View::GUI::WidgetPtr familyDialogWidget;
-    ChoseCharacterDialogPtr choseCharacterDialog;
-    HireCharacterDialogPtr hireCharacterDialog;
+        class MainView : public MEng::View::View {
+            MEng::View::GUI::WidgetPtr familyDialogWidget;
+            ChoseCharacterDialogPtr choseCharacterDialog;
+            HireCharacterDialogPtr hireCharacterDialog;
 
-    MEng::View::GUI::WidgetPtr mainMenu;
-    MEng::View::GUI::LabelPtr dateLabel;
+            MEng::View::GUI::WidgetPtr mainMenu;
+            MEng::View::GUI::LabelPtr dateLabel;
 
-    MEng::View::DrawablePtr mapView{new MapPresentation};
-    std::vector<MonsterImagePtr> monsterViews;
+            MEng::View::DrawablePtr mapView{new MapPresentation};
+            std::vector<MonsterImagePtr> monsterViews;
 
-    int dx{}, dy{};
+            int dx{}, dy{};
 
-    MEng::View::ImagePtr playerPartyImage;
+            MEng::View::ImagePtr playerPartyImage;
 
-    void showFamilyDialog(int familyId);
-    void choseCharacter(int characterId);
-    void centerOnCharacter();
-    void loadMonsterViews();
-    void updateMonsterViews();
-    void clearMonsterViews();
-    void updateDate();
+            void showFamilyDialog(int familyId);
 
-    class CharacterMovedListener : public MEng::MessageListener{
-    private:
-        MainView& view;
-    public:
-        CharacterMovedListener(MainView& view): view(view) {}
-        virtual void onMessage(const MEng::MessageParameters &messageParameters);
-    };
+            void choseCharacter(int characterId);
 
-    class PartyMovingListener : public MEng::MessageListener{
-    private:
-        MainView& view;
-    public:
-        PartyMovingListener(MainView& view): view(view) {}
-        virtual void onMessage(const MEng::MessageParameters &messageParameters);
-    };
+            void centerOnCharacter();
 
-    class GameLoadedListener: public MEng::MessageListener{
-    private:
-        MainView& view;
-    public:
-        GameLoadedListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters);
-    };
+            void loadMonsterViews();
 
-    class MovementRestartedListener: public MEng::MessageListener {
-    private:
-        MainView& view;
-    public:
-        MovementRestartedListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
-    };
+            void updateMonsterViews();
 
-    class NewGameListener: public MEng::MessageListener {
-    private:
-        MainView& view;
-    public:
-        NewGameListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters);
-    };
+            void clearMonsterViews();
 
-    class NewDayListener: public MEng::MessageListener {
-    private:
-        MainView& view;
-    public:
-        NewDayListener(MainView &view) : view(view) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters);
-    };
-public:
-    MainView();
+            void updateDate();
 
-    virtual void draw(SDL_Renderer *renderer) override;
-    virtual void update(int timeDelta) override;
+            class CharacterMovedListener : public MEng::MessageListener {
+            private:
+                MainView &view;
+            public:
+                CharacterMovedListener(MainView &view) : view(view) { }
 
-    virtual void onKeyUp(int key) override;
-    virtual void onKeyDown(int key) override;
+                virtual void onMessage(const MEng::MessageParameters &messageParameters);
+            };
 
-    void showHireDialog(Main::Building &house);
-    void showFamiliesDialog();
+            class PartyMovingListener : public MEng::MessageListener {
+            private:
+                MainView &view;
+            public:
+                PartyMovingListener(MainView &view) : view(view) { }
 
-    void addCharacterToParty(int characterId);
-};
+                virtual void onMessage(const MEng::MessageParameters &messageParameters);
+            };
 
+            class GameLoadedListener : public MEng::MessageListener {
+            private:
+                MainView &view;
+            public:
+                GameLoadedListener(MainView &view) : view(view) { }
+
+                virtual void onMessage(const MEng::MessageParameters &messageParameters);
+            };
+
+            class MovementRestartedListener : public MEng::MessageListener {
+            private:
+                MainView &view;
+            public:
+                MovementRestartedListener(MainView &view) : view(view) { }
+
+                virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
+            };
+
+            class NewGameListener : public MEng::MessageListener {
+            private:
+                MainView &view;
+            public:
+                NewGameListener(MainView &view) : view(view) { }
+
+                virtual void onMessage(const MEng::MessageParameters &messageParameters);
+            };
+
+            class NewDayListener : public MEng::MessageListener {
+            private:
+                MainView &view;
+            public:
+                NewDayListener(MainView &view) : view(view) { }
+
+                virtual void onMessage(const MEng::MessageParameters &messageParameters);
+            };
+
+        public:
+            MainView();
+
+            virtual void draw(SDL_Renderer *renderer) override;
+
+            virtual void update(int timeDelta) override;
+
+            virtual void onKeyUp(int key) override;
+
+            virtual void onKeyDown(int key) override;
+
+            void showHireDialog(Main::Building &house);
+
+            void showFamiliesDialog();
+
+            void addCharacterToParty(int characterId);
+        };
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_MAINVIEW_H

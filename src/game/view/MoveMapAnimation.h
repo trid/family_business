@@ -8,13 +8,18 @@
 
 #include "../../view/Animation.h"
 
-class MoveMapAnimation: public MEng::View::Animation {
+namespace Main {
+    namespace View {
 
-public:
-    virtual void update(int delta);
+        class MoveMapAnimation : public MEng::View::Animation {
 
-    virtual bool isFinished();
-};
+        public:
+            virtual void update(int delta);
 
+            virtual bool isFinished();
+        };
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_MOVEMAPANIMATION_H

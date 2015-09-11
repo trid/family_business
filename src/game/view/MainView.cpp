@@ -22,6 +22,7 @@ using namespace MEng;
 using namespace MEng::View;
 using namespace MEng::View::GUI;
 using namespace Main;
+using namespace Main::View;
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);

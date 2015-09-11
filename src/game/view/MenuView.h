@@ -8,11 +8,15 @@
 
 #include "../../view/View.h"
 
+namespace Main {
+    namespace View {
 
-class MenuView: public MEng::View::View {
-public:
-    MenuView();
-};
+        class MenuView : public MEng::View::View {
+        public:
+            MenuView();
+        };
 
+    }
+}
 
 #endif //FAMILY_BUSINESS_MENUVIEW_H

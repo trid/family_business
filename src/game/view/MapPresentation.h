@@ -11,34 +11,40 @@
 #include "../../MessageListener.h"
 #include "../../Point.h"
 
-class MapPresentation: public MEng::View::Drawable {
-private:
-    SDL_Texture* grass;
-    SDL_Texture* house;
-    SDL_Texture* character;
-    SDL_Texture* monster;
-    SDL_Texture* tree;
-    SDL_Texture* road;
+namespace Main {
+    namespace View {
 
-    int dx{}, dy{};
+        class MapPresentation : public MEng::View::Drawable {
+        private:
+            SDL_Texture *grass;
+            SDL_Texture *house;
+            SDL_Texture *character;
+            SDL_Texture *monster;
+            SDL_Texture *tree;
+            SDL_Texture *road;
 
-    class CharacterMoveListener: public MEng::MessageListener {
-    private:
-        MapPresentation& mapPresentation;
-    public:
-        CharacterMoveListener(MapPresentation &mapPresentation) : mapPresentation(mapPresentation) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
-    };
-public:
-    MapPresentation();
+            int dx{}, dy{};
 
-    void draw(SDL_Renderer* renderer) override;
-    void update(int timeDelta);
+            class CharacterMoveListener : public MEng::MessageListener {
+            private:
+                MapPresentation &mapPresentation;
+            public:
+                CharacterMoveListener(MapPresentation &mapPresentation) : mapPresentation(mapPresentation) { }
 
-    void setDeltas(int dx, int dy);
-};
+                virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
+            };
 
+        public:
+            MapPresentation();
 
+            void draw(SDL_Renderer *renderer) override;
 
+            void update(int timeDelta);
+
+            void setDeltas(int dx, int dy);
+        };
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_MAPVIEW_H
