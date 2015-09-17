@@ -3,6 +3,4 @@
 //
 
 #include "MonsterImage.h"
-#include "../../Party.h"
-#include "../../Game.h"
 

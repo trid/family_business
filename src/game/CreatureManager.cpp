@@ -36,9 +36,9 @@ void CreatureManager::load(std::ifstream &in) {
     in.read(reinterpret_cast<char*>(&count), sizeof(count));
 
     for (int i = 0; i < count; i++) {
-        Creature::Type type;
-        in.read(reinterpret_cast<char*>(&type), sizeof(type));
-        if (type == Creature::Type::Character) {
+        Side side;
+        in.read(reinterpret_cast<char*>(&side), sizeof(side));
+        if (side == Side::Player || side == Side::Village) {
             creatures.emplace_back(new Main::Character(in));
         }
         else {
@@ -49,7 +49,8 @@ void CreatureManager::load(std::ifstream &in) {
 
 void CreatureManager::updateAge() {
     for (auto& item: creatures) {
-        if (item->type() == Creature::Type::Character) {
+        Side side = item->getSide();
+        if (side == Side::Player || side == Side::Village) {
             Main::Character* character = static_cast<Main::Character*>(item.get());
             character->addDay();
         }
@@ -60,7 +61,7 @@ std::vector<int> CreatureManager::getCharactersByGender(Main::Gender gender) {
     std::vector<int> characters;
 
     for (auto& creature: creatures) {
-        if (creature->type() == Creature::Type::Character && static_cast<Main::Character*>(creature.get())->getGender() == gender) {
+        if (creature->getSide() == Side::Village && static_cast<Main::Character*>(creature.get())->getGender() == gender) {
             characters.push_back(creature->getId());
         }
     }

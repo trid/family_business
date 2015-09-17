@@ -6,6 +6,7 @@
 #include "view/MenuView.h"
 
 using namespace Main;
+using namespace Main::View;
 
 MenuState::MenuState() {
     setView(std::make_shared<MenuView>());

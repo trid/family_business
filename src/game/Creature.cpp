@@ -29,8 +29,8 @@ void Creature::addExperience(int experience) {
 }
 
 void Creature::save(std::ofstream &out) {
-    Type creatureType = type();
-    out.write((char*)&creatureType, sizeof(creatureType));
+    Side creatureSide = getSide();
+    out.write((char*)&creatureSide, sizeof(creatureSide));
     out.write((char*)&id, sizeof(id));
     out.write((char*)&x, sizeof(x));
     out.write((char*)&y, sizeof(y));
@@ -41,6 +41,7 @@ void Creature::save(std::ofstream &out) {
     out.write((char*)&level, sizeof(level));
     out.write((char*)&experience, sizeof(experience));
     out.write((char*)&alive, sizeof(alive));
+    out.write(reinterpret_cast<char*>(&controller), sizeof(controller));
 }
 
 void Creature::load(std::ifstream &in) {
@@ -54,4 +55,5 @@ void Creature::load(std::ifstream &in) {
     in.read(reinterpret_cast<char*>(&level), sizeof(level));
     in.read(reinterpret_cast<char*>(&experience), sizeof(experience));
     in.read(reinterpret_cast<char*>(&alive), sizeof(alive));
+    in.read(reinterpret_cast<char*>(&controller), sizeof(controller));
 }

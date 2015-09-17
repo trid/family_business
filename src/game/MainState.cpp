@@ -18,6 +18,7 @@
 using namespace MEng;
 using namespace MEng::View;
 using namespace Main;
+using namespace Main::View;
 
 MainState::MainState() {
     ViewPtr view{new MainView()};
@@ -124,7 +125,7 @@ void MainState::takeMercenary() {
 }
 
 void MainState::battleMonsters() {
-    int partyId = PartyManager::getInstance().createParty(Side::AI);
+    int partyId = PartyManager::getInstance().createParty(Side::Monster);
     Party& party = PartyManager::getInstance().getParty(partyId);
     // Yes, it's not so beautiful, but as is for now
     /*partyPtr->addCreature(std::make_shared<Monster>());
@@ -161,7 +162,7 @@ void MainState::CharacterMovedListener::onMessage(const MessageParameters &messa
 
     int anotherPartyId = gameMap.getTile(posX, posY).getParty();
     PartyManager &partyManager = PartyManager::getInstance();
-    if (anotherPartyId != -1 && partyManager.getParty(anotherPartyId).getSide() == Side::AI) {
+    if (anotherPartyId != -1 && partyManager.getParty(anotherPartyId).getSide() == Side::Monster) {
         Application::getInstance().pushState(StatePtr{new BattleState(party, partyManager.getParty(anotherPartyId))});
         return;
     }

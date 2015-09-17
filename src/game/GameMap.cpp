@@ -32,7 +32,7 @@ GameMap::GameMap() {
             BuildingManager::getInstance().createBuilding(centerPosX, centerPosY, BuildingType::Road));
 
     //Set monster five tiles on north or five tiles on south of house
-    int monsterPartyId = PartyManager::getInstance().createParty(Side::AI);
+    int monsterPartyId = PartyManager::getInstance().createParty(Side::Monster);
     MonsterAIPtr monsterAI = std::make_shared<MonsterAI>(monsterPartyId);
     AIManager::getInstance().addAi(monsterAI);
     Party& monsterParty = PartyManager::getInstance().getParty(monsterPartyId);

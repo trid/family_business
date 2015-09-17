@@ -17,12 +17,14 @@
 #include "GUI/GameMenu.h"
 #include "../BuildingManager.h"
 #include "../FamilyManager.h"
+#include "../AIManager.h"
 
 using namespace MEng;
 using namespace MEng::View;
 using namespace MEng::View::GUI;
 using namespace Main;
 using namespace Main::View;
+using namespace Main::View::GUI;
 
 void MainView::draw(SDL_Renderer *renderer) {
     View::draw(renderer);
@@ -84,6 +86,8 @@ void MainView::choseCharacter(int characterId) {
     choseCharacterDialog->hide();
     Game &game = Game::getInstance();
     game.setPlayerCharacter(characterId);
+    Character& playerCharacter = game.getPlayerCharacter();
+    playerCharacter.setSide(Side::Player);
     GameMap &gameMap = game.getMap();
     int posX = gameMap.getHousePosX();
     int posY = gameMap.getHousePosY();
@@ -158,6 +162,8 @@ void MainView::showHireDialog(Building &house) {
 void MainView::addCharacterToParty(int characterId) {
     if (Game::getInstance().getPlayerParty().addCreature(characterId)) {
         Character& character = static_cast<Character&>(getCreatureById(characterId));
+        character.setSide(Side::Player);
+        AIManager::getInstance().removeCharacterAI(characterId);
         Family& family = getFamilyById(character.getFamilyId());
         Building & house = getBuildingById(family.getHome());
         std::vector<int>& characters = house.getCharacters();
@@ -272,7 +278,7 @@ void MainView::loadMonsterViews() {
     PartyManager &manager = PartyManager::getInstance();
     SDL_Texture *texture = SpriteManager::getInstance().getTexture("res/images/monster.png");
     for (auto& item: manager.getParties()) {
-        if (item->getSide() == Side::AI) {
+        if (item->getSide() == Side::Monster) {
             monsterViews.emplace_back(new MonsterImage(texture, item->getId()));
             addDrawable(monsterViews.back());
         }

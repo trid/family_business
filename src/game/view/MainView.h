@@ -12,7 +12,7 @@
 #include "MapPresentation.h"
 #include "GUI/HireCharacterDialog.h"
 #include "../../view/Image.h"
-#include "GUI/MonsterImage.h"
+#include "MonsterImage.h"
 #include "../../view/GUI/Label.h"
 
 namespace Main {

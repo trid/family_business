@@ -16,6 +16,7 @@ bool Party::addCreature(int creaturePtr) {
 
 void Party::save(std::ofstream &out) {
     out.write((char*)&id, sizeof(id));
+    out.write(reinterpret_cast<char*>(&controller), sizeof(controller));
     int count = creatureIds.size();
     out.write((char*)&count, sizeof(count));
     for (int item: creatureIds) {
@@ -28,6 +29,7 @@ void Party::save(std::ofstream &out) {
 
 void Party::load(std::ifstream &in) {
     in.read(reinterpret_cast<char*>(&id), sizeof(id));
+    in.read(reinterpret_cast<char*>(&controller), sizeof(controller));
     int count{0};
     in.read(reinterpret_cast<char*>(&count), sizeof(count));
     for (int i = 0; i < count; i++) {

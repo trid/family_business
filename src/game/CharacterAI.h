@@ -19,6 +19,7 @@ namespace Main {
         virtual void update(int delta) override;
     };
 
+    using CharacterAIPtr = std::shared_ptr<CharacterAI>;
 }
 
 #endif //FAMILY_BUSINESS_CHARACTERAI_H

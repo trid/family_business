@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "Side.h"
-
+#include "Controller.h"
 #include "Creature.h"
 #include "../Point.h"
 
@@ -24,6 +24,7 @@ namespace Main {
         std::vector<int> creatureIds;
         Side side;
         Point position;
+        Controller controller;
 
         bool moving{false};
     public:
@@ -58,6 +59,10 @@ namespace Main {
         bool isMoving() const { return moving; }
 
         void setMoving(bool moving) { Party::moving = moving; }
+
+        const Controller &getController() const { return controller; }
+
+        void setController(const Controller &controller) { Party::controller = controller; }
 
         void save(std::ofstream &out);
 

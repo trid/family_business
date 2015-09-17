@@ -36,7 +36,7 @@ void Battle::nextCreature() {
         updateTurns();
     }
 
-    if ((*current)->getType() == Main::Creature::Type::Character) {
+    if ((*current)->getSide() == Main::Side::Player) {
         battleMap.calculateMoveable(*current);
     }
 
@@ -44,13 +44,13 @@ void Battle::nextCreature() {
         nextCreature();
     }
 
-    if ((*current)->getType() == Main::Creature::Type::Monster) {
+    if ((*current)->getSide() == Main::Side::Monster) {
         static_cast<BattleCreatureAI*>(current->get())->updateTarget();
     }
 }
 
 void Battle::makeTurn() {
-    if ((*current)->getType() == Main::Creature::Type::Monster) {
+    if ((*current)->getSide() == Main::Side::Monster) {
         BattleCreatureAI* monster = static_cast<BattleCreatureAI*>((*current).get());
         BattleCreaturePtr target = monster->getTarget();
         Point distance = target->getPosition() - (*current)->getPosition();
@@ -99,7 +99,7 @@ Battle::Battle(Main::Party &first, Main::Party &second) : battleMap() {
     for (int i = 0; i < leftCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
         Main::Creature& leftCreature = Main::CreatureManager::getInstance().getCreatureById(leftCreatures[i]);
-        if (leftCreature.type() == Main::Creature::Type::Character) {
+        if (leftCreature.getSide() == Main::Side::Player) {
             battleCreaturePtr = std::make_shared<BattleCreature>(i, leftCreatures[i]);
         }
         else {
@@ -115,7 +115,7 @@ Battle::Battle(Main::Party &first, Main::Party &second) : battleMap() {
     for (int i = 0; i < rightCreatures.size(); i++) {
         BattleCreaturePtr battleCreaturePtr;
         Main::Creature& rightCreature = Main::CreatureManager::getInstance().getCreatureById(rightCreatures[i]);
-        if (rightCreature.type() == Main::Creature::Type::Character) {
+        if (rightCreature.getSide() == Main::Side::Player) {
             battleCreaturePtr = std::make_shared<BattleCreature>(leftCreatures.size() + i, rightCreatures[i]);
         }
         else {

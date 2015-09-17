@@ -43,7 +43,7 @@ void BattleView::draw(SDL_Renderer *renderer) {
     BattleCreaturePtr current = *battle.getCurrent();
     Point currentPosition = current->getPosition();
     SDL_Rect pos;
-    if (current->getType() == Creature::Type::Character) {
+    if (current->getSide() == Main::Side::Player) {
         pos = {currentPosition.x * 32 + 12 + dx, currentPosition.y * 32 - 38 + dy, 8, 8};
     }
     else {
@@ -72,11 +72,11 @@ BattleView::BattleView(Battle &battle) : battle(battle) {
     //TODO: refactor this. There is a better way.
     SpriteManager &spriteManager = SpriteManager::getInstance();
     for (auto& item: left) {
-        Creature::Type type = item->getType();
+        Main::Side type = item->getSide();
         int id = item->getId();
         SDL_Texture* sprite;
         Point position{};
-        if (type == Creature::Type::Character) {
+        if (type == Main::Side::Player) {
             sprite = spriteManager.getTexture("res/images/human.png");
             position.x = item->getPosition().x * 32 + dx;
             position.y = item->getPosition().y * 32 + dy - 28;
@@ -90,11 +90,11 @@ BattleView::BattleView(Battle &battle) : battle(battle) {
     }
 
     for (auto& item: right) {
-        Creature::Type type = item->getType();
+        Side type = item->getSide();
         int id = item->getId();
         SDL_Texture* sprite;
         Point position{};
-        if (type == Creature::Type::Character) {
+        if (type == Side::Player) {
             sprite = spriteManager.getTexture("res/images/human.png");
             position.x = item->getPosition().x * 32 + dx;
             position.y = item->getPosition().y * 32 + dy - 28;

@@ -26,6 +26,8 @@ namespace Main {
 
         void removeAi(AbstractAIPtr ai);
 
+        void removeCharacterAI(int characterId);
+
         void clear() { aiItems.clear(); }
     };
 

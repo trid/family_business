@@ -7,6 +7,8 @@
 
 #include <fstream>
 #include <random>
+#include "Side.h"
+#include "Controller.h"
 
 namespace Main {
 
@@ -30,14 +32,11 @@ namespace Main {
 
         bool alive{true};
 
+        Controller controller;
+
         Generator generator;
         Distributor skillUpDistributor{0, 2};
     public:
-        enum class Type {
-            Monster,
-            Character
-        };
-
         Creature(int hitPoints, int attack, int speed) : hitPoints(hitPoints), attack(attack), speed(speed) { }
 
         Creature(std::ifstream &in) { load(in); }
@@ -48,7 +47,7 @@ namespace Main {
 
         virtual ~Creature() { }
 
-        virtual Type type() = 0;
+        virtual Side getSide() = 0;
 
         int getX() const { return x; }
 
@@ -79,6 +78,10 @@ namespace Main {
         void addExperience(int experience);
 
         int getId() const { return id; }
+
+        const Controller &getController() const { return controller; }
+
+        void setController(const Controller &controller) { Creature::controller = controller; }
 
         virtual void save(std::ofstream &out);
 

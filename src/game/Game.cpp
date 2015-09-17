@@ -15,6 +15,7 @@
 
 using namespace MEng;
 using namespace Main;
+using namespace Main::View;
 
 Game::Game() {
 

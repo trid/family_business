@@ -17,7 +17,7 @@ namespace Main {
 
         Monster(std::ifstream &in) : Creature(in) { }
 
-        virtual Type type() { return Type::Monster; }
+        virtual Side getSide() { return Side::Monster; }
     };
 
 }

@@ -9,7 +9,8 @@ namespace Main {
 
     enum class Side {
         Player,
-        AI
+        Monster,
+        Village
     };
 
 }

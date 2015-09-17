@@ -24,7 +24,7 @@ public:
     int getSpeed() { return getCreature().getSpeed(); }
     int getAttack() { return getCreature().getAttack(); }
 
-    Main::Creature::Type getType() { return getCreature().type(); }
+    Main::Side getSide() { return getCreature().getSide(); }
     const MEng::Point &getPosition() const { return position; }
     void setPosition(const MEng::Point &position) { BattleCreature::position = position; }
     int getSteps() const { return steps; }

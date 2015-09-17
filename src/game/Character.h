@@ -11,6 +11,7 @@
 
 #include "Creature.h"
 #include "Item.h"
+#include "Side.h"
 
 namespace Main {
 
@@ -27,6 +28,7 @@ namespace Main {
         string lastName;
 
         Gender gender;
+        Side side;
         int age{0};
         bool married{false};
         int partnerId{-1};
@@ -60,7 +62,8 @@ namespace Main {
 
         void unequipWeapon();
 
-        virtual Type type() { return Type::Character; }
+        virtual Side getSide() { return side; }
+        void setSide(Side side) { this->side = side; }
 
         ItemPtr getWeapon() { return weapon; }
 

@@ -5,6 +5,7 @@
 #include <algorithm>
 
 #include "AIManager.h"
+#include "CharacterAI.h"
 
 using namespace Main;
 
@@ -20,5 +21,14 @@ void AIManager::addAi(AbstractAIPtr ai) {
 
 void AIManager::removeAi(AbstractAIPtr ai) {
     auto iter = std::remove(aiItems.begin(), aiItems.end(), ai);
+    aiItems.erase(iter, aiItems.end());
+}
+
+void AIManager::removeCharacterAI(int characterId) {
+    auto pred = [](AbstractAIPtr ai) {
+        auto characterAI = std::dynamic_pointer_cast<CharacterAI>(ai);
+        return characterAI != nullptr;
+    };
+    auto iter = std::remove_if(aiItems.begin(), aiItems.end(), pred);
     aiItems.erase(iter, aiItems.end());
 }
