@@ -9,22 +9,27 @@
 
 #include "BattleTile.h"
 
-using BattleColumn = std::vector<BattleTile>;
-using BattleMapData = std::vector<BattleColumn>;
+namespace BattleState {
 
-class BattleMap {
-private:
-    BattleMapData mapData;
-public:
-    static constexpr int width = 15;
-    static constexpr int height = 15;
+    using BattleColumn = std::vector<BattleTile>;
+    using BattleMapData = std::vector<BattleColumn>;
 
-    BattleMap();
-    const BattleTile& getTile(int x, int y) const { return mapData[x][y]; }
-    BattleTile& getTile(int x, int y) { return mapData[x][y]; }
+    class BattleMap {
+    private:
+        BattleMapData mapData;
+    public:
+        static constexpr int width = 15;
+        static constexpr int height = 15;
 
-    void calculateMoveable(BattleCreaturePtr creature);
-};
+        BattleMap();
 
+        const BattleTile &getTile(int x, int y) const { return mapData[x][y]; }
+
+        BattleTile &getTile(int x, int y) { return mapData[x][y]; }
+
+        void calculateMoveable(BattleState::BattleCreaturePtr creature);
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_BATTLEMAP_H

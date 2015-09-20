@@ -10,20 +10,25 @@
 
 #include "BattleCreature.h"
 
-using BattleCreatureParty = std::vector<BattleCreaturePtr>;
+namespace BattleState {
 
-class BattleCreatureAI : public BattleCreature {
-private:
-    const BattleCreatureParty &enemyParty;
-    std::shared_ptr<BattleCreature> target;
-public:
-    BattleCreatureAI(int id, const int creature, const BattleCreatureParty &enemies) : BattleCreature(id, creature),
-                                                                                        enemyParty(enemies) { }
-    const std::shared_ptr<BattleCreature> &getTarget() const { return target; }
-    void setTarget(const std::shared_ptr<BattleCreature> &target) { BattleCreatureAI::target = target; }
+    using BattleCreatureParty = std::vector<BattleState::BattleCreaturePtr>;
 
-    void updateTarget();
-};
+    class BattleCreatureAI : public BattleState::BattleCreature {
+    private:
+        const BattleCreatureParty &enemyParty;
+        std::shared_ptr<BattleCreature> target;
+    public:
+        BattleCreatureAI(int id, const int creature, const BattleCreatureParty &enemies) : BattleCreature(id, creature),
+                                                                                           enemyParty(enemies) { }
 
+        const std::shared_ptr<BattleCreature> &getTarget() const { return target; }
+
+        void setTarget(const std::shared_ptr<BattleCreature> &target) { BattleCreatureAI::target = target; }
+
+        void updateTarget();
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_BATTLECREATUREAI_H

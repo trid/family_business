@@ -2,17 +2,18 @@
 // Created by TriD on 24.05.2015.
 //
 
-#include "BattleState.h"
+#include "State.h"
 #include "../MessageParameters.h"
 #include "../MessageManager.h"
 
 using MEng::View::Screen;
+using namespace BattleState;
 
-void BattleState::onActivate() {
+void State::onActivate() {
     MEng::State::onActivate();
 }
 
-void BattleState::run() {
+void State::run() {
     MEng::State::run();
     battle.makeTurn();
 
@@ -22,14 +23,14 @@ void BattleState::run() {
     getView()->update(delta);
 }
 
-void BattleState::onClick(const Point &point, int button) {
+void State::onClick(const Point &point, int button) {
     MEng::State::onClick(point, button);
 
     if (battle.isBlockInput()) {
         return;
     }
 
-    BattleCreaturePtr current = *battle.getCurrent();
+    BattleState::BattleCreaturePtr current = *battle.getCurrent();
     if (current->getSide() != Main::Side::Player) {
         return;
     }
@@ -45,9 +46,9 @@ void BattleState::onClick(const Point &point, int button) {
         return;
     }
 
-    BattleMap &battleMap = battle.getBattleMap();
+    BattleState::BattleMap &battleMap = battle.getBattleMap();
     BattleTile &tile = battleMap.getTile(posX, posY);
-    BattleCreaturePtr creature = tile.getCreature();
+    BattleState::BattleCreaturePtr creature = tile.getCreature();
     if (creature) {
         battle.makeAttack(Point{posX, posY});
     }

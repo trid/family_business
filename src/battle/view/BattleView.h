@@ -17,7 +17,7 @@
 using BattleCreaturesView = std::vector<MEng::View::ImagePtr>;
 
 class BattleView: public MEng::View::View {
-    Battle& battle;
+    BattleState::Battle& battle;
 
     SDL_Texture* grass;
     SDL_Texture* character;
@@ -74,7 +74,7 @@ class BattleView: public MEng::View::View {
         virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
     };
 public:
-    BattleView(Battle& battle);
+    BattleView(BattleState::Battle& battle);
 
     virtual void draw(SDL_Renderer *renderer) override;
     bool isShowingAnimation() { return showingAnimation; }

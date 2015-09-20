@@ -15,6 +15,7 @@
 using namespace MEng;
 using namespace MEng::View;
 using namespace Main;
+using namespace BattleState;
 
 void BattleView::draw(SDL_Renderer *renderer) {
     const BattleMap& gameMap = battle.getBattleMap();
@@ -28,16 +29,6 @@ void BattleView::draw(SDL_Renderer *renderer) {
                 SDL_SetRenderDrawColor(renderer, 255, 255, 0, 128);
                 SDL_RenderFillRect(renderer, &dst);
             }
-            /*BattleCreaturePtr creature = tile.getCreature();
-            if (creature) {
-                if (creature->getType() == Creature::Type::Character) {
-                    SDL_Rect playerDst{x * 32 + dx, y * 32 - 28 + dy, 32, 60};
-                    SDL_RenderCopy(renderer, character, nullptr, &playerDst);
-                }
-                else {
-                    SDL_RenderCopy(renderer, monster, nullptr, &dst);
-                }
-            }*/
         }
     }
     BattleCreaturePtr current = *battle.getCurrent();

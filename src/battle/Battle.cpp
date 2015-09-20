@@ -13,6 +13,7 @@
 #include "../game/CreatureManager.h"
 
 using namespace MEng;
+using namespace BattleState;
 
 void Battle::updateTurns() {
     auto iter = std::remove_if(turns.begin(), turns.end(), [](BattleCreaturePtr creature){ return creature->isDead(); });

@@ -4,6 +4,8 @@
 
 #include "BattleCreature.h"
 
+using namespace BattleState;
+
 BattleCreature::BattleCreature(int id, int creature) : creatureId(creature), steps(Main::getCreatureById(creature).getSpeed()),
                                                        currentHp(Main::getCreatureById(creature).getHitPoints()), id(id) {
 

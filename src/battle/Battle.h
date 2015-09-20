@@ -9,33 +9,44 @@
 #include "BattleMap.h"
 #include "../game/Party.h"
 
-class Battle {
-private:
-    BattleMap battleMap;
-    std::vector<BattleCreaturePtr> turns;
-    std::vector<BattleCreaturePtr>::iterator current;
+namespace BattleState {
 
-    std::vector<BattleCreaturePtr> left;
-    std::vector<BattleCreaturePtr> right;
+    class Battle {
+    private:
+        BattleMap battleMap;
+        std::vector<BattleCreaturePtr> turns;
+        std::vector<BattleCreaturePtr>::iterator current;
 
-    void updateTurns();
-    void nextCreature();
+        std::vector<BattleCreaturePtr> left;
+        std::vector<BattleCreaturePtr> right;
 
-    bool isFinished();
+        void updateTurns();
 
-    bool blockInput;
-public:
-    Battle(Main::Party &first, Main::Party &second);
+        void nextCreature();
 
-    BattleMap &getBattleMap() { return battleMap; }
-    void makeTurn();
-    std::vector<BattleCreaturePtr>::iterator& getCurrent() { return current; }
-    void makeAttack(Point targetPosition);
-    std::vector<BattleCreaturePtr>& getLeft() { return left; }
-    std::vector<BattleCreaturePtr>& getRight() { return right; }
-    bool isBlockInput() const { return blockInput; }
-    void setBlockInput(bool blockInput) { Battle::blockInput = blockInput; }
-};
+        bool isFinished();
 
+        bool blockInput;
+    public:
+        Battle(Main::Party &first, Main::Party &second);
+
+        BattleMap &getBattleMap() { return battleMap; }
+
+        void makeTurn();
+
+        std::vector<BattleCreaturePtr>::iterator &getCurrent() { return current; }
+
+        void makeAttack(Point targetPosition);
+
+        std::vector<BattleCreaturePtr> &getLeft() { return left; }
+
+        std::vector<BattleCreaturePtr> &getRight() { return right; }
+
+        bool isBlockInput() const { return blockInput; }
+
+        void setBlockInput(bool blockInput) { Battle::blockInput = blockInput; }
+    };
+
+}
 
 #endif //FAMILY_BUSINESS_BATTLE_H

@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include "BattleCreatureAI.h"
 
+using namespace BattleState;
+
 void BattleCreatureAI::updateTarget() {
     BattleCreaturePtr closest = enemyParty[0];
     MEng::Point diff = closest->getPosition() - getPosition();
