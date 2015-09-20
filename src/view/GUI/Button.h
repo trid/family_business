@@ -31,6 +31,8 @@ namespace MEng {
                 virtual bool onClick(Point point, int button) override;
 
                 void setText(const std::string &text);
+
+                void setCallback(Callback callback) { this->callback = callback; }
             };
 
             using ButtonPtr = std::shared_ptr<Button>;

@@ -18,9 +18,9 @@ namespace Main {
 
             using MEng::Point;
 
-            using Callback = std::function<void(int)>;
-
             class FamilyButton : public MEng::View::GUI::Widget {
+            public:
+                using Callback = std::function<void(int)>;
             private:
                 int familyId;
                 Callback callback;

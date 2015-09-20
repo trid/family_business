@@ -16,10 +16,11 @@ namespace Main {
             class ChoseFamilyDialog : public MEng::View::GUI::Dialog {
             private:
                 static constexpr int buttonHeight = 30;
-                Callback callback;
+                FamilyButton::Callback callback;
                 MEng::View::GUI::WidgetPtr label;
             public:
-                ChoseFamilyDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout, Callback callback);
+                ChoseFamilyDialog(int x, int y, int w, int h, MEng::View::GUI::UILayout &layout,
+                                  FamilyButton::Callback callback);
 
                 void setUp();
             };

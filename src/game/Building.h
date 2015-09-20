@@ -51,6 +51,8 @@ namespace Main {
 
         BuildingType getType() { return type; }
 
+        bool hasCrafter();
+
         void save(std::ofstream &out);
 
         void load(std::ifstream &in);

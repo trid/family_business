@@ -35,6 +35,8 @@ namespace Main {
 
         int familyId;
 
+        bool crafter{false};
+
         Items inventory;
         ItemPtr armor{nullptr};
         ItemPtr weapon{nullptr};
@@ -82,6 +84,8 @@ namespace Main {
         int getPartnerId() const { return partnerId; }
 
         void setPartnerId(int partnerId) { Character::partnerId = partnerId; }
+
+        bool isCrafter() { return crafter; }
 
         void save(std::ofstream &out) override;
 

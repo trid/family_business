@@ -31,7 +31,7 @@ void ChoseFamilyDialog::setUp() {
     }
 }
 
-ChoseFamilyDialog::ChoseFamilyDialog(int x, int y, int w, int h, UILayout &layout, Callback callback) : Dialog(x, y, w,
+ChoseFamilyDialog::ChoseFamilyDialog(int x, int y, int w, int h, UILayout &layout, FamilyButton::Callback callback) : Dialog(x, y, w,
                                                                                                                h,
                                                                                                                layout),
                                                                                                         callback(

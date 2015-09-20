@@ -13,6 +13,9 @@ Character::Character(const string &name, const string &lastName, Gender gender, 
     ItemPtr weapon{new Item{ItemType::Weapon, 1}};
     addItem(weapon);
     equip(weapon);
+
+    Distributor distributor{1, 3};
+    crafter = distributor(generator) == 1;
 }
 
 void Character::equip(ItemPtr item) {
@@ -65,6 +68,7 @@ void Character::save(std::ofstream &out) {
     out.write((char*)&age, sizeof(age));
     out.write((char*)&familyId, sizeof(familyId));
     out.write(reinterpret_cast<char*>(&partnerId), sizeof(partnerId));
+    out.write(reinterpret_cast<char*>(&crafter), sizeof(crafter));
     int itemsCount = inventory.size();
     out.write((char*)&itemsCount, sizeof(itemsCount));
 
@@ -115,6 +119,7 @@ void Character::load(std::ifstream &in) {
     in.read(reinterpret_cast<char*>(&partnerId), sizeof(partnerId));
     married = partnerId != -1;
     int itemsCount{0};
+    in.read(reinterpret_cast<char*>(&crafter), sizeof(crafter));
     in.read(reinterpret_cast<char*>(&itemsCount), sizeof(itemsCount));
 
     for (int i = 0; i < itemsCount; i++) {

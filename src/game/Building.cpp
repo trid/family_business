@@ -52,3 +52,13 @@ void Building::load(std::ifstream &in) {
         inside.push_back(t);
     }
 }
+
+bool Building::hasCrafter() {
+    for (int id: inside) {
+        Character& character = static_cast<Character&>(getCreatureById(id));
+        if (character.isCrafter()) {
+            return true;
+        }
+    }
+    return false;
+}

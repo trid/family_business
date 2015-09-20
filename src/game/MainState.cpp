@@ -101,8 +101,14 @@ void MainState::onKeyDown(int keyCode) {
     if (keyCode == SDLK_SPACE) {
         int houseId = gameMap.getTile(playerParty.getX(), playerParty.getY()).getBuilding();
         if (houseId != -1) {
-            if (getBuildingById(houseId).getType() == BuildingType::Home) {
-                takeMercenary();
+            Building &building = getBuildingById(houseId);
+            if (building.getType() == BuildingType::Home) {
+                if (building.hasCrafter()) {
+                    static_cast<MainView*>(getView().get())->showHouseDialog(building);
+                }
+                else {
+                    takeMercenary();
+                }
             }
             else {
                 battleMonsters();

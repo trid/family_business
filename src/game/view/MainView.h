@@ -14,14 +14,22 @@
 #include "../../view/Image.h"
 #include "MonsterImage.h"
 #include "../../view/GUI/Label.h"
+#include "GUI/HouseDialog.h"
+#include "GUI/OrderDialog.h"
 
 namespace Main {
     namespace View {
 
-        class MainView : public MEng::View::View {
+        using MEng::View::View;
+        using GUI::HouseDialog;
+        using GUI::OrderDialog;
+
+        class MainView : public View {
             MEng::View::GUI::WidgetPtr familyDialogWidget;
             ChoseCharacterDialogPtr choseCharacterDialog;
             HireCharacterDialogPtr hireCharacterDialog;
+            HouseDialog::HouseDialogPtr houseDialog;
+            OrderDialog::OrderDialogPtr orderDialog;
 
             MEng::View::GUI::WidgetPtr mainMenu;
             MEng::View::GUI::LabelPtr dateLabel;
@@ -115,6 +123,8 @@ namespace Main {
             void showHireDialog(Main::Building &house);
 
             void showFamiliesDialog();
+
+            void showHouseDialog(Main::Building &house);
 
             void addCharacterToParty(int characterId);
         };

@@ -52,6 +52,16 @@ MainView::MainView() {
     WidgetPtr sidePanel{new CharacterPanel(650, 0, 150, 600, nullptr)};
     layout.addWidget(sidePanel);
 
+    houseDialog = std::make_shared<HouseDialog>((800 - 200) / 2, (600 - 40) / 2, 200, 40, layout);
+    auto hireCallback = [this](){ hireCharacterDialog->show(); houseDialog->hide(); };
+    auto orderCallback = [this](){ orderDialog->show(); houseDialog->hide(); };
+    houseDialog->setCallbacks(hireCallback, orderCallback);
+    layout.addWidget(houseDialog);
+
+    orderDialog = std::make_shared<OrderDialog>(0, 0, 200, 40, layout);
+    orderDialog->centrate();
+    layout.addWidget(orderDialog);
+
     mainMenu = std::make_shared<GameMenu>(0, 0, 150, 180, nullptr);
     layout.addWidget(mainMenu);
     mainMenu->hide();
@@ -322,4 +332,10 @@ void MainView::updateDate() {
 
 void MainView::NewDayListener::onMessage(const MessageParameters &messageParameters) {
     view.updateDate();
+}
+
+void MainView::showHouseDialog(Main::Building &house) {
+    hireCharacterDialog->setUp(house);
+    houseDialog->setUp(house.getId());
+    houseDialog->show();
 }
