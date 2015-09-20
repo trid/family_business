@@ -14,71 +14,85 @@
 #include "../../MessageListener.h"
 #include "../../view/Sprite.h"
 
-using BattleCreaturesView = std::vector<MEng::View::ImagePtr>;
+namespace BattleState {
+    namespace View {
 
-class BattleView: public MEng::View::View {
-    BattleState::Battle& battle;
+        using BattleCreaturesView = std::vector<MEng::View::ImagePtr>;
 
-    SDL_Texture* grass;
-    SDL_Texture* character;
-    SDL_Texture* monster;
-    int dx, dy;
+        class BattleView : public MEng::View::View {
+            BattleState::Battle &battle;
 
-    bool showingAnimation{false};
+            SDL_Texture *grass;
+            SDL_Texture *character;
+            SDL_Texture *monster;
+            int dx, dy;
 
-    BattleCreaturesView battleCreaturesView;
-    MEng::View::ImagePtr arrowImage;
-    MEng::View::SpritePtr attackSprite;
+            bool showingAnimation{false};
 
-    std::queue<std::pair<int, Point>> movements;
+            BattleCreaturesView battleCreaturesView;
+            MEng::View::ImagePtr arrowImage;
+            MEng::View::SpritePtr attackSprite;
 
-    void startMovementAnimation();
+            std::queue<std::pair<int, Point>> movements;
 
-    class CreatureMovingListener: public MEng::MessageListener {
-    private:
-        BattleView& battleView;
-    public:
-        CreatureMovingListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters);
-    };
+            void startMovementAnimation();
 
-    class AnimationFinishedListener: public MEng::MessageListener {
-    private:
-        BattleView& battleView;
-    public:
-        AnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
-    };
+            class CreatureMovingListener : public MEng::MessageListener {
+            private:
+                BattleView &battleView;
+            public:
+                CreatureMovingListener(BattleView &battleView) : battleView(battleView) { }
 
-    class CreatureShotListener: public MEng::MessageListener {
-    private:
-        BattleView& battleView;
-    public:
-        CreatureShotListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
-    };
+                virtual void onMessage(const MEng::MessageParameters &messageParameters);
+            };
 
-    class CreatureAttackListener: public MEng::MessageListener {
-    private:
-        BattleView& battleView;
-    public:
-        CreatureAttackListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
-    };
+            class AnimationFinishedListener : public MEng::MessageListener {
+            private:
+                BattleView &battleView;
+            public:
+                AnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
 
-    class SpriteAnimationFinishedListener: public MEng::MessageListener {
-    private:
-        BattleView& battleView;
-    public:
-        SpriteAnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
-        virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
-    };
-public:
-    BattleView(BattleState::Battle& battle);
+                virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
+            };
 
-    virtual void draw(SDL_Renderer *renderer) override;
-    bool isShowingAnimation() { return showingAnimation; }
-};
+            class CreatureShotListener : public MEng::MessageListener {
+            private:
+                BattleView &battleView;
+            public:
+                CreatureShotListener(BattleView &battleView) : battleView(battleView) { }
 
+                virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
+            };
+
+            class CreatureAttackListener : public MEng::MessageListener {
+            private:
+                BattleView &battleView;
+            public:
+                CreatureAttackListener(BattleView &battleView) : battleView(battleView) { }
+
+                virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
+            };
+
+            class SpriteAnimationFinishedListener : public MEng::MessageListener {
+            private:
+                BattleView &battleView;
+            public:
+                SpriteAnimationFinishedListener(BattleView &battleView) : battleView(battleView) { }
+
+                virtual void onMessage(const MEng::MessageParameters &messageParameters) override;
+            };
+
+        public:
+            BattleView(BattleState::Battle &battle);
+
+            virtual void draw(SDL_Renderer *renderer) override;
+
+            bool isShowingAnimation() { return showingAnimation; }
+
+            using BattleViewPtr = std::shared_ptr<BattleView>;
+        };
+
+    }
+}
 
 #endif //FAMILY_BUSINESS_BATTLEVIEW_H

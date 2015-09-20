@@ -19,7 +19,7 @@ namespace BattleState {
         unsigned int lastTime{SDL_GetTicks()};
     public:
         State(Main::Party &first, Main::Party &second) : battle(first, second) {
-            setView(MEng::View::ViewPtr(new BattleView(battle)));
+            setView(MEng::View::ViewPtr(new View::BattleView(battle)));
         }
 
         virtual void onActivate() override;

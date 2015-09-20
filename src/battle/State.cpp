@@ -8,6 +8,7 @@
 
 using MEng::View::Screen;
 using namespace BattleState;
+using namespace BattleState::View;
 
 void State::onActivate() {
     MEng::State::onActivate();
