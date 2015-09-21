@@ -8,7 +8,7 @@
 #include "CharacterManager.h"
 #include "Game.h"
 #include "../Application.h"
-#include "../battle/BattleState.h"
+#include "../battle/State.h"
 #include "Monster.h"
 #include "../MessageManager.h"
 #include "FamilyManager.h"
@@ -139,7 +139,7 @@ void MainState::battleMonsters() {
     partyPtr->addCreature(std::make_shared<Monster>());*/
     party.addCreature(CreatureManager::getInstance().createMonster());
 
-    Application::getInstance().pushState(std::make_shared<BattleState>(Game::getInstance().getPlayerParty(), party));
+    Application::getInstance().pushState(std::make_shared<BattleState::State>(Game::getInstance().getPlayerParty(), party));
 }
 
 void MainState::CharacterWinListener::onMessage(const MessageParameters &messageParameters) {
@@ -169,7 +169,7 @@ void MainState::CharacterMovedListener::onMessage(const MessageParameters &messa
     int anotherPartyId = gameMap.getTile(posX, posY).getParty();
     PartyManager &partyManager = PartyManager::getInstance();
     if (anotherPartyId != -1 && partyManager.getParty(anotherPartyId).getSide() == Side::Monster) {
-        Application::getInstance().pushState(StatePtr{new BattleState(party, partyManager.getParty(anotherPartyId))});
+        Application::getInstance().pushState(StatePtr{new BattleState::State(party, partyManager.getParty(anotherPartyId))});
         return;
     }
 
