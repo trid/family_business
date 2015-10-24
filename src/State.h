@@ -12,14 +12,19 @@
 #include "view/View.h"
 #include "MouseEventListener.h"
 #include "KeyboardEventListener.h"
+#include "Process.h"
 
 namespace MEng {
 
     class State {
     private:
+        std::vector<Process::ProcessPtr> processes;
+
         View::ViewPtr view;
         std::vector<MEng::MouseEventListenerPtr> mouseEventListeners;
         std::vector<MEng::KeyboardEventListenerPtr> keyboardEventListeners;
+
+        int prevTime{SDL_GetTicks()};
     protected:
         void setView(View::ViewPtr viewPtr) { view = viewPtr; }
 
@@ -41,17 +46,23 @@ namespace MEng {
 
         virtual void onKeyUp(int keyCode) { view->onKeyUp(keyCode); }
 
-        virtual void run() { };
+        virtual void run();
 
         void addMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
 
         void addKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
+
+        void addProcess(Process::ProcessPtr processPtr) { processes.push_back(processPtr); }
 
         void removeMouseEventListener(MEng::MouseEventListenerPtr mouseEventListener);
 
         void removeKeyboardEventListener(MEng::KeyboardEventListenerPtr keyboardEventListener);
 
         void clearListeners();
+
+        virtual void save(std::ofstream& out);
+
+        virtual void load(std::ifstream& in);
 
         virtual ~State() { };
     };

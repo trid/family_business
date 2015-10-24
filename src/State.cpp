@@ -28,3 +28,24 @@ void State::clearListeners() {
     keyboardEventListeners.clear();
     mouseEventListeners.clear();
 }
+
+void virtual State::run() {
+    int currentTime = SDL_GetTicks();
+    int delta = currentTime - prevTime;
+    prevTime = currentTime;
+
+    for (auto process: processes) {
+        process->update(delta);
+    }
+
+    auto iter = std::remove_if(processes.begin(), processes.end(), [](Process::ProcessPtr ptr){ptr->isFinished();});
+    processes.erase(iter, processes.end());
+}
+
+void State::save(std::ofstream &out) {
+
+}
+
+void State::load(std::ifstream &in) {
+
+}
