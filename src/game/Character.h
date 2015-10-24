@@ -41,6 +41,9 @@ namespace Main {
         ItemPtr armor{nullptr};
         ItemPtr weapon{nullptr};
 
+        //TODO: Remove this after creating items for resources
+        int wood;
+
         Generator generator;
         Distributor deathDistr{0, 100};
     public:
@@ -57,6 +60,9 @@ namespace Main {
         int getFamilyId() { return familyId; }
 
         void addItem(ItemPtr item) { inventory.push_back(item); }
+
+        //TODO: Remove this after creating resource items
+        void addWood() { ++wood; }
 
         void equip(ItemPtr item);
 
